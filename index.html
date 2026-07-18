@@ -1,0 +1,1972 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>생성형 AI로 만드는 동화책 창작 — 2강 (5차시)</title>
+<style>
+/* ===========================================================
+   COALAB 교재 공통 토큰 (기초과정 1~10회차 팔레트 계열)
+   베이지/브라운 미사용 · 인디고 + 바이올렛 + 민트 계열
+   =========================================================== */
+:root{
+  --bg:#F5F7FB;
+  --surface:#FFFFFF;
+  --line:#E3E8F2;
+
+  --primary:#4A5FD9;        /* 메인 인디고 */
+  --primary-dark:#2F3FA8;
+  --primary-soft:#EEF1FE;
+
+  --accent:#7C5CE0;         /* 포인트 바이올렛 */
+  --accent-soft:#F2EEFE;
+
+  --mint:#12B3A8;           /* 성공/완료 */
+  --mint-soft:#E4F7F5;
+
+  --amber:#E9A020;          /* 팁 */
+  --amber-soft:#FEF5E4;
+
+  --warn:#E1556B;           /* 주의 */
+  --warn-soft:#FDECEF;
+
+  --text:#1E2438;
+  --text-sub:#5A6379;
+  --text-mute:#8A93A8;
+
+  --radius:16px;
+  --radius-sm:10px;
+  --shadow:0 2px 10px rgba(30,36,56,.06);
+  --shadow-lg:0 8px 28px rgba(30,36,56,.10);
+  --maxw:1000px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;scroll-padding-top:70px}
+body{
+  font-family:'Pretendard','Noto Sans KR','Malgun Gothic',-apple-system,BlinkMacSystemFont,sans-serif;
+  background:var(--bg);color:var(--text);line-height:1.75;
+  -webkit-text-size-adjust:100%;
+}
+img{max-width:100%}
+a{color:var(--primary);text-decoration:none}
+.wrap{max-width:var(--maxw);margin:0 auto;padding:0 20px}
+
+/* ===================== 헤더 ===================== */
+.hero{
+  background:linear-gradient(135deg,#3B4CC4 0%,#5B4BD1 55%,#7C5CE0 100%);
+  color:#fff;padding:56px 0 60px;text-align:center;
+}
+.hero .eyebrow{
+  display:inline-block;font-size:.82rem;letter-spacing:.06em;
+  background:rgba(255,255,255,.18);border:1px solid rgba(255,255,255,.28);
+  padding:6px 16px;border-radius:999px;margin-bottom:18px;
+}
+.hero h1{font-size:2.1rem;font-weight:800;line-height:1.35;letter-spacing:-.02em}
+.hero h1 small{display:block;font-size:1.05rem;font-weight:600;opacity:.9;margin-top:8px}
+.hero .sub{margin-top:14px;font-size:1.02rem;opacity:.92}
+.hero-badges{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin-top:26px}
+.hero-badges span{
+  background:rgba(255,255,255,.16);border:1px solid rgba(255,255,255,.26);
+  padding:8px 14px;border-radius:999px;font-size:.9rem;font-weight:600;
+}
+.hero .org{margin-top:22px;font-size:.85rem;opacity:.75}
+
+/* ===================== 앵커 내비 ===================== */
+.nav{
+  position:sticky;top:0;z-index:50;background:rgba(255,255,255,.92);
+  backdrop-filter:blur(8px);border-bottom:1px solid var(--line);
+}
+.nav ul{display:flex;gap:6px;list-style:none;overflow-x:auto;padding:10px 0;-ms-overflow-style:none;scrollbar-width:none}
+.nav ul::-webkit-scrollbar{display:none}
+.nav a{
+  display:block;white-space:nowrap;padding:8px 14px;border-radius:999px;
+  font-size:.92rem;font-weight:600;color:var(--text-sub);
+}
+.nav a:hover,.nav a.on{background:var(--primary-soft);color:var(--primary-dark)}
+
+/* ===================== 섹션 공통 ===================== */
+section{padding:56px 0}
+.card{
+  background:var(--surface);border:1px solid var(--line);
+  border-radius:var(--radius);box-shadow:var(--shadow);padding:28px;
+}
+.card + .card{margin-top:20px}
+h2.sec-title{font-size:1.5rem;font-weight:800;letter-spacing:-.02em;margin-bottom:6px}
+p.sec-desc{color:var(--text-sub);margin-bottom:24px}
+
+/* ===================== 학습 여정 스텝바 ===================== */
+.journey{
+  display:grid;grid-template-columns:repeat(5,1fr);gap:12px;margin-top:8px;
+}
+.step{
+  background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);
+  padding:18px 12px;text-align:center;position:relative;box-shadow:var(--shadow);
+}
+.step .num{
+  width:38px;height:38px;margin:0 auto 10px;border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
+  font-weight:800;font-size:1rem;background:#EDF0F7;color:var(--text-mute);
+}
+.step .label{font-size:.9rem;font-weight:700;color:var(--text-sub);line-height:1.45}
+.step.done .num{background:var(--mint-soft);color:var(--mint)}
+.step.done .label{color:var(--text)}
+.step.now{border-color:var(--primary);box-shadow:0 0 0 3px var(--primary-soft),var(--shadow)}
+.step.now .num{background:var(--primary);color:#fff}
+.step.now .label{color:var(--primary-dark)}
+.step .here{
+  display:block;margin-top:8px;font-size:.76rem;font-weight:800;color:var(--primary);
+}
+
+/* ===================== 최종 목표 카드 ===================== */
+.goal{
+  margin-top:24px;border:1px solid #D9D2FA;border-radius:var(--radius);
+  background:linear-gradient(135deg,var(--primary-soft),var(--accent-soft));
+  padding:26px;text-align:center;
+}
+.goal .icon{font-size:2rem}
+.goal h3{font-size:1.2rem;font-weight:800;margin:6px 0 6px;color:var(--primary-dark)}
+.goal p{color:var(--text-sub);font-size:.96rem}
+
+/* ===================== 도구 배지 ===================== */
+.tools{margin-top:24px}
+.tools h4{font-size:1rem;font-weight:800;margin-bottom:12px}
+.badges{display:flex;flex-wrap:wrap;gap:8px}
+.badge{
+  background:var(--surface);border:1px solid var(--line);border-radius:999px;
+  padding:7px 14px;font-size:.88rem;font-weight:600;color:var(--text-sub);
+  box-shadow:var(--shadow);
+}
+.badge.main{background:var(--primary-soft);border-color:#C9D2FA;color:var(--primary-dark)}
+
+/* ===================== 차시 섹션 ===================== */
+.lesson{border-top:1px solid var(--line)}
+.lesson-head{
+  background:linear-gradient(135deg,#414FCB,#6E56DD);color:#fff;
+  border-radius:var(--radius);padding:28px;box-shadow:var(--shadow-lg);
+}
+.lesson-head .eyebrow{
+  display:inline-block;background:rgba(255,255,255,.18);border-radius:999px;
+  padding:4px 12px;font-size:.8rem;font-weight:700;margin-bottom:10px;
+}
+.lesson-head h2{font-size:1.7rem;font-weight:800;letter-spacing:-.02em}
+.lesson-head .subtitle{margin-top:8px;opacity:.92}
+
+.objectives{list-style:none;margin-top:20px}
+.objectives li{
+  background:var(--surface);border:1px solid var(--line);border-radius:var(--radius-sm);
+  padding:12px 16px;margin-bottom:8px;font-weight:600;color:var(--text-sub);
+}
+.objectives li::before{content:"✅ ";}
+
+/* 박스류 */
+.box{border-radius:var(--radius);padding:18px 20px;margin-top:18px;border-left:5px solid}
+.box h4{font-size:1rem;font-weight:800;margin-bottom:6px}
+.box p,.box li{font-size:.95rem;color:var(--text-sub)}
+.box-tip{background:var(--amber-soft);border-color:var(--amber)}
+.box-more{background:var(--mint-soft);border-color:var(--mint)}
+.box-warn{background:var(--warn-soft);border-color:var(--warn)}
+.box-info{background:var(--primary-soft);border-color:var(--primary)}
+
+/* 표 */
+table{width:100%;border-collapse:collapse;margin-top:14px;font-size:.94rem}
+th,td{border:1px solid var(--line);padding:11px 12px;text-align:left;vertical-align:top}
+th{background:var(--primary-soft);color:var(--primary-dark);font-weight:700}
+tbody tr:nth-child(even){background:#FAFBFE}
+.table-scroll{overflow-x:auto}
+
+/* 따라하기 스텝 */
+.steps{list-style:none;counter-reset:s;margin-top:16px}
+.steps > li{
+  counter-increment:s;position:relative;padding-left:48px;margin-bottom:18px;
+}
+.steps > li::before{
+  content:counter(s);position:absolute;left:0;top:0;
+  width:32px;height:32px;border-radius:50%;background:var(--primary);color:#fff;
+  display:flex;align-items:center;justify-content:center;font-weight:800;font-size:.9rem;
+}
+.steps > li b{display:block;margin-bottom:4px}
+.steps > li .note{font-size:.9rem;color:var(--text-sub)}
+
+/* 프롬프트 박스 + 복사 버튼 */
+.prompt{
+  position:relative;background:#F3F5FC;border:1px solid #D8DEF3;border-left:4px solid var(--accent);
+  border-radius:var(--radius-sm);padding:16px 96px 16px 16px;margin-top:10px;
+  font-size:.94rem;color:#2B3350;white-space:pre-wrap;line-height:1.7;
+}
+.copy-btn{
+  position:absolute;top:10px;right:10px;border:1px solid #C9D2FA;background:#fff;
+  color:var(--primary-dark);border-radius:999px;padding:5px 12px;font-size:.8rem;
+  font-weight:700;cursor:pointer;font-family:inherit;
+}
+.copy-btn:hover{background:var(--primary-soft)}
+.copy-btn.ok{background:var(--mint-soft);border-color:var(--mint);color:var(--mint)}
+
+/* 활동지 */
+.worksheet{background:var(--surface);border:2px dashed #C9D2FA;border-radius:var(--radius);padding:24px;margin-top:20px}
+.ws-item{margin-bottom:18px}
+.ws-item label{display:block;font-weight:700;margin-bottom:8px;font-size:.95rem}
+.ws-line{border:1px solid var(--line);border-radius:var(--radius-sm);background:#FAFBFE;min-height:64px}
+
+/* 퀴즈 */
+.quiz details{
+  background:var(--surface);border:1px solid var(--line);border-radius:var(--radius-sm);
+  padding:14px 16px;margin-top:10px;
+}
+.quiz summary{cursor:pointer;font-weight:700;list-style:none}
+.quiz summary::-webkit-details-marker{display:none}
+.quiz summary::after{content:" ▶";color:var(--primary);font-size:.8rem}
+.quiz details[open] summary::after{content:" ▼";}
+.quiz .answer{margin-top:10px;padding-top:10px;border-top:1px dashed var(--line);color:var(--text-sub);font-size:.94rem}
+.quiz .answer b{color:var(--primary-dark)}
+
+/* 완료 카드 */
+.done-card{
+  margin-top:24px;text-align:center;border-radius:var(--radius);padding:26px;
+  background:linear-gradient(135deg,var(--mint-soft),var(--primary-soft));
+  border:1px solid #BFE9E4;
+}
+.done-card h3{font-size:1.15rem;font-weight:800;color:var(--primary-dark)}
+.done-card p{color:var(--text-sub);margin-top:6px;font-size:.95rem}
+
+/* 푸터 */
+footer{background:#1E2438;color:#fff;padding:36px 0;text-align:center;margin-top:40px}
+footer .brand{font-weight:800;letter-spacing:.04em}
+footer p{opacity:.7;font-size:.85rem;margin-top:6px}
+
+/* 반응형 */
+@media (max-width:860px){
+  .journey{grid-template-columns:repeat(2,1fr)}
+}
+@media (max-width:600px){
+  .hero{padding:42px 0 46px}
+  .hero h1{font-size:1.5rem}
+  section{padding:40px 0}
+  .card,.lesson-head{padding:20px}
+  .journey{grid-template-columns:repeat(2,1fr)}
+  .prompt{padding-right:16px;padding-top:44px}
+  .copy-btn{top:8px;right:auto;left:12px}
+}
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  *{transition:none!important;animation:none!important}
+}
+</style>
+</head>
+<body>
+
+<!-- ===================== 헤더 ===================== -->
+<header class="hero">
+  <div class="wrap">
+    <span class="eyebrow">파주교하도서관 · 생성형 AI 심화 2강 · 2026</span>
+    <h1>생성형 AI로 만드는 동화책 창작
+      <small>2강 · 5차시 과정</small>
+    </h1>
+    <p class="sub">1강을 마친 여러분, 이제 나만의 동화책을 만들 차례입니다</p>
+    <div class="hero-badges">
+      <span>🗓️ 매주 토요일 14:00~16:00</span>
+      <span>📍 파주교하도서관 2층 문화강연실</span>
+      <span>👥 성인 일반</span>
+      <span>📚 5차시 과정</span>
+    </div>
+    <p class="org">2026.7.11 ~ 8.8 · 정원 20명 · COALAB</p>
+  </div>
+</header>
+
+<!-- ===================== 앵커 내비 ===================== -->
+<nav class="nav">
+  <div class="wrap">
+    <ul>
+      <li><a href="#journey">학습여정</a></li>
+      <li><a href="#ch1">1차시</a></li>
+      <li><a href="#ch2">2차시</a></li>
+      <li><a href="#ch3">3차시</a></li>
+      <li><a href="#ch4">4차시</a></li>
+      <li><a href="#ch5">5차시</a></li>
+    </ul>
+  </div>
+</nav>
+
+<!-- ===================== 학습 여정 ===================== -->
+<section id="journey">
+  <div class="wrap">
+    <h2 class="sec-title">📍 나의 동화책 학습 여정</h2>
+    <p class="sec-desc">5차시에 걸쳐 한 걸음씩 나아갑니다. 천천히 하셔도 괜찮습니다.</p>
+
+    <div class="journey">
+      <div class="step done">
+        <div class="num">✓</div>
+        <div class="label">1차시<br>디자인 자동화</div>
+      </div>
+      <div class="step now">
+        <div class="num">2</div>
+        <div class="label">2차시<br>반복 업무 자동화</div>
+        <span class="here">← 지금 여기</span>
+      </div>
+      <div class="step">
+        <div class="num">3</div>
+        <div class="label">3차시<br>데이터 마법사</div>
+      </div>
+      <div class="step">
+        <div class="num">4</div>
+        <div class="label">4차시<br>멀티미디어 콘텐츠</div>
+      </div>
+      <div class="step">
+        <div class="num">5</div>
+        <div class="label">5차시<br>AI 동화책 제작</div>
+      </div>
+    </div>
+
+    <div class="goal">
+      <div class="icon">📖</div>
+      <h3>5차시에 나만의 AI 동화책 PDF가 완성됩니다</h3>
+      <p>스토리 → 삽화 → Canva 편집 → PDF 내보내기 → 내레이션(선택) → 수료식</p>
+    </div>
+
+    <div class="tools">
+      <h4>이 교재에서 사용하는 도구들</h4>
+      <div class="badges">
+        <span class="badge main">🔵 제미나이 (주 도구)</span>
+        <span class="badge">⚫ ChatGPT</span>
+        <span class="badge">💎 Google Gems</span>
+        <span class="badge">🎨 Canva</span>
+        <span class="badge">🖼️ 나노바나나</span>
+        <span class="badge">🎙️ AI 성우</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 1차시 -->
+<section class="lesson" id="ch1">
+  <div class="wrap">
+
+    <!-- ① 차시 헤더 -->
+    <div class="lesson-head">
+      <span class="eyebrow">2강 · 1차시 · 7.11(토) 완료</span>
+      <h2>디자인 자동화 — SNS 홍보 콘텐츠</h2>
+      <p class="subtitle">알리고 싶은 마음을, AI와 함께 ‘눈에 띄는 한 장’으로 바꿔 봅니다.</p>
+    </div>
+
+    <!-- ② 학습목표 -->
+    <ul class="objectives">
+      <li>AI 이미지 생성의 원리를 이해하고, 무엇을 적어야 원하는 그림이 나오는지 압니다.</li>
+      <li>Canva의 기본 사용법(템플릿·업로드·텍스트·다운로드)을 익힙니다.</li>
+      <li>카드뉴스와 포스터를 직접 완성할 수 있습니다.</li>
+    </ul>
+
+    <!-- ③ 이 차시 사용 도구 -->
+    <div class="tools">
+      <h4>이 차시에 사용하는 도구</h4>
+      <div class="badges">
+        <span class="badge main">🔵 제미나이</span>
+        <span class="badge">⚫ ChatGPT</span>
+        <span class="badge">🖼️ 나노바나나</span>
+        <span class="badge">🎨 Canva</span>
+      </div>
+    </div>
+
+    <!-- 온보딩 박스 -->
+    <div class="card" style="margin-top:24px">
+      <h3 style="font-size:1.15rem;font-weight:800">🌱 처음 오신 분을 위한 도구 접속법</h3>
+      <p style="color:var(--text-sub);margin-top:6px">
+        처음이셔도 괜찮습니다. 아래 세 가지만 열 수 있으면 오늘 실습을 모두 함께할 수 있어요.
+        로그인은 <b>구글 계정</b> 하나면 대부분 해결됩니다. 천천히 따라와 보세요.
+      </p>
+
+      <div class="box box-info">
+        <h4>🎨 Canva 접속하기 — 4단계</h4>
+        <ol class="steps" style="margin-top:12px">
+          <li><b>인터넷 주소창에 canva.com 을 입력합니다</b>
+            <span class="note">스마트폰은 ‘Canva’ 앱을 설치해도 똑같이 쓸 수 있습니다.</span></li>
+          <li><b>[가입] 또는 [로그인] → ‘Google로 계속하기’를 누릅니다</b>
+            <span class="note">평소 쓰시던 구글 계정을 그대로 고르면 됩니다. 새 가입은 필요 없어요.</span></li>
+          <li><b>위쪽 검색창에 ‘카드뉴스’ 또는 ‘포스터’를 검색합니다</b>
+            <span class="note">‘인스타그램 게시물’로 검색하면 SNS에 딱 맞는 정사각형 크기가 나옵니다.</span></li>
+          <li><b>마음에 드는 템플릿을 누르면 편집이 시작됩니다</b>
+            <span class="note">✅ 왼쪽에 도구 메뉴, 가운데에 디자인 화면이 보이면 준비 끝!</span></li>
+        </ol>
+      </div>
+
+      <div class="box box-info">
+        <h4>🔵 제미나이 · ⚫ ChatGPT 접속하기</h4>
+        <p>
+          제미나이는 <b>gemini.google.com</b>, ChatGPT는 <b>chatgpt.com</b> 에 접속해
+          구글 계정으로 로그인하면 됩니다. 화면 아래 <b>입력칸</b>이 보이면 준비가 끝난 것입니다.
+          무료 계정으로도 오늘 실습은 충분합니다.
+        </p>
+      </div>
+
+      <div class="box box-tip">
+        <h4>💡 잘 안 되시면 손을 들어 주세요</h4>
+        <p>로그인이 막히는 건 흔한 일입니다. 강사가 바로 도와드리니 당황하지 않으셔도 괜찮습니다.</p>
+      </div>
+    </div>
+
+    <!-- ④ 개념 설명 -->
+    <div class="card" style="margin-top:20px">
+      <h3 style="font-size:1.15rem;font-weight:800">📌 좋은 이미지 프롬프트 — 그림이 잘 나오는 4가지 재료</h3>
+      <p style="color:var(--text-sub);margin-top:6px">
+        “예쁘게 그려줘”보다, 아래 <b>네 가지</b>를 넣으면 원하는 그림에 훨씬 가까워집니다.
+        어렵지 않습니다. 하나씩 골라 이어 붙이기만 하면 됩니다.
+      </p>
+
+      <div class="table-scroll">
+        <table>
+          <thead>
+            <tr><th style="width:14%">순서</th><th style="width:30%">무엇을 정할까요</th><th>이렇게 적어요</th></tr>
+          </thead>
+          <tbody>
+            <tr><td><b>①</b></td><td>무엇을 (주제)</td><td>그릴 대상 + 색·느낌 <span style="color:var(--text-mute)">(예: 활짝 웃는 아이, 김이 모락모락 나는 따뜻한 차)</span></td></tr>
+            <tr><td><b>②</b></td><td>어디서 (배경)</td><td>장소와 분위기 <span style="color:var(--text-mute)">(예: 햇살 드는 도서관 창가, 노을 지는 바닷가)</span></td></tr>
+            <tr><td><b>③</b></td><td>어떤 그림체로 (스타일)</td><td>수채화 / 색연필 느낌 / 동화책 삽화 느낌 / 실제 사진 느낌</td></tr>
+            <tr><td><b>④</b></td><td>빛과 각도 (조명·구도)</td><td>빛의 방향과 바라보는 각도 <span style="color:var(--text-mute)">(예: 창으로 드는 부드러운 햇빛, 위에서 내려다본 모습)</span></td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="box box-tip">
+        <h4>💡 AI 이미지는 이렇게 만들어집니다</h4>
+        <p>
+          AI는 그림을 ‘찾아오는’ 것이 아니라, 우리가 적은 말을 재료 삼아 <b>그 자리에서 새로 그려냅니다.</b>
+          그래서 재료(프롬프트)가 자세할수록 결과가 좋아지고, 같은 문장이라도 누를 때마다 조금씩 다른 그림이 나옵니다.
+          마음에 들 때까지 여러 번 만들어 보셔도 괜찮습니다.
+        </p>
+      </div>
+
+      <div class="box box-warn">
+        <h4>⚖️ 저작권 — 꼭 알아 두세요</h4>
+        <p>
+          • 실존 인물의 얼굴, 유명 캐릭터(디즈니·포켓몬 등), 특정 브랜드 로고는 만들지 않습니다.<br>
+          • “○○ 작가 화풍으로”처럼 특정 작가를 그대로 흉내 내는 요청은 피하고, ‘수채화풍’처럼 <b>스타일</b>로 적습니다.<br>
+          • 만든 이미지를 널리 배포하거나 인쇄·판매할 때는 각 서비스의 <b>이용 약관</b>을 한 번 확인해 주세요.<br>
+          • Canva 템플릿·사진·요소도 상업적 이용 범위가 정해져 있으니, 인쇄 전에 확인하는 습관이 좋습니다.
+        </p>
+      </div>
+    </div>
+
+    <!-- ⑤ 따라하기 -->
+    <div class="card" style="margin-top:20px">
+      <h3 style="font-size:1.15rem;font-weight:800">✏️ 따라하기 — 카드뉴스 한 장 완성하기</h3>
+
+      <ol class="steps" style="margin-top:16px">
+
+        <li>
+          <b>① Canva에서 템플릿 고르기</b>
+          <span class="note">
+            Canva 검색창에 <b>‘카드뉴스’</b> 또는 <b>‘인스타그램 게시물’</b>을 검색하고,
+            마음에 드는 템플릿을 하나 누릅니다. 글자와 그림이 이미 배치되어 있어, 우리는 <b>내용만 바꿔 넣으면</b> 됩니다.
+          </span>
+        </li>
+
+        <li>
+          <b>② 제미나이로 카드뉴스 문구 만들기</b>
+          <span class="note">
+            아래 프롬프트를 제미나이 입력칸에 붙여넣고 보내 보세요.
+            <b>주목 → 공감 → 정보 → 행동 → 마무리</b> 5단계가 담긴 문구 3가지를 만들어 줍니다.
+          </span>
+          <div class="prompt">
+            <button class="copy-btn" type="button">복사</button>
+<span class="prompt-text">너는 도서관 홍보 담당자야. 아래 행사를 알리는 SNS 카드뉴스 문구를 만들어 줘.
+- 행사명: 파주교하도서관 성인 AI 교실
+- 대상: 성인 일반 (초보자 환영)
+- 일정: 매주 토요일 오후 2시
+- 강조점: 나만의 AI 동화책(PDF) 만들기, 천천히 배워도 괜찮음
+문구는 '주목 → 공감 → 정보 → 행동유도 → 마무리' 5단계로 구성하고,
+따뜻하고 친근한 말투로 서로 다른 3가지 버전을 제안해 줘.
+각 버전마다 카드 1장에 들어갈 큰 제목(15자 이내)도 함께 적어 줘.</span>
+          </div>
+          <div class="box box-tip" style="margin-top:12px">
+            <h4>💡 ChatGPT에도 똑같이 넣어 비교해 보세요</h4>
+            <p>어느 쪽이 더 따뜻한가요? 더 간결한가요? 좋은 문장은 <b>한 문장씩 섞어서</b> 내 문구로 조합해도 좋습니다.</p>
+          </div>
+        </li>
+
+        <li>
+          <b>③ 이미지 만들어 삽입하기</b>
+          <span class="note">
+            제미나이(나노바나나) 또는 ChatGPT에서 이미지 만들기를 사용합니다.
+            앞서 배운 <b>4가지 재료</b>를 그대로 넣은 예문입니다.
+          </span>
+          <div class="prompt">
+            <button class="copy-btn" type="button">복사</button>
+<span class="prompt-text">홍보용 이미지를 만들어 줘.
+- 무엇을: 책과 노트북이 놓인 아늑한 도서관 책상
+- 어디서: 오후 햇살이 드는 조용한 도서관 창가
+- 그림체: 포근한 동화책 삽화 느낌의 수채화 그림
+- 빛과 각도: 창으로 들어오는 부드러운 햇빛, 위에서 내려다본 모습
+- 조건: 글자는 넣지 말고, 카드뉴스 배경용으로 여백을 넉넉히</span>
+          </div>
+          <span class="note" style="display:block;margin-top:10px">
+            <b>저장하고 Canva에 올리기</b><br>
+            • 컴퓨터: 그림 위에서 마우스 오른쪽 클릭 → ‘이미지를 다른 이름으로 저장’<br>
+            • 스마트폰: 그림을 길게 누르기 → ‘이미지 저장’<br>
+            • Canva 왼쪽 메뉴 <b>[업로드 항목]</b> → [파일 업로드] → 올린 그림을 드래그해 배경으로 넣습니다.
+          </span>
+        </li>
+
+        <li>
+          <b>④ 카드뉴스 완성하기</b>
+          <span class="note">
+            ① 템플릿의 텍스트를 클릭해 ②에서 만든 <b>문구</b>로 바꿔 넣습니다<br>
+            ② <b>제목(주목)</b>은 크게, <b>정보</b>는 잘 보이게, <b>행동</b>(신청 방법)은 아래쪽에 배치합니다<br>
+            ③ 색은 2~3가지, 글꼴은 1~2가지로 통일하면 훨씬 깔끔해 보입니다<br>
+            ④ 오른쪽 위 <b>[공유] → [다운로드] → PNG</b>로 저장하면 완성입니다
+          </span>
+        </li>
+      </ol>
+
+      <div class="box box-more">
+        <h4>🎯 한 걸음 더</h4>
+        <p>
+          완성한 카드뉴스에서 <b>‘행동’ 요소</b>가 한눈에 보이나요?
+          “지금 신청하세요”, “문의: ○○○”처럼 <b>다음에 할 일</b>이 분명하면 훨씬 좋은 홍보물이 됩니다.
+          여유가 있다면 같은 이미지로 <b>포스터(A4 세로)</b> 버전도 하나 더 만들어 보세요.
+        </p>
+      </div>
+
+      <!-- ⑦ 꼭 확인해요 -->
+      <div class="box box-warn">
+        <h4>⚠️ 꼭 확인해요</h4>
+        <p>
+          • Canva 요소·템플릿 중 <b>왕관(👑) 표시</b>는 <b>유료(Canva Pro)</b>입니다. 무료 요소만 골라도 충분히 예쁘게 만들 수 있어요.
+          왕관이 붙은 요소를 쓰면 저장할 때 워터마크가 생기거나 결제를 요구합니다.<br>
+          • AI가 적어 준 <b>날짜·장소·연락처</b>는 실제 정보와 반드시 대조해 보세요. 지어낸 값일 수 있습니다.<br>
+          • AI 이미지 속 <b>글자</b>는 틀리게 나오기 쉽습니다. 글자는 Canva에서 직접 넣는 편이 안전합니다.
+        </p>
+      </div>
+    </div>
+
+    <!-- ⑧ 실습 활동지 -->
+    <div class="worksheet">
+      <h3 style="font-size:1.1rem;font-weight:800;margin-bottom:16px">📝 1차시 실습 활동지 — 나의 카드뉴스</h3>
+      <div class="ws-item">
+        <label>1. 내가 알리고 싶은 것은? (행사·모임·소식 등)</label>
+        <div class="ws-line"></div>
+      </div>
+      <div class="ws-item">
+        <label>2. 내가 AI에게 입력한 문구 프롬프트</label>
+        <div class="ws-line"></div>
+      </div>
+      <div class="ws-item">
+        <label>3. 내가 만든 이미지 프롬프트 (4가지 재료: 무엇을 / 어디서 / 그림체 / 빛과 각도)</label>
+        <div class="ws-line"></div>
+      </div>
+      <div class="ws-item">
+        <label>4. 두 AI 답변 비교 메모 (제미나이 vs ChatGPT — 어느 쪽이 마음에 들었나요?)</label>
+        <div class="ws-line"></div>
+      </div>
+    </div>
+
+    <!-- ⑨ O/X 퀴즈 -->
+    <div class="quiz" style="margin-top:24px">
+      <h3 style="font-size:1.1rem;font-weight:800">📝 O/X 퀴즈 — 오늘 배운 것 확인해 봐요</h3>
+
+      <details>
+        <summary>Q1. 이미지 프롬프트는 “예쁘게 그려줘”처럼 짧을수록 좋은 그림이 나온다.</summary>
+        <div class="answer"><b>정답: X</b> — 무엇을·어디서·그림체·빛과 각도, 네 가지 재료를 넣을수록 원하는 그림에 가까워집니다.</div>
+      </details>
+
+      <details>
+        <summary>Q2. Canva 요소에 붙은 왕관(👑) 표시는 유료 요소라는 뜻이다.</summary>
+        <div class="answer"><b>정답: O</b> — 왕관이 없는 무료 요소만 골라도 충분히 멋진 카드뉴스를 만들 수 있습니다.</div>
+      </details>
+
+      <details>
+        <summary>Q3. AI가 만든 이미지 안에 글자를 넣게 하면 정확하게 잘 나온다.</summary>
+        <div class="answer"><b>정답: X</b> — AI 이미지의 글자는 자주 틀립니다. 글자는 Canva에서 직접 넣는 편이 안전합니다.</div>
+      </details>
+    </div>
+
+    <!-- ⑩ 완료 + 다음 차시 예고 -->
+    <div class="done-card">
+      <h3>🎉 1차시 완료!</h3>
+      <p>AI로 홍보 문구를 만들고, 이미지를 더해 나만의 카드뉴스까지 완성했습니다. 정말 잘하셨어요!</p>
+      <p style="margin-top:10px"><b>다음 시간(2차시) 예고 — 반복 업무 자동화</b><br>
+        여행 일정표·주간 식단표를 표로 뚝딱 만들고, Google Gems로 <b>나만의 자동화 봇</b>을 만듭니다.
+        마지막엔 <b>동화책 삽화 맛보기</b>로 5차시를 미리 준비해요.</p>
+    </div>
+
+  </div>
+</section>
+
+
+<!-- 2차시 -->
+<section class="lesson" id="ch2">
+  <div class="wrap">
+
+    <!-- ① 차시 헤더 -->
+    <div class="lesson-head">
+      <span class="eyebrow">2강 · 2차시 · 7.18(토) 오늘</span>
+      <h2>반복 업무 자동화 — 일상 관리 자동화 툴</h2>
+      <p class="subtitle">매번 새로 쓰던 프롬프트를, 오늘부터는 ‘저장해 두고 꺼내 쓰는’ 나만의 도구로 만들어 봅니다.</p>
+    </div>
+
+    <!-- ② 학습목표 -->
+    <ul class="objectives">
+      <li>역할·맥락·요청·출력 형식을 갖춘 프롬프트로 여행 일정표·식단표 같은 반복 업무를 자동화할 수 있습니다.</li>
+      <li>Google Gems와 ChatGPT 프로젝트에 지침을 저장해 나만의 자동화 봇을 만들 수 있습니다.</li>
+      <li>동화풍 이미지를 생성·저장하고, 스타일 통일 요령을 익힙니다. (5차시 미리 연습)</li>
+    </ul>
+
+    <!-- ③ 이 차시 사용 도구 -->
+    <div class="tools">
+      <h4>이 차시에 사용하는 도구</h4>
+      <div class="badges">
+        <span class="badge main">🔵 제미나이</span>
+        <span class="badge">💎 Google Gems</span>
+        <span class="badge">⚫ ChatGPT</span>
+        <span class="badge">📁 ChatGPT 프로젝트</span>
+        <span class="badge">🖼️ 나노바나나</span>
+      </div>
+    </div>
+
+    <!-- 오늘의 흐름 카드 -->
+    <div class="card" style="margin-top:24px">
+      <h3 style="font-size:1.15rem;font-weight:800">🗺️ 오늘의 흐름</h3>
+      <p style="color:var(--text-sub);margin-top:6px">세 단계를 거쳐, 오늘 하루 안에 ‘나만의 자동화 도구’를 갖게 됩니다.</p>
+      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:18px">
+        <div style="background:var(--primary-soft);border-radius:var(--radius-sm);padding:16px;text-align:center">
+          <div style="font-size:1.6rem">✏️</div>
+          <div style="font-weight:800;margin-top:6px;color:var(--primary-dark)">1. 프롬프트 자동화</div>
+          <div style="font-size:.86rem;color:var(--text-sub);margin-top:4px">여행 일정·식단표를 표로 뚝딱</div>
+        </div>
+        <div style="background:var(--accent-soft);border-radius:var(--radius-sm);padding:16px;text-align:center">
+          <div style="font-size:1.6rem">💎</div>
+          <div style="font-weight:800;margin-top:6px;color:#5B3FC4">2. 나만의 봇 만들기</div>
+          <div style="font-size:.86rem;color:var(--text-sub);margin-top:4px">Gems + ChatGPT 프로젝트</div>
+        </div>
+        <div style="background:var(--mint-soft);border-radius:var(--radius-sm);padding:16px;text-align:center">
+          <div style="font-size:1.6rem">🎨</div>
+          <div style="font-weight:800;margin-top:6px;color:#0E8F86">3. 동화풍 이미지</div>
+          <div style="font-size:.86rem;color:var(--text-sub);margin-top:4px">5차시 동화책 삽화 미리 연습</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ④ 개념 설명 -->
+    <div class="card" style="margin-top:20px">
+      <h3 style="font-size:1.15rem;font-weight:800">💡 오늘의 핵심 생각</h3>
+      <div class="box box-info" style="margin-top:12px">
+        <h4>“한 번 잘 만든 프롬프트 = 재사용 가능한 자동화 도구”</h4>
+        <p>
+          매번 새로 설명하지 않아도, 한 번 잘 다듬은 프롬프트는 <b>여러 번 다시 쓸 수 있는 나만의 도구</b>가 됩니다.
+          오늘은 이 프롬프트를 <b>Google Gems</b>와 <b>ChatGPT 프로젝트</b>에 저장해서,
+          다음부터는 버튼 하나로 불러 쓰는 법까지 배웁니다.
+        </p>
+      </div>
+
+      <!-- 좋은 프롬프트의 4가지 재료 -->
+      <h4 style="font-size:1rem;font-weight:800;margin-top:22px;margin-bottom:4px">🧩 좋은 프롬프트의 4가지 재료</h4>
+      <p style="color:var(--text-sub);font-size:.92rem;margin-bottom:6px">
+        오늘 사용하는 모든 프롬프트는 이 네 가지 순서로 되어 있습니다. 이 틀만 기억하면 어떤 요청이든 만들 수 있어요.
+      </p>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px;margin-top:14px">
+        <div style="background:var(--primary-soft);border-radius:var(--radius-sm);padding:14px">
+          <div style="font-weight:800;color:var(--primary-dark)">🎭 ① 역할</div>
+          <div style="font-size:.86rem;color:var(--text-sub);margin-top:4px">AI에게 어떤 전문가가 되어 달라고 할까요?<br><b>“너는 여행 플래너야”</b></div>
+        </div>
+        <div style="background:var(--accent-soft);border-radius:var(--radius-sm);padding:14px">
+          <div style="font-weight:800;color:#5B3FC4">📍 ② 맥락</div>
+          <div style="font-size:.86rem;color:var(--text-sub);margin-top:4px">내 상황과 조건을 알려 줍니다.<br><b>“파주 출발, 4인 가족”</b></div>
+        </div>
+        <div style="background:var(--mint-soft);border-radius:var(--radius-sm);padding:14px">
+          <div style="font-weight:800;color:#0E8F86">✅ ③ 요청</div>
+          <div style="font-size:.86rem;color:var(--text-sub);margin-top:4px">해 줄 일을 정확하게 말합니다.<br><b>“1박 2일 일정을 짜 줘”</b></div>
+        </div>
+        <div style="background:var(--amber-soft);border-radius:var(--radius-sm);padding:14px">
+          <div style="font-weight:800;color:#B0790F">📐 ④ 출력 형식</div>
+          <div style="font-size:.86rem;color:var(--text-sub);margin-top:4px">결과 모양을 지정합니다.<br><b>“표로 정리해 줘”</b></div>
+        </div>
+      </div>
+
+      <h4 style="font-size:1rem;font-weight:800;margin-top:24px;margin-bottom:4px">🔵⚫ 제미나이 vs ChatGPT — 무엇이 다를까요?</h4>
+      <p style="color:var(--text-sub);font-size:.92rem;margin-bottom:6px">두 AI 모두 훌륭한 도우미입니다. 상황에 맞게 골라 쓰시면 됩니다.</p>
+      <div class="table-scroll">
+        <table>
+          <thead>
+            <tr><th style="width:20%">구분</th><th>🔵 제미나이 (Gemini)</th><th>⚫ ChatGPT</th></tr>
+          </thead>
+          <tbody>
+            <tr><td><b>로그인</b></td><td>구글 계정으로 바로 사용 (추가 가입 불필요)</td><td>구글 계정으로 가입 후 사용</td></tr>
+            <tr><td><b>강점</b></td><td>표·일정 정리, 최신 정보 검색에 강함</td><td>자연스러운 문장, 창작·대화에 강함</td></tr>
+            <tr><td><b>자동화 봇</b></td><td><b>Gems</b> — 지침을 저장한 나만의 봇 (무료)</td><td><b>프로젝트</b> — 지침·파일을 담는 폴더형 봇 (무료)</td></tr>
+            <tr><td><b>이미지 생성</b></td><td>나노바나나로 이미지 생성 가능</td><td>이미지 생성 가능</td></tr>
+            <tr><td><b>오늘 활용</b></td><td>주 도구 — Gems 자동화 봇 실습</td><td>비교 도구 — 같은 지침을 프로젝트로 만들어 비교</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- ⑤-1 따라하기 1: 생활 자동화 -->
+    <div class="card" style="margin-top:20px">
+      <h3 style="font-size:1.15rem;font-weight:800">✏️ 따라하기 1 — 생활 자동화 (제미나이 · ChatGPT)</h3>
+      <p style="color:var(--text-sub);margin-top:6px">
+        매번 머리 아팠던 여행 일정과 식단표, 오늘은 AI에게 통째로 맡겨 봅니다.
+        프롬프트가 <b>[역할]→[맥락]→[요청]→[출력 형식]</b> 순서로 되어 있는 것을 눈여겨봐 주세요.
+      </p>
+
+      <ol class="steps" style="margin-top:16px">
+        <li>
+          <b>① 여행 일정표 만들기</b>
+          <span class="note">
+            제미나이 입력칸에 아래 프롬프트를 붙여넣고 보내 보세요.
+            <b>( ) 괄호 안</b>은 예시이니, 내 상황에 맞게 직접 바꿔서 보내면 됩니다.
+          </span>
+          <div class="prompt">
+            <button class="copy-btn" type="button">복사</button>
+<span class="prompt-text">[역할]
+너는 10년 경력의 국내 가족여행 전문 플래너야.
+
+[맥락]
+- 출발지: 경기 파주 / 이동수단: 자동차
+- 인원: 어른 2명, 아이 2명 (초등 고학년 1명, 중학생 1명)
+- 희망 지역: (예: 파주 시내 / 차로 2시간 이내 강원도 / 가평·포천 등)
+- 선호 스타일: 자연 속 힐링과 직접 몸으로 하는 체험 위주, 서두르지 않는 여유로운 일정
+- 숙소: (예: 가평 OO리조트 예약 완료 / 미정이라 동선에 맞게 추천 필요)
+
+[요청]
+위 조건에 맞는 1박 2일 가족 여행 일정을 짜 줘.
+- 이동 거리가 최소화되도록 동선을 최적화해 줘.
+- 첫날 점심·저녁, 둘째 날 점심 먹을 곳(식당 또는 메뉴 종류)을
+  동선상 위치에 맞게 추천해 줘. (자극적이지 않고 아이들과 가기 좋은 곳)
+- 장소마다 준비물이나 꿀팁(편한 운동화, 여벌 옷 등)을 한 줄씩 덧붙여 줘.
+
+[출력 형식]
+'시간 / 장소 / 활동 내용 / 이동·예상 소요시간' 4개 열의 표로 정리해 줘.</span>
+          </div>
+          <div class="box box-tip" style="margin-top:10px">
+            <h4>💡 괄호 ( ) 는 이렇게 채워요</h4>
+            <p>
+              “희망 지역”, “숙소”처럼 괄호로 표시된 부분에 <b>우리 가족의 실제 상황</b>을 채워 넣고 보내면,
+              훨씬 나에게 딱 맞는 일정을 받을 수 있습니다. 천천히 고쳐 쓰셔도 괜찮습니다.
+            </p>
+          </div>
+        </li>
+
+        <li>
+          <b>② 주간 식단표 만들기</b>
+          <span class="note">같은 4단계 틀로 이번엔 일주일 저녁 메뉴를 표로 받아 봅니다.</span>
+          <div class="prompt">
+            <button class="copy-btn" type="button">복사</button>
+<span class="prompt-text">[역할]
+너는 가정식 전문 영양사야.
+
+[맥락]
+- 가족 구성: 어른 2명, 아이 2명
+- 냉장고에 자주 있는 재료: 계란, 두부, 대파, 감자, 김치, 돼지고기
+- 조건: 조리 30분 이내, 너무 맵거나 자극적이지 않게
+
+[요청]
+위 재료를 활용한 일주일(월~일) 저녁 식단표를 만들어 줘.
+메뉴가 너무 반복되지 않게 다양하게 구성하고,
+부족한 재료가 있다면 장보기 목록으로 따로 정리해 줘.
+
+[출력 형식]
+'요일 / 메뉴 / 주재료 / 예상 조리시간' 표로 정리하고,
+표 아래에 장보기 목록을 붙여 줘.</span>
+          </div>
+        </li>
+
+        <li>
+          <b>③ 같은 프롬프트, 두 AI에게 물어보기</b>
+          <span class="note">위 두 프롬프트 중 하나를 골라, <b>똑같이</b> ChatGPT에도 붙여넣어 보세요.</span>
+          <div class="box box-tip" style="margin-top:10px">
+            <h4>💡 이렇게 비교해 보세요</h4>
+            <p>
+              어느 쪽 표가 더 보기 편한가요? 더 현실적인 추천인가요?
+              두 답을 견주어 보면 <b>내게 맞는 도구</b>를 찾게 됩니다.
+              마음에 드는 부분을 <b>골라서 섞어 써도</b> 좋습니다.
+            </p>
+          </div>
+        </li>
+      </ol>
+    </div>
+
+    <!-- ⑤-2 따라하기 2: 나만의 자동화 봇 (Gems + ChatGPT 프로젝트) -->
+    <div class="card" style="margin-top:20px">
+      <h3 style="font-size:1.15rem;font-weight:800">✏️ 따라하기 2 — 나만의 자동화 봇 만들기 (Gems · ChatGPT 프로젝트)</h3>
+
+      <div class="box box-info" style="margin-top:12px">
+        <h4>💎 Gems란 무엇인가요?</h4>
+        <p>
+          <b>매번 긴 프롬프트를 다시 쓰지 않아도 되는, 지시를 저장해 둔 나만의 맞춤 AI</b>입니다.
+          예를 들어 “우리 가족 조건에 맞는 식단표”를 매번 설명하는 대신, 조건을 딱 한 번 저장해 두면
+          다음부터는 “이번 주도 짜 줘” 한마디로 끝낼 수 있습니다.
+          ChatGPT에도 같은 역할을 하는 <b>‘프로젝트’</b> 기능이 있어서, 오늘 둘 다 만들어 비교해 봅니다.
+        </p>
+      </div>
+
+      <h4 style="font-size:1rem;font-weight:800;margin-top:20px;margin-bottom:8px">🛠️ STEP 1. Google Gems로 만들기 — 6단계</h4>
+      <ol class="steps">
+        <li><b>① 제미나이(gemini.google.com)에 접속합니다</b>
+          <span class="note">구글 계정으로 로그인된 상태여야 합니다.</span></li>
+        <li><b>② 왼쪽 메뉴에서 ‘Gem 관리자’를 클릭합니다</b>
+          <span class="note">왼쪽 사이드바 목록에 보이지 않으면 ‘더보기’를 눌러 찾아 주세요.</span></li>
+        <li><b>③ ‘새로 만들기(Gem 만들기)’ 버튼을 누릅니다</b></li>
+        <li><b>④ Gem의 이름을 입력합니다</b>
+          <span class="note">예: “우리집 식단 도우미”, “여행 플래너” — 무엇을 하는 봇인지 알아볼 수 있게 짓습니다.</span></li>
+        <li><b>⑤ ‘지침’ 칸에 아래 예제 지침을 붙여넣습니다</b>
+          <span class="note">아래에서 마음에 드는 예제를 골라 복사하고, 조건(가족 수·알레르기·예산 등)을 내 상황에 맞게 고쳐 주세요.</span></li>
+        <li><b>⑥ 저장 후 바로 말을 걸어 테스트합니다</b>
+          <span class="note">“이번 주 식단표 짜 줘”처럼 짧게 말해도 저장된 지침대로 답이 나오면 성공입니다!</span></li>
+      </ol>
+
+      <h4 style="font-size:1rem;font-weight:800;margin-top:24px;margin-bottom:8px">📋 예제 A — ‘우리집 식단 도우미’ Gem 지침</h4>
+      <div class="prompt">
+        <button class="copy-btn" type="button">복사</button>
+<span class="prompt-text">[역할]
+너는 우리 가족 전담 식단 도우미야.
+
+[맥락 — 항상 기억할 우리집 조건]
+- 가족 구성: 어른 2명, 초등학생 1명
+- 알레르기: 새우·갑각류 제외
+- 예산: 일주일 장보기 기준 8만 원 이내
+- 선호: 국물 요리 좋아함, 너무 매운 음식은 피함
+
+[요청]
+앞으로 내가 "식단표 짜 줘"라고 말하면 위 조건을 항상 반영해서
+일주일 저녁 식단표를 만들어 줘.
+내가 재료를 말해 주면 그 재료를 우선 활용해 줘.
+
+[출력 형식]
+- '요일 / 메뉴 / 주재료 / 예상 조리시간' 표로 정리
+- 표 아래에 이번 주 장보기 리스트도 함께 정리
+- 알레르기 재료는 어떤 경우에도 넣지 말 것</span>
+      </div>
+
+      <h4 style="font-size:1rem;font-weight:800;margin-top:22px;margin-bottom:8px">📋 예제 B — ‘여행 플래너’ Gem 지침</h4>
+      <div class="prompt">
+        <button class="copy-btn" type="button">복사</button>
+<span class="prompt-text">[역할]
+너는 우리 가족 전담 여행 플래너야.
+
+[맥락 — 항상 기억할 우리집 조건]
+- 출발지: 경기도 파주 / 이동수단: 자동차
+- 인원: 어른 2명, 아이 2명 (아이는 8세, 5세)
+- 선호: 자연·체험 위주, 무리하지 않는 일정, 낮잠 시간 고려
+
+[요청]
+앞으로 내가 "여행 일정 짜 줘"라고 말하면 위 조건을 항상 반영해서
+일정을 만들어 줘. 내가 지역과 날짜를 말하면 그에 맞춰 조정해 줘.
+
+[출력 형식]
+- '시간 / 장소 / 활동 / 예상 소요시간' 표로 정리
+- 점심·저녁 먹을 곳 추천 포함
+- 비가 올 경우 대체할 실내 코스도 함께 제안</span>
+      </div>
+
+      <h4 style="font-size:1rem;font-weight:800;margin-top:26px;margin-bottom:8px">📁 STEP 2. 같은 봇을 ChatGPT ‘프로젝트’로도 만들어 비교하기</h4>
+      <p style="color:var(--text-sub);font-size:.92rem;margin-bottom:10px">
+        ChatGPT의 <b>프로젝트</b>는 지침과 파일을 담아 두는 폴더형 맞춤 공간으로, 무료 계정에서도 사용할 수 있습니다.
+        방금 만든 Gem 지침을 <b>그대로</b> 넣어 보면, 두 봇의 답변을 나란히 비교할 수 있습니다.
+      </p>
+      <ol class="steps">
+        <li><b>① chatgpt.com에 접속해 로그인합니다</b></li>
+        <li><b>② 왼쪽 메뉴에서 ‘프로젝트’ → ‘새 프로젝트’를 누릅니다</b>
+          <span class="note">이름은 Gem과 똑같이 “우리집 식단 도우미”로 지으면 비교하기 쉽습니다.</span></li>
+        <li><b>③ ‘지침(Instructions)’ 칸에 예제 A 지침을 그대로 붙여넣고 저장합니다</b></li>
+        <li><b>④ 프로젝트 안에서 “식단표 짜 줘”라고 말해 봅니다</b>
+          <span class="note">Gem의 답변과 나란히 놓고 비교해 보세요. 표 모양, 메뉴 아이디어, 말투가 어떻게 다른가요?</span></li>
+      </ol>
+
+      <div class="box box-tip">
+        <h4>💡 팁 — 잘 쓰는 프롬프트가 있다면 무엇이든 봇으로 저장해 보세요</h4>
+        <p>
+          꼭 식단·여행이 아니어도 됩니다. 자주 쓰는 인사말, 손주에게 보낼 문자, 취미 기록 등
+          <b>“매번 비슷하게 물어보는 것”</b>이 있다면 그것이 바로 Gem이나 프로젝트로 만들기 좋은 후보입니다.
+        </p>
+      </div>
+
+      <div class="box box-more">
+        <h4>🎯 한 걸음 더 — 남이 만든 봇 구경하기 &amp; 자료로 만드는 봇</h4>
+        <p>
+          <b>① GPT 스토어</b> — ChatGPT 왼쪽 메뉴의 ‘GPT 탐색’을 누르면, 전 세계 사람들이 만들어 둔
+          맞춤 봇(GPTs)을 무료 계정으로도 검색해 써 볼 수 있습니다. “여행”, “레시피”로 검색해 보세요.
+          (단, GPTs를 <b>직접 만드는 것</b>은 유료 요금제가 필요합니다 — 그래서 오늘은 무료인 Gems·프로젝트로 만들었어요.)<br><br>
+          <b>② NotebookLM</b> (notebooklm.google.com) — Gems가 ‘지침을 저장하는 봇’이라면,
+          NotebookLM은 <b>‘내 자료를 저장하는 봇’</b>입니다. 모임 회칙, 여행 자료, 레시피 모음 같은 문서를
+          올려 두면 그 자료를 근거로만 답해 줍니다. 구글 계정으로 무료이며, 3차시 PDF 요약과도 이어집니다.
+        </p>
+      </div>
+
+      <div class="box box-warn">
+        <h4>⚠️ 꼭 확인해요</h4>
+        <p>
+          • <b>로그인 확인</b> — Gems는 구글 계정, 프로젝트는 ChatGPT 계정에 저장됩니다. 시작 전 오른쪽 위에
+          내 프로필이 보이는지 확인하고, 공용 컴퓨터라면 실습 후 <b>로그아웃</b>을 잊지 마세요.<br>
+          • <b>개인정보는 필요한 만큼만</b> — 지침에 알레르기·가족 정보를 적을 때는 실습에 필요한 정도만 적고,
+          이름·연락처·주소 같은 개인정보는 넣지 않습니다.<br>
+          • <b>무료 한도</b> — 무료 계정은 시간당 사용 횟수 제한이 있을 수 있습니다. 한도에 걸리면
+          잠시 쉬었다가 이어 하면 됩니다. 유료 결제는 오늘 실습에 필요하지 않습니다.
+        </p>
+      </div>
+    </div>
+
+    <!-- ⑤-3 따라하기 3: 이미지 자동 생성 -->
+    <div class="card" style="margin-top:20px">
+      <h3 style="font-size:1.15rem;font-weight:800">✏️ 따라하기 3 — 이미지 자동 생성: 동화책 삽화 맛보기</h3>
+
+      <div class="box box-info" style="margin-top:12px">
+        <h4>📖 5차시 동화책 삽화를 오늘 미리 연습합니다</h4>
+        <p>
+          5차시에는 여러분만의 동화책 삽화를 직접 만들게 됩니다.
+          오늘은 그 전에 <b>가볍게 한 장면</b>을 그려 보면서, 이미지 생성이 어떤 느낌인지 미리 익혀 둡니다.
+          지금 연습해 두면 5차시가 훨씬 수월해집니다.
+        </p>
+      </div>
+
+      <ol class="steps" style="margin-top:16px">
+        <li>
+          <b>① 동화풍 장면 하나 만들어 보기</b>
+          <span class="note">제미나이(나노바나나) 또는 ChatGPT의 이미지 만들기 기능에 아래 프롬프트를 붙여넣어 보세요.</span>
+          <div class="prompt">
+            <button class="copy-btn" type="button">복사</button>
+<span class="prompt-text">[역할]
+너는 어린이 그림책 전문 일러스트레이터야.
+
+[맥락]
+- 내가 만들 창작 동화책에 들어갈 삽화야.
+- 스타일: 수채화, 따뜻한 색감, 부드러운 붓 터치
+
+[요청]
+숲속에서 토끼와 거북이가 서로 인사하는 장면을 그려 줘.
+아침 햇살이 나뭇잎 사이로 비치는 포근한 분위기로.
+
+[출력 형식]
+- 이미지 1장, 그림 안에 글자는 넣지 말 것
+- 여백을 넉넉하게 남겨 줘 (나중에 글을 얹을 자리)</span>
+          </div>
+        </li>
+
+        <li>
+          <b>② 스타일 통일 문구 반복해 보기</b>
+          <span class="note">같은 장면을 <b>[맥락]의 스타일 한 줄만</b> 바꿔서 다시 요청해 봅니다. 어떤 느낌이 나에게 더 잘 맞는지 비교해 보세요.</span>
+          <div class="prompt">
+            <button class="copy-btn" type="button">복사</button>
+<span class="prompt-text">[역할]
+너는 어린이 그림책 전문 일러스트레이터야.
+
+[맥락]
+- 내가 만들 창작 동화책에 들어갈 삽화야.
+- 스타일: 크레용(색연필) 느낌, 따뜻한 색감
+
+[요청]
+숲속에서 토끼와 거북이가 서로 인사하는 장면을 그려 줘.
+아침 햇살이 나뭇잎 사이로 비치는 포근한 분위기로.
+
+[출력 형식]
+- 이미지 1장, 그림 안에 글자는 넣지 말 것
+- 여백을 넉넉하게 남겨 줘 (나중에 글을 얹을 자리)</span>
+          </div>
+          <div class="box box-tip" style="margin-top:10px">
+            <h4>🎨 수채화 vs 크레용화, 비교해 보세요</h4>
+            <p>같은 장면이라도 스타일 한 줄만 바꾸면 분위기가 확 달라집니다. 두 결과를 나란히 놓고 비교해 보세요.</p>
+          </div>
+        </li>
+
+        <li>
+          <b>③ 이미지 저장하기</b>
+          <span class="note">
+            • 컴퓨터: 그림 위에서 마우스 오른쪽 클릭 → ‘이미지를 다른 이름으로 저장’<br>
+            • 스마트폰: 그림을 길게 누르기 → ‘이미지 저장’<br>
+            • 파일 이름에 오늘 날짜나 “토끼거북이_수채화”처럼 적어 두면 5차시에 다시 찾기 쉽습니다.
+          </span>
+        </li>
+      </ol>
+
+      <div class="box box-more">
+        <h4>🎯 한 걸음 더 — 스타일 통일 비법</h4>
+        <p>
+          책 한 권을 만들 때 페이지마다 그림체가 다르면 어색해 보입니다.
+          <b>“수채화 스타일, 따뜻한 색감”</b>처럼 마음에 든 스타일 문구를 정했다면,
+          <b>모든 페이지 프롬프트의 [맥락]에 토씨 하나 안 바꾸고 반복</b>하는 것이 비법입니다.
+          이렇게 하면 책 전체 그림이 하나로 이어진 것처럼 보입니다. 5차시에 그대로 써먹게 됩니다!
+        </p>
+      </div>
+    </div>
+
+    <!-- ⑧ 실습 활동지 -->
+    <div class="worksheet">
+      <h3 style="font-size:1.1rem;font-weight:800;margin-bottom:16px">📝 2차시 실습 활동지</h3>
+      <div class="ws-item">
+        <label>1. 내가 자동화하고 싶은 반복 업무는? (예: 주간 식단표, 여행 일정, 집안일 체크리스트 등)</label>
+        <div class="ws-line"></div>
+      </div>
+      <div class="ws-item">
+        <label>2. 내가 만든 봇의 이름과 지침 요약 (역할 / 맥락 / 요청 / 출력 형식)</label>
+        <div class="ws-line"></div>
+      </div>
+      <div class="ws-item">
+        <label>3. Gems vs ChatGPT 프로젝트 — 같은 지침을 넣었을 때 더 마음에 든 쪽과 이유</label>
+        <div class="ws-line"></div>
+      </div>
+      <div class="ws-item">
+        <label>4. 마음에 든 삽화 스타일 문구 (5차시에 그대로 쓸 것)</label>
+        <div class="ws-line"></div>
+      </div>
+    </div>
+
+    <!-- ⑨ O/X 퀴즈 -->
+    <div class="quiz" style="margin-top:24px">
+      <h3 style="font-size:1.1rem;font-weight:800">📝 O/X 퀴즈 — 오늘 배운 것 확인해 봐요</h3>
+
+      <details>
+        <summary>Q1. Gems나 ChatGPT 프로젝트에 지침을 한 번 저장해 두면, 다음부터는 짧게 말해도 저장된 조건대로 답을 받을 수 있다.</summary>
+        <div class="answer"><b>정답: O</b> — 지침을 저장해 두는 것이 곧 ‘나만의 자동화 봇’입니다. 둘 다 무료로 사용할 수 있습니다.</div>
+      </details>
+
+      <details>
+        <summary>Q2. 동화책 삽화를 만들 때 페이지마다 그림체(스타일 문구)를 다르게 쓰는 것이 좋다.</summary>
+        <div class="answer"><b>정답: X</b> — 스타일 문구를 모든 페이지에 똑같이 반복해야 책 전체 그림이 하나로 이어진 것처럼 보입니다.</div>
+      </details>
+
+      <details>
+        <summary>Q3. AI가 짜 준 여행 일정이나 식단표는 검토 없이 그대로 따라도 된다.</summary>
+        <div class="answer"><b>정답: X</b> — 장소·영업시간·재료 등은 AI가 지어낼 수 있으므로, 실제로 확인한 뒤 사용하는 것이 안전합니다.</div>
+      </details>
+    </div>
+
+    <!-- ⑩ 완료 + 다음 차시 예고 -->
+    <div class="done-card">
+      <h3>🎉 2차시 완료!</h3>
+      <p>여행 일정표와 식단표를 자동화하고, Gems와 ChatGPT 프로젝트로 나만의 봇을 만들고, 동화풍 이미지까지 그려 보았습니다. 정말 알찬 하루였어요!</p>
+      <p style="margin-top:10px"><b>다음 시간(3차시) 예고 — 데이터 마법사</b><br>
+        엑셀 수식을 AI가 대신 만들어 주고, 긴 PDF를 요약하고, 데이터를 한눈에 보이는 그래프로 그려 봅니다.</p>
+    </div>
+
+  </div>
+</section>
+
+
+<!-- 3차시 -->
+<section class="lesson" id="ch3">
+  <div class="wrap">
+
+    <!-- ① 차시 헤더 -->
+    <div class="lesson-head">
+      <span class="eyebrow">2강 · 3차시 · 7.25(토)</span>
+      <h2>데이터 마법사 — 분석 차트 및 보고서</h2>
+      <p class="subtitle">복잡한 수식과 두꺼운 문서, AI에게 물어보면 훨씬 쉬워집니다.</p>
+    </div>
+
+    <!-- ② 학습목표 -->
+    <ul class="objectives">
+      <li>AI에게 물어서 엑셀 수식을 만들고, 오류가 나면 해결할 수 있습니다.</li>
+      <li>긴 PDF 문서를 AI로 한 페이지로 요약할 수 있습니다.</li>
+      <li>데이터를 차트로 시각화하고, AI의 해석 코멘트를 받을 수 있습니다.</li>
+    </ul>
+
+    <!-- ③ 이 차시 사용 도구 -->
+    <div class="tools">
+      <h4>이 차시에 사용하는 도구</h4>
+      <div class="badges">
+        <span class="badge main">🔵 제미나이</span>
+        <span class="badge">⚫ ChatGPT</span>
+        <span class="badge">📊 엑셀 · 구글 시트</span>
+      </div>
+    </div>
+
+    <!-- 개념: 오늘 다룰 4가지 -->
+    <div class="card" style="margin-top:24px">
+      <h3 style="font-size:1.15rem;font-weight:800">🧙 오늘의 데이터 마법 4가지</h3>
+      <p style="color:var(--text-sub);margin-top:6px">
+        수식 걱정, PDF 걱정 이제 그만! AI에게 <b>“무엇을 하고 싶은지”</b>만 말로 설명하면, 나머지는 AI가 해결해 줍니다.
+      </p>
+      <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-top:16px">
+        <div style="background:var(--primary-soft);border-radius:var(--radius-sm);padding:14px;text-align:center">
+          <div style="font-size:1.4rem">🧮</div>
+          <div style="font-weight:800;font-size:.9rem;margin-top:6px;color:var(--primary-dark)">수식 만들기</div>
+        </div>
+        <div style="background:var(--warn-soft);border-radius:var(--radius-sm);padding:14px;text-align:center">
+          <div style="font-size:1.4rem">🛠️</div>
+          <div style="font-weight:800;font-size:.9rem;margin-top:6px;color:#B23A50">오류 해결</div>
+        </div>
+        <div style="background:var(--accent-soft);border-radius:var(--radius-sm);padding:14px;text-align:center">
+          <div style="font-size:1.4rem">📄</div>
+          <div style="font-weight:800;font-size:.9rem;margin-top:6px;color:#5B3FC4">PDF 요약</div>
+        </div>
+        <div style="background:var(--mint-soft);border-radius:var(--radius-sm);padding:14px;text-align:center">
+          <div style="font-size:1.4rem">📈</div>
+          <div style="font-weight:800;font-size:.9rem;margin-top:6px;color:#0E8F86">차트 시각화</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 따라하기 1: 엑셀 수식 자동 생성 -->
+    <div class="card" style="margin-top:20px">
+      <h3 style="font-size:1.15rem;font-weight:800">✏️ 따라하기 1 — 엑셀 수식 자동 생성</h3>
+      <p style="color:var(--text-sub);margin-top:6px">
+        함수 이름을 몰라도 괜찮습니다. <b>“무엇을 계산하고 싶은지”</b>를 말로 설명하면 AI가 알맞은 수식을 만들어 줍니다.
+      </p>
+
+      <div class="table-scroll" style="margin-top:14px">
+        <table>
+          <thead>
+            <tr><th style="width:18%">함수</th><th style="width:32%">언제 쓰나요</th><th>예시 상황</th></tr>
+          </thead>
+          <tbody>
+            <tr><td><b>SUM</b></td><td>여러 칸의 숫자를 모두 더할 때</td><td>한 달 지출 항목을 모두 더한 합계 구하기</td></tr>
+            <tr><td><b>IF</b></td><td>조건에 따라 다른 결과를 보여줄 때</td><td>회비를 냈으면 “완료”, 안 냈으면 “미납” 표시하기</td></tr>
+            <tr><td><b>VLOOKUP</b></td><td>표에서 원하는 값을 찾아올 때</td><td>회원 이름으로 전화번호나 회비 납부 여부 찾아오기</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <ol class="steps" style="margin-top:18px">
+        <li>
+          <b>① 가계부 합계 수식 — SUM</b>
+          <span class="note">B2부터 B10까지 지출 금액이 있다고 가정한 예시입니다. 실제 내 표의 칸 번호로 바꿔서 물어보세요.</span>
+          <div class="prompt">
+            <button class="copy-btn" type="button">복사</button>
+<span class="prompt-text">엑셀(또는 구글 시트)에서 B2부터 B10까지 있는 지출 금액을
+모두 더하는 수식을 알려줘. 수식과 함께, 어느 칸에 입력하면 되는지도 설명해줘.</span>
+          </div>
+        </li>
+
+        <li>
+          <b>② 회비 납부 여부 표시 — IF</b>
+          <span class="note">C열에 납부 금액이 있고, 10,000원 이상이면 “완료”로 표시하고 싶은 상황입니다.</span>
+          <div class="prompt">
+            <button class="copy-btn" type="button">복사</button>
+<span class="prompt-text">엑셀에서 C2 칸의 회비 납부 금액이 10000 이상이면 "완료",
+그렇지 않으면 "미납"이라고 표시하는 IF 수식을 만들어줘.
+수식을 그대로 복사해서 쓸 수 있게 알려주고, 간단히 원리도 설명해줘.</span>
+          </div>
+        </li>
+
+        <li>
+          <b>③ 회원 이름으로 정보 찾아오기 — VLOOKUP</b>
+          <span class="note">모임 회원 명단표(A열: 이름, B열: 전화번호, C열: 회비 납부 여부)가 있다고 가정한 예시입니다.</span>
+          <div class="prompt">
+            <button class="copy-btn" type="button">복사</button>
+<span class="prompt-text">엑셀에 회원 명단표가 있어. A열은 이름, B열은 전화번호, C열은 회비 납부 여부야.
+E2 칸에 이름을 입력하면 그 사람의 회비 납부 여부를 F2 칸에 자동으로
+찾아와 주는 VLOOKUP 수식을 만들어줘. 수식과 함께 사용법도 쉽게 설명해줘.</span>
+          </div>
+        </li>
+      </ol>
+
+      <div class="box box-tip">
+        <h4>💡 수식이 어렵게 느껴지신다면</h4>
+        <p>
+          수식을 외우실 필요는 없습니다. <b>“무엇을 하고 싶은지”</b>만 자세히 설명하면 AI가 수식을 만들어 줍니다.
+          “B2부터 B10까지”처럼 <b>정확한 칸 번호(셀 주소)</b>를 함께 알려주면 훨씬 정확한 답을 받을 수 있어요.
+        </p>
+      </div>
+    </div>
+
+    <!-- 따라하기 2: 엑셀 오류 해결 -->
+    <div class="card" style="margin-top:20px">
+      <h3 style="font-size:1.15rem;font-weight:800">✏️ 따라하기 2 — 엑셀 오류 메시지, AI로 해결하기</h3>
+      <p style="color:var(--text-sub);margin-top:6px">
+        칸에 <span style="color:var(--warn);font-weight:700">#N/A</span>, <span style="color:var(--warn);font-weight:700">#VALUE!</span> 같은
+        빨간 오류가 뜨면 당황스럽죠. 오류 메시지를 그대로 AI에게 보여주면 원인을 찾아 줍니다.
+      </p>
+
+      <ol class="steps" style="margin-top:16px">
+        <li>
+          <b>① 오류가 뜬 칸과 수식을 그대로 복사합니다</b>
+          <span class="note">수식 입력줄에 보이는 내용을 그대로 복사하면 됩니다. (예: =VLOOKUP(E2,A2:C10,3,0))</span>
+        </li>
+        <li>
+          <b>② AI에게 오류 메시지와 수식을 함께 보여주고 물어봅니다</b>
+          <div class="prompt">
+            <button class="copy-btn" type="button">복사</button>
+<span class="prompt-text">엑셀에서 아래 수식을 입력했는데 #N/A 오류가 떠.
+어디가 문제인지 확인하고, 고친 수식을 알려줘.
+
+수식: =VLOOKUP(E2,A2:C10,3,0)
+
+상황: A열은 이름, B열은 전화번호, C열은 회비 납부 여부이고,
+E2 칸에는 "김영희"라고 이름을 입력했어.</span>
+          </div>
+        </li>
+        <li>
+          <b>③ AI가 알려준 고친 수식을 다시 넣어 확인합니다</b>
+          <span class="note">한 번에 해결되지 않아도 괜찮습니다. “여전히 안 돼”라고 이어서 말하면 다시 확인해 줍니다.</span>
+        </li>
+      </ol>
+
+      <div class="box box-more">
+        <h4>🎯 한 걸음 더 — 자주 만나는 오류 미리 알아두기</h4>
+        <p>
+          <b>#N/A</b> = 찾는 값이 표에 없음 · <b>#VALUE!</b> = 숫자여야 할 칸에 글자가 들어감 ·
+          <b>#REF!</b> = 참조하던 칸이 삭제됨. 오류 이름만 봐도 대략 무엇이 문제인지 짐작할 수 있습니다.
+        </p>
+      </div>
+    </div>
+
+    <!-- 따라하기 3: PDF 요약 -->
+    <div class="card" style="margin-top:20px">
+      <h3 style="font-size:1.15rem;font-weight:800">✏️ 따라하기 3 — PDF 요약하기</h3>
+      <p style="color:var(--text-sub);margin-top:6px">
+        두꺼운 안내 자료나 회의 자료, 전체를 다 읽지 않아도 핵심만 뽑아낼 수 있습니다.
+      </p>
+
+      <ol class="steps" style="margin-top:16px">
+        <li>
+          <b>① 제미나이 또는 ChatGPT 입력창에 PDF 파일을 첨부합니다</b>
+          <span class="note">입력칸 옆 클립(📎) 아이콘을 눌러 파일을 올리거나, 파일을 화면으로 끌어다 놓으면 됩니다.</span>
+        </li>
+        <li>
+          <b>② 아래 프롬프트로 요약을 요청합니다</b>
+          <div class="prompt">
+            <button class="copy-btn" type="button">복사</button>
+<span class="prompt-text">첨부한 PDF 문서의 내용을 한 페이지 분량으로 정리해줘.
+① 전체 핵심 요약 3줄
+② 꼭 알아야 할 세부 내용 목록
+③ 날짜·신청 방법 등 실행이 필요한 정보는 따로 표시해줘.
+어려운 용어는 쉬운 말로 풀어서 설명해줘.</span>
+          </div>
+        </li>
+        <li>
+          <b>③ 궁금한 부분만 추가로 이어서 물어봅니다</b>
+          <div class="prompt">
+            <button class="copy-btn" type="button">복사</button>
+<span class="prompt-text">방금 요약한 내용 중에서 신청 자격과 신청 방법 부분만
+더 자세하게 다시 설명해줘.</span>
+          </div>
+          <span class="note">긴 문서를 처음부터 다시 읽을 필요 없이, 궁금한 부분만 골라 물어볼 수 있습니다.</span>
+        </li>
+      </ol>
+    </div>
+
+    <!-- 따라하기 4: 차트 생성 -->
+    <div class="card" style="margin-top:20px">
+      <h3 style="font-size:1.15rem;font-weight:800">✏️ 따라하기 4 — 데이터를 차트로 만들고 해석 받기</h3>
+      <p style="color:var(--text-sub);margin-top:6px">
+        표에 늘어놓은 숫자보다, 그래프 하나가 한눈에 훨씬 잘 들어옵니다.
+      </p>
+
+      <ol class="steps" style="margin-top:16px">
+        <li>
+          <b>① 표 데이터를 AI에게 붙여넣고 차트를 요청합니다</b>
+          <span class="note">가계부나 회비 납부 현황처럼, 이미 정리해 둔 표 데이터를 그대로 복사해서 붙여넣으면 됩니다.</span>
+          <div class="prompt">
+            <button class="copy-btn" type="button">복사</button>
+<span class="prompt-text">아래는 우리 모임 월별 회비 납부 현황이야. 이 데이터로
+한눈에 보기 좋은 막대그래프를 만들어줘.
+
+1월: 320,000원
+2월: 280,000원
+3월: 350,000원
+4월: 300,000원
+
+그래프와 함께, 이 데이터에서 눈에 띄는 특징이나 변화도
+2~3문장으로 짚어줘.</span>
+          </div>
+        </li>
+        <li>
+          <b>② AI의 해석 코멘트를 함께 확인합니다</b>
+          <span class="note">그래프만 보고 끝내지 말고, “가장 낮은 달은 언제고 왜 그런 것 같아?”처럼 이어서 물어보면 데이터를 더 깊이 이해할 수 있습니다.</span>
+        </li>
+        <li>
+          <b>③ 엑셀·구글 시트에서 직접 그래프로 옮기기</b>
+          <span class="note">표 데이터를 선택한 뒤 [삽입] → [차트]를 누르면, AI가 추천한 것과 비슷한 그래프를 내 문서에도 직접 만들 수 있습니다.</span>
+        </li>
+      </ol>
+    </div>
+
+    <!-- ⚠️ 꼭 확인해요 -->
+    <div class="card" style="margin-top:20px">
+      <div class="box box-warn">
+        <h4>⚠️ 꼭 확인해요 — AI가 계산한 숫자는 반드시 검산하세요</h4>
+        <p>
+          • AI가 만든 수식과 계산 결과는 <b>틀릴 수 있습니다.</b> 특히 금액·회비처럼 중요한 숫자는 직접 한 번 더 계산해서 확인하세요.<br>
+          • PDF 요약 내용도 <b>원문과 대조</b>해 보는 것이 안전합니다. 특히 날짜·금액·신청 조건은 꼭 원문에서 다시 확인하세요.<br>
+          • 회원 명단, 회비 내역처럼 <b>개인정보가 담긴 파일</b>은 AI에 올리기 전에 이름을 가리거나, 정말 필요한 경우에만 신중하게 사용하세요.
+        </p>
+      </div>
+    </div>
+
+    <!-- ⑧ 실습 활동지 -->
+    <div class="worksheet">
+      <h3 style="font-size:1.1rem;font-weight:800;margin-bottom:16px">📝 3차시 실습 활동지</h3>
+      <div class="ws-item">
+        <label>1. 오늘 AI에게 만들어 달라고 한 수식 (함수 이름 + 어디에 썼는지)</label>
+        <div class="ws-line"></div>
+      </div>
+      <div class="ws-item">
+        <label>2. 만났던 오류 메시지와 AI가 알려준 해결 방법</label>
+        <div class="ws-line"></div>
+      </div>
+      <div class="ws-item">
+        <label>3. PDF 요약에서 새롭게 알게 된 내용</label>
+        <div class="ws-line"></div>
+      </div>
+      <div class="ws-item">
+        <label>4. 오늘 만든 차트, 어떤 데이터를 시각화했나요?</label>
+        <div class="ws-line"></div>
+      </div>
+    </div>
+
+    <!-- ⑨ O/X 퀴즈 -->
+    <div class="quiz" style="margin-top:24px">
+      <h3 style="font-size:1.1rem;font-weight:800">📝 O/X 퀴즈 — 오늘 배운 것 확인해 봐요</h3>
+
+      <details>
+        <summary>Q1. 엑셀 수식을 만들 때, 함수 이름을 몰라도 “무엇을 하고 싶은지”만 설명하면 AI가 수식을 만들어 줄 수 있다.</summary>
+        <div class="answer"><b>정답: O</b> — 원하는 계산 내용과 셀 주소를 자세히 설명하면 AI가 알맞은 수식을 알려줍니다.</div>
+      </details>
+
+      <details>
+        <summary>Q2. AI가 계산해 준 숫자나 수식 결과는 검산 없이 그대로 사용해도 된다.</summary>
+        <div class="answer"><b>정답: X</b> — AI의 계산도 틀릴 수 있습니다. 특히 금액처럼 중요한 숫자는 반드시 직접 검산하세요.</div>
+      </details>
+
+      <details>
+        <summary>Q3. 긴 PDF 문서는 전체를 다 읽지 않아도, AI에게 요약과 궁금한 부분만 골라 물어볼 수 있다.</summary>
+        <div class="answer"><b>정답: O</b> — 전체 요약을 먼저 받고, 궁금한 부분만 추가로 이어서 물어보면 효율적으로 확인할 수 있습니다.</div>
+      </details>
+    </div>
+
+    <!-- ⑩ 완료 + 다음 차시 예고 -->
+    <div class="done-card">
+      <h3>🎉 3차시 완료!</h3>
+      <p>수식 걱정, 오류 걱정, 두꺼운 문서 걱정까지 — 오늘 모두 AI와 함께 가볍게 해결해 보았습니다. 정말 잘하셨어요!</p>
+      <p style="margin-top:10px"><b>다음 시간(4차시) 예고 — 멀티미디어 콘텐츠</b><br>
+        AI 성우(TTS)로 목소리를 만들고, 나만의 1분 자기소개 쇼츠 영상을 완성해 봅니다.</p>
+    </div>
+
+  </div>
+</section>
+
+
+<!-- 4차시 -->
+<section class="lesson" id="ch4">
+  <div class="wrap">
+
+    <!-- ① 차시 헤더 -->
+    <div class="lesson-head">
+      <span class="eyebrow">2강 · 4차시 · 8.1(토)</span>
+      <h2>이미지·영상 자동화 — Opal &amp; Flow</h2>
+      <p class="subtitle">오늘 만든 그림 자동화 앱, 다음 주 동화책 삽화에 그대로 다시 쓰게 됩니다.</p>
+    </div>
+
+    <!-- ② 학습목표 -->
+    <ul class="objectives">
+      <li>Opal로 이미지 생성을 자동화하는 미니 앱을 만들 수 있습니다.</li>
+      <li>Flow로 음성이 포함된 1분 자기소개 쇼츠 영상을 만들 수 있습니다.</li>
+      <li>도구에 문제가 생겨도 대안 방법으로 실습을 이어갈 수 있습니다.</li>
+    </ul>
+
+    <!-- ③ 이 차시 사용 도구 -->
+    <div class="tools">
+      <h4>이 차시에 사용하는 도구</h4>
+      <div class="badges">
+        <span class="badge main">🧩 Opal</span>
+        <span class="badge">🎬 Flow</span>
+        <span class="badge">🔵 제미나이</span>
+        <span class="badge">⚫ ChatGPT</span>
+      </div>
+    </div>
+
+    <!-- 오늘의 흐름 카드 -->
+    <div class="card" style="margin-top:24px">
+      <h3 style="font-size:1.15rem;font-weight:800">🗺️ 오늘의 흐름</h3>
+      <div style="display:grid;grid-template-columns:1fr auto 1fr;gap:12px;align-items:center;margin-top:18px">
+        <div style="background:var(--primary-soft);border-radius:var(--radius-sm);padding:18px;text-align:center">
+          <div style="font-size:1.6rem">🧩</div>
+          <div style="font-weight:800;margin-top:6px;color:var(--primary-dark)">Opal로 그림 자동화</div>
+          <div style="font-size:.86rem;color:var(--text-sub);margin-top:4px">나만의 이미지 생성 미니 앱 만들기</div>
+        </div>
+        <div style="text-align:center;color:var(--text-mute);font-size:1.4rem">→</div>
+        <div style="background:var(--accent-soft);border-radius:var(--radius-sm);padding:18px;text-align:center">
+          <div style="font-size:1.6rem">🎬</div>
+          <div style="font-weight:800;margin-top:6px;color:#5B3FC4">Flow로 영상 완성</div>
+          <div style="font-size:.86rem;color:var(--text-sub);margin-top:4px">1분 자기소개 쇼츠 만들기</div>
+        </div>
+      </div>
+      <div class="box box-info" style="margin-top:18px">
+        <p>
+          <b>Flow는 영상과 목소리를 한 번에 만들어 줍니다.</b> 그래서 오늘은 성우 앱을 따로 배우지 않아요.
+          장면과 대사를 글로 설명하기만 하면, 목소리가 입혀진 영상이 그대로 완성됩니다.
+        </p>
+      </div>
+    </div>
+
+    <!-- 따라하기 1: Opal -->
+    <div class="card" style="margin-top:20px">
+      <h3 style="font-size:1.15rem;font-weight:800">✏️ 따라하기 1 — Opal로 이미지 자동화 미니 앱 만들기</h3>
+
+      <div class="box box-info" style="margin-top:12px">
+        <h4>🧩 Opal이란 무엇인가요?</h4>
+        <p>
+          <b>장면 설명만 바꿔 넣으면, 같은 스타일의 그림이 자동으로 나오는 나만의 앱</b>입니다.
+          한 번 앱을 만들어 두면, 매번 긴 프롬프트를 다시 쓰지 않고도 원하는 스타일의 그림을 계속 얻을 수 있습니다.
+        </p>
+      </div>
+
+      <ol class="steps" style="margin-top:18px">
+        <li>
+          <b>STEP 1. opal.withgoogle.com 접속 → 구글 계정 로그인</b>
+          <span class="note">2차시에 쓰던 구글 계정을 그대로 사용하시면 됩니다.</span>
+        </li>
+
+        <li>
+          <b>STEP 2. 자연어로 앱 설명 입력하기</b>
+          <span class="note">Opal에게 “어떤 앱을 만들고 싶은지”를 말로 설명합니다. 아래 문장을 그대로 입력해 보세요.</span>
+          <div class="prompt">
+            <button class="copy-btn" type="button">복사</button>
+<span class="prompt-text">수채화 스타일, 따뜻한 색감으로 동화 장면을 그려주는
+이미지 생성 앱을 만들어줘. 입력한 장면 설명을 바탕으로
+그림을 자동으로 그려줘.</span>
+          </div>
+        </li>
+
+        <li>
+          <b>STEP 3. 만들어진 앱 실행 → 장면 설명 입력해서 테스트</b>
+          <span class="note">앱이 완성되면, 입력창에 아래처럼 장면 하나를 적어 테스트해 봅니다.</span>
+          <div class="prompt">
+            <button class="copy-btn" type="button">복사</button>
+<span class="prompt-text">숲속에서 토끼와 거북이가 인사하는 장면</span>
+          </div>
+        </li>
+
+        <li>
+          <b>STEP 4. 장면만 바꿔가며 2~3장 더 생성해 보기</b>
+          <span class="note">
+            같은 스타일로 다른 장면들도 만들어 보세요. 예: “호숫가에서 오리 가족이 헤엄치는 장면”,
+            “나무 위에서 다람쥐가 도토리를 모으는 장면”처럼 장면 설명만 바꿔서 입력하면 됩니다.
+          </span>
+        </li>
+      </ol>
+
+      <div class="box box-warn">
+        <h4>🛟 안심 박스 — Opal이 안 열려도 괜찮아요!</h4>
+        <p>
+          Opal이 열리지 않거나 오류가 나도 당황하지 마세요.
+          <b>제미나이 창에 STEP 2와 똑같은 설명 + 장면 내용을 이어서 입력하면 같은 그림을 얻을 수 있습니다.</b>
+          강사가 화면으로 대체 방법을 함께 보여드릴게요.
+        </p>
+      </div>
+
+      <div class="box box-tip">
+        <h4>💡 오늘 만든 이 앱, 5차시에 다시 씁니다</h4>
+        <p>
+          오늘 만든 이미지 자동화 앱은 <b>다음 시간(5차시) 동화책 삽화</b>에 그대로 다시 사용하게 됩니다.
+          앱 이름을 기억하기 쉽게 정해 두시면 다음 주에 훨씬 편합니다.
+        </p>
+      </div>
+    </div>
+
+    <!-- 따라하기 2: Flow -->
+    <div class="card" style="margin-top:20px">
+      <h3 style="font-size:1.15rem;font-weight:800">✏️ 따라하기 2 — Flow로 1분 자기소개 쇼츠 만들기</h3>
+
+      <div class="box box-info" style="margin-top:12px">
+        <h4>🎬 Flow란 무엇인가요?</h4>
+        <p>
+          <b>글로 설명하면 영상과 목소리가 한 번에 만들어지는 구글의 AI 영상 도구</b>입니다.
+          대사와 장면을 적으면, 그 내용을 읽어 주는 목소리까지 자동으로 입혀진 영상이 완성됩니다.
+        </p>
+      </div>
+
+      <div class="box box-warn">
+        <h4>⚠️ 크레딧 안내 — 꼭 읽어 주세요</h4>
+        <p>
+          무료 계정은 <b>영상을 약 9개까지</b> 만들 수 있습니다. 오늘은 <b>연습으로 2~3개만</b> 만들어 보고,
+          가장 마음에 드는 것 <b>1개를 최종 결과물</b>로 정해 주세요. 크레딧을 아끼면서 실습해야 끝까지 완주할 수 있습니다.
+        </p>
+      </div>
+
+      <ol class="steps" style="margin-top:18px">
+        <li>
+          <b>STEP 1. 자기소개 스크립트 먼저 작성하기</b>
+          <span class="note">제미나이나 ChatGPT에 아래 프롬프트를 붙여넣어 20초 분량 스크립트를 받아 보세요.</span>
+          <div class="prompt">
+            <button class="copy-btn" type="button">복사</button>
+<span class="prompt-text">나를 소개하는 20초 분량 자기소개 스크립트를 친근한 말투로 써줘.</span>
+          </div>
+          <span class="note">이름, 사는 곳, 좋아하는 것 등을 미리 알려주면 더 나에게 맞는 스크립트를 받을 수 있습니다.</span>
+        </li>
+
+        <li>
+          <b>STEP 2. labs.google/flow 접속 → 구글 계정 로그인</b>
+          <span class="note">Opal과 같은 구글 계정으로 로그인하면 됩니다.</span>
+        </li>
+
+        <li>
+          <b>STEP 3. 스크립트 + 장면 설명 입력 → 영상 생성</b>
+          <span class="note">STEP 1에서 받은 스크립트와 함께, 아래처럼 장면과 분위기를 적어 넣습니다.</span>
+          <div class="prompt">
+            <button class="copy-btn" type="button">복사</button>
+<span class="prompt-text">도서관에서 밝게 웃으며 자기소개하는 장면, 따뜻한 조명</span>
+          </div>
+        </li>
+
+        <li>
+          <b>STEP 4. 생성된 영상 중 마음에 드는 것 선택 → 다운로드</b>
+          <span class="note">2~3개를 만들어 보고 비교한 뒤, 가장 마음에 드는 1개를 다운로드해 최종본으로 정합니다.</span>
+        </li>
+      </ol>
+
+      <div class="box box-more">
+        <h4>👥 짝 실습 안내</h4>
+        <p>
+          크레딧이 부족한 분은 <b>옆 사람과 화면을 같이 보며</b> 참여해도 좋습니다.
+          함께 스크립트를 다듬고 장면을 골라 보는 것도 즐거운 실습이 됩니다.
+        </p>
+      </div>
+    </div>
+
+    <!-- 완성 영상 함께 보기 -->
+    <div class="card" style="margin-top:20px">
+      <h3 style="font-size:1.15rem;font-weight:800">🎥 완성 영상 함께 보기</h3>
+      <p style="color:var(--text-sub);margin-top:6px">
+        만든 영상을 화면에 띄우고, 짧게 한마디씩 나눠 볼게요.
+        “저는 ___를 소개했고, 만들면서 ___했습니다” 이렇게만 말씀해 주셔도 충분합니다.
+        완벽하지 않아도 괜찮으니 편하게 보여 주세요!
+      </p>
+    </div>
+
+    <!-- (선택) AI 더빙 소개 -->
+    <div class="card" style="margin-top:20px">
+      <div class="box box-info">
+        <h4>💬 (선택) AI 더빙 도구, 짧게 소개합니다</h4>
+        <p>
+          영상에 <b>내 목소리를 따로 녹음해서 입히고 싶다면</b> CLOVA Voice나 타입캐스트 같은 도구도 있습니다.
+          Flow가 이미 목소리를 자동으로 만들어 주기 때문에 오늘은 실습을 따로 하지 않지만,
+          관심 있으신 분은 이름만 기억해 두셨다가 나중에 찾아보셔도 좋습니다.
+        </p>
+      </div>
+    </div>
+
+    <!-- ⚠️ 꼭 확인해요 -->
+    <div class="card" style="margin-top:20px">
+      <div class="box box-warn">
+        <h4>⚠️ 꼭 확인해요</h4>
+        <p>
+          • Opal은 아직 <b>베타(시험) 서비스</b>라 화면 구성이 자주 바뀔 수 있습니다. 오늘 화면과 조금 달라 보여도 당황하지 마세요.<br>
+          • Flow에서 만든 영상 속 <b>대사·정보가 정확한지</b> 다운로드 전에 한 번 더 확인하세요.<br>
+          • Opal과 Flow 모두 <b>구글 계정 로그인</b>이 필요합니다. 실습 전 로그인 상태를 꼭 확인해 주세요.
+        </p>
+      </div>
+    </div>
+
+    <!-- ⑧ 실습 활동지 -->
+    <div class="worksheet">
+      <h3 style="font-size:1.1rem;font-weight:800;margin-bottom:16px">📝 4차시 실습 활동지</h3>
+      <div class="ws-item">
+        <label>1. 내가 Opal 앱에 넣은 장면 설명</label>
+        <div class="ws-line"></div>
+      </div>
+      <div class="ws-item">
+        <label>2. 가장 마음에 든 이미지 스타일 (한 줄로)</label>
+        <div class="ws-line"></div>
+      </div>
+      <div class="ws-item">
+        <label>3. Flow로 만든 영상 주제와 느낀 점</label>
+        <div class="ws-line"></div>
+      </div>
+    </div>
+
+    <!-- ⑨ O/X 퀴즈 -->
+    <div class="quiz" style="margin-top:24px">
+      <h3 style="font-size:1.1rem;font-weight:800">📝 O/X 퀴즈 — 오늘 배운 것 확인해 봐요</h3>
+
+      <details>
+        <summary>Q1. Opal이 열리지 않으면 실습을 포기해야 한다.</summary>
+        <div class="answer"><b>정답: X</b> — 제미나이 창에 같은 설명을 입력하면 같은 그림을 얻을 수 있습니다. 당황하지 않아도 됩니다.</div>
+      </details>
+
+      <details>
+        <summary>Q2. Flow 무료 계정은 영상을 만들 수 있는 횟수에 제한이 없다.</summary>
+        <div class="answer"><b>정답: X</b> — 무료 계정은 약 9개까지 만들 수 있습니다. 연습은 2~3개로 아끼고 1개를 최종본으로 정하는 것이 좋습니다.</div>
+      </details>
+
+      <details>
+        <summary>Q3. Flow는 글로 설명하면 영상과 목소리를 한 번에 만들어 준다.</summary>
+        <div class="answer"><b>정답: O</b> — 대사와 장면을 적으면 목소리까지 자동으로 입혀진 영상이 완성됩니다. 그래서 오늘은 성우 앱을 따로 배우지 않았습니다.</div>
+      </details>
+    </div>
+
+    <!-- ⑩ 완료 + 다음 차시 예고 -->
+    <div class="done-card">
+      <h3>🎉 4차시 완료!</h3>
+      <p>나만의 이미지 자동화 앱을 만들고, 목소리가 담긴 자기소개 영상까지 완성했습니다. 정말 잘하셨어요!</p>
+      <p style="margin-top:10px"><b>다음 시간(5차시) 예고 — AI 동화책 제작</b><br>
+        오늘 만든 Opal 앱으로 동화책 삽화를 자동으로 그리고, 진짜 나만의 동화책을 완성합니다!</p>
+    </div>
+
+    <!-- 사전 과제 -->
+    <div class="card" style="margin-top:20px">
+      <div class="box box-tip">
+        <h4>✍️ 미리 준비해 오세요 — 사전 과제</h4>
+        <p>“동화 주제”를 하나 생각해 오세요. 거창하지 않아도 괜찮습니다. 떠오르는 한 가지면 충분합니다.</p>
+        <div style="display:flex;flex-wrap:wrap;gap:8px;margin-top:14px">
+          <span class="badge">손주에게 들려줄 이야기</span>
+          <span class="badge">내 인생의 한 장면</span>
+          <span class="badge">우리 동네 이야기</span>
+          <span class="badge">어릴 적 살던 고향</span>
+          <span class="badge">잊지 못할 여행</span>
+          <span class="badge">반려동물과의 추억</span>
+          <span class="badge">사랑하는 가족 이야기</span>
+          <span class="badge">힘들었지만 이겨낸 순간</span>
+          <span class="badge">환경을 지키는 이야기</span>
+          <span class="badge">우정에 관한 이야기</span>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+
+<!-- 5차시 -->
+<section class="lesson" id="ch5">
+  <div class="wrap">
+
+    <!-- ① 차시 헤더 -->
+    <div class="lesson-head" style="background:linear-gradient(135deg,#414FCB,#7C5CE0 60%,#12B3A8)">
+      <span class="eyebrow">2강 · 5차시 · 8.8(토) · 마지막 시간</span>
+      <h2>AI 동화책 제작 — 최종 결과물 완성 + 수료</h2>
+      <p class="subtitle">지난 네 번의 시간이 모두 오늘로 이어집니다. 드디어, 여러분만의 동화책을 완성합니다.</p>
+    </div>
+
+    <!-- ② 학습목표 -->
+    <ul class="objectives">
+      <li>AI와 함께 나만의 동화 원고를 완성합니다.</li>
+      <li>페이지별 삽화를 만듭니다.</li>
+      <li>Canva로 편집해 PDF 동화책을 완성합니다.</li>
+    </ul>
+
+    <!-- ③ 이 차시 사용 도구 -->
+    <div class="tools">
+      <h4>이 차시에 사용하는 도구</h4>
+      <div class="badges">
+        <span class="badge main">🔵 제미나이</span>
+        <span class="badge">⚫ ChatGPT</span>
+        <span class="badge">🧩 Opal</span>
+        <span class="badge">🎨 Canva</span>
+        <span class="badge">🎙️ AI 성우 (선택)</span>
+      </div>
+    </div>
+
+    <!-- 시작 전 확인 -->
+    <div class="card" style="margin-top:24px">
+      <div class="box box-info">
+        <h4>🎒 시작 전에 — 사전 과제 확인</h4>
+        <p>
+          지난 시간에 생각해 오시기로 한 <b>동화 주제</b>, 잘 챙겨 오셨나요?
+          아직 정하지 못하셨어도 괜찮습니다. STEP 1에서 AI와 이야기를 나누며 함께 정해도 늦지 않습니다.
+        </p>
+      </div>
+    </div>
+
+    <!-- 오늘의 흐름 -->
+    <div class="card" style="margin-top:20px">
+      <h3 style="font-size:1.15rem;font-weight:800">🗺️ 오늘의 흐름</h3>
+      <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-top:16px">
+        <div style="background:var(--primary-soft);border-radius:var(--radius-sm);padding:14px;text-align:center">
+          <div style="font-size:1.4rem">✍️</div>
+          <div style="font-weight:800;font-size:.88rem;margin-top:6px;color:var(--primary-dark)">STEP 1<br>스토리 작성</div>
+        </div>
+        <div style="background:var(--accent-soft);border-radius:var(--radius-sm);padding:14px;text-align:center">
+          <div style="font-size:1.4rem">🎨</div>
+          <div style="font-weight:800;font-size:.88rem;margin-top:6px;color:#5B3FC4">STEP 2<br>삽화 생성</div>
+        </div>
+        <div style="background:var(--mint-soft);border-radius:var(--radius-sm);padding:14px;text-align:center">
+          <div style="font-size:1.4rem">📐</div>
+          <div style="font-weight:800;font-size:.88rem;margin-top:6px;color:#0E8F86">STEP 3<br>Canva 편집</div>
+        </div>
+        <div style="background:var(--amber-soft);border-radius:var(--radius-sm);padding:14px;text-align:center">
+          <div style="font-size:1.4rem">📕</div>
+          <div style="font-weight:800;font-size:.88rem;margin-top:6px;color:#A6740F">STEP 4<br>PDF 완성</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- STEP 1: 동화 스토리 작성 -->
+    <div class="card" style="margin-top:20px">
+      <h3 style="font-size:1.15rem;font-weight:800">✏️ STEP 1 — 동화 스토리 작성</h3>
+      <p style="color:var(--text-sub);margin-top:6px">
+        한 번에 다 써 달라고 하지 않습니다. <b>줄거리 → 페이지별 초안 → 다듬기</b>, 세 단계로 차근차근 만들어 갑니다.
+      </p>
+
+      <ol class="steps" style="margin-top:16px">
+        <li>
+          <b>① 역할을 정하고 줄거리부터 받기</b>
+          <span class="note">‘○○’ 자리에 내가 준비해 온 동화 주제를 넣어 주세요.</span>
+          <div class="prompt">
+            <button class="copy-btn" type="button">복사</button>
+<span class="prompt-text">당신은 따뜻한 동화 작가입니다. '○○'를 주제로 5페이지 분량 동화의
+줄거리를 먼저 제안해 주세요. 아이가 이해하기 쉽고,
+마음이 따뜻해지는 이야기로 부탁해요.</span>
+          </div>
+        </li>
+
+        <li>
+          <b>② 페이지별로 차례차례 쓰기</b>
+          <span class="note">줄거리가 마음에 들면, 이제 한 페이지씩 써 달라고 합니다.</span>
+          <div class="prompt">
+            <button class="copy-btn" type="button">복사</button>
+<span class="prompt-text">좋아요. 이 줄거리로 1페이지부터 차례로 써 주세요.
+페이지마다 3~4문장으로, 쉬운 말로 부탁해요.</span>
+          </div>
+        </li>
+
+        <li>
+          <b>③ 마음에 들 때까지 다듬기</b>
+          <span class="note">어색한 부분은 그때그때 편하게 고쳐 달라고 하면 됩니다.</span>
+          <div class="prompt">
+            <button class="copy-btn" type="button">복사</button>
+<span class="prompt-text">이 부분을 더 쉬운 말로 바꿔 주세요.
+(또는) 조금 더 따뜻한 느낌으로 고쳐 주세요.</span>
+          </div>
+        </li>
+
+        <li>
+          <b>④ 내 언어로 마무리하기</b>
+          <span class="note">AI가 준 글을 내 말투로 살짝 손보세요. 바로 이 순간, 진짜 ‘내 책’이 됩니다.</span>
+        </li>
+      </ol>
+    </div>
+
+    <!-- STEP 2: 삽화 생성 -->
+    <div class="card" style="margin-top:20px">
+      <h3 style="font-size:1.15rem;font-weight:800">🎨 STEP 2 — 삽화 생성</h3>
+
+      <div class="box box-more">
+        <h4>🔁 2차시에서 연습한 방식 그대로!</h4>
+        <p>
+          2차시에 토끼와 거북이 장면으로 미리 연습했던 <b>‘스타일 통일 문구 반복’</b> 비법, 기억나시죠?
+          오늘도 똑같은 원리입니다. 4차시에 만든 <b>Opal 앱</b>을 그대로 열어서, 장면 설명만 바꿔 가며
+          페이지별 그림을 자동으로 만들면 됩니다.
+        </p>
+      </div>
+
+      <ol class="steps" style="margin-top:16px">
+        <li>
+          <b>① 4차시에 만든 Opal 앱을 다시 엽니다</b>
+          <span class="note">앱이 잘 안 열리면 지난 시간처럼 제미나이 창에 같은 설명으로 대체하면 됩니다.</span>
+        </li>
+        <li>
+          <b>② 페이지별 장면을 한 줄로 정리합니다</b>
+          <span class="note">예: “1페이지 — 아이가 강아지와 처음 만나는 장면”처럼, 각 페이지에서 그림으로 보여줄 장면을 정합니다.</span>
+        </li>
+        <li>
+          <b>③ 스타일 문구를 모든 페이지에 똑같이 반복합니다</b>
+          <span class="note">아래 문구를 <b>토씨 하나 바꾸지 않고</b> 1~5페이지 모두에 반복해서 넣으면 책 전체 그림이 하나로 이어집니다.</span>
+          <div class="prompt">
+            <button class="copy-btn" type="button">복사</button>
+<span class="prompt-text">수채화 스타일, 따뜻한 색감의 동화 삽화를 만들어 줘.
+- 장면: (여기에 그 페이지 내용을 적어요)
+- 조건: 글자는 넣지 말고, 부드럽고 포근한 분위기로, 여백을 넉넉히</span>
+          </div>
+        </li>
+        <li>
+          <b>④ 이미지 저장하기</b>
+          <span class="note">
+            컴퓨터: 그림 위에서 마우스 오른쪽 클릭 → ‘이미지를 다른 이름으로 저장’ ·
+            스마트폰: 그림을 길게 누르기 → ‘이미지 저장’ ·
+            파일 이름은 ‘1페이지, 2페이지…’로 정리하면 다음 단계에서 찾기 쉽습니다.
+          </span>
+        </li>
+      </ol>
+    </div>
+
+    <!-- STEP 3: Canva 편집 -->
+    <div class="card" style="margin-top:20px">
+      <h3 style="font-size:1.15rem;font-weight:800">📐 STEP 3 — Canva 편집</h3>
+
+      <ol class="steps" style="margin-top:16px">
+        <li>
+          <b>① 전자책(ebook) 템플릿 고르기</b>
+          <span class="note">Canva 검색창에 <b>‘문서’</b> 또는 <b>‘전자책(ebook)’</b>을 검색해, 깔끔한 템플릿을 하나 고릅니다.</span>
+        </li>
+        <li>
+          <b>② 표지 만들기</b>
+          <span class="note">첫 장은 표지입니다. <b>책 제목</b>과 <b>지은이 이름(내 이름)</b>을 넣고, 가장 마음에 드는 삽화를 배경으로 올립니다.</span>
+          <div class="box box-tip" style="margin-top:10px">
+            <h4>💡 표지 한 줄</h4>
+            <p>“<b>지은이 ○○○</b>” — 이렇게 내 이름을 넣는 순간, 정말 내 책이 됩니다. 꼭 넣어 보세요.</p>
+          </div>
+        </li>
+        <li>
+          <b>③ 페이지별로 글 + 그림 배치하기</b>
+          <span class="note">
+            저장해 둔 삽화를 왼쪽 <b>[업로드 항목]</b>에 올린 뒤, 페이지마다 그림을 넣고
+            그 아래(또는 옆)에 STEP 1에서 완성한 원고 글을 붙여넣습니다. 1페이지 → 2페이지 순서로 채워 갑니다.
+          </span>
+        </li>
+        <li>
+          <b>④ 폰트·색상 통일하기</b>
+          <span class="note">글꼴은 1~2가지, 색은 2~3가지로 맞추면 훨씬 한 권의 책처럼 보입니다.</span>
+        </li>
+      </ol>
+    </div>
+
+    <!-- STEP 4: PDF 내보내기 -->
+    <div class="card" style="margin-top:20px">
+      <h3 style="font-size:1.15rem;font-weight:800">📕 STEP 4 — PDF로 내보내기</h3>
+
+      <ol class="steps" style="margin-top:16px">
+        <li><b>① 화면 오른쪽 위 ‘공유’ 버튼을 누릅니다</b></li>
+        <li><b>② 메뉴에서 ‘다운로드’를 고릅니다</b></li>
+        <li><b>③ 파일 형식에서 ‘PDF 표준’을 선택하고 다운로드를 누릅니다</b>
+          <span class="note">다운로드가 끝나면 저장된 위치(다운로드 폴더 등)를 확인해 주세요.</span></li>
+      </ol>
+    </div>
+
+    <!-- STEP 5 (선택): AI 성우 -->
+    <div class="card" style="margin-top:20px">
+      <div class="box box-info">
+        <h4>🎙️ STEP 5 (선택) — AI 성우 내레이션</h4>
+        <p>
+          여유가 있으신 분은 4차시에 살짝 소개해 드린 CLOVA Voice나 타입캐스트 같은 도구로
+          완성된 원고를 읽어 주는 <b>내레이션 음성</b>을 추가해 보셔도 좋습니다.
+          필수는 아니니, 시간이 남는 분만 즐겁게 도전해 보세요.
+        </p>
+      </div>
+    </div>
+
+    <!-- 안심 박스 -->
+    <div class="card" style="margin-top:20px">
+      <div class="box box-more" style="border-color:var(--mint)">
+        <h4>🌿 이만하면 완성입니다 — 최소 기준</h4>
+        <p>
+          <b>표지 1장 + 내지 3장</b>이면 훌륭한 책입니다! 페이지가 적어도, 그림이 완벽하지 않아도 괜찮습니다.
+          <b>‘완벽’보다 ‘완성’이 훨씬 값집니다.</b> 끝까지 만들어 낸 것만으로 이미 대단한 일입니다.
+        </p>
+      </div>
+    </div>
+
+    <!-- 결과물 발표회 -->
+    <div class="card" style="margin-top:20px">
+      <h3 style="font-size:1.15rem;font-weight:800">📣 결과물 발표회</h3>
+      <p style="color:var(--text-sub);margin-top:6px">
+        완성한 동화책의 <b>제목</b>과 <b>한 줄 소감</b>을 함께 나눠요.
+        “제 동화책은 ___이고, 만들면서 ___했습니다.” — 이렇게만 말씀해 주셔도 충분합니다. 마음껏 자랑해 주세요!
+      </p>
+    </div>
+
+    <!-- 1~5차시 도구 한 줄 복습 -->
+    <div class="card" style="margin-top:20px">
+      <h3 style="font-size:1.15rem;font-weight:800">🔁 1~5차시 전체 복습 — 도구 한 줄 정리</h3>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:14px;margin-top:16px">
+        <div class="box box-info" style="margin-top:0">
+          <h4>🎨 Canva</h4>
+          <p>카드뉴스부터 동화책 편집·PDF 완성까지, 처음부터 끝까지 함께한 디자인 도구.</p>
+        </div>
+        <div class="box box-info" style="margin-top:0">
+          <h4>💎 Google Gems</h4>
+          <p>매번 새로 쓰지 않아도 되는, 나만의 지침을 저장해 둔 자동화 봇.</p>
+        </div>
+        <div class="box box-info" style="margin-top:0">
+          <h4>🧩 Opal</h4>
+          <p>장면 설명만 바꾸면 같은 스타일 삽화가 나오는 나만의 이미지 자동화 앱.</p>
+        </div>
+        <div class="box box-info" style="margin-top:0">
+          <h4>🎬 Flow</h4>
+          <p>글로 설명하면 목소리까지 담긴 영상이 한 번에 만들어지는 도구.</p>
+        </div>
+      </div>
+      <div class="box box-tip" style="margin-top:16px">
+        <h4>🗝️ 잊지 말아요 — 좋은 프롬프트의 3기법</h4>
+        <p><b>역할 부여</b>(“당신은 ~작가입니다”) · <b>단계별 대화</b>(줄거리→초안→다듬기) · <b>스타일 반복</b>(같은 문구를 그대로 재사용). 이 세 가지면 어떤 AI 도구든 잘 다룰 수 있습니다.</p>
+      </div>
+    </div>
+
+    <!-- 실습 활동지 -->
+    <div class="worksheet">
+      <h3 style="font-size:1.1rem;font-weight:800;margin-bottom:16px">📝 5차시 실습 활동지 — 나의 동화책</h3>
+      <div class="ws-item">
+        <label>1. 내 동화책 제목 (가제도 좋아요)</label>
+        <div class="ws-line"></div>
+      </div>
+      <div class="ws-item">
+        <label>2. 동화 주제 (한 문장으로)</label>
+        <div class="ws-line"></div>
+      </div>
+      <div class="ws-item">
+        <label>3. 삽화 스타일 문구 (모든 페이지에 반복한 것)</label>
+        <div class="ws-line"></div>
+      </div>
+      <div class="ws-item">
+        <label>4. 완성한 소감 한 줄</label>
+        <div class="ws-line"></div>
+      </div>
+    </div>
+
+    <!-- O/X 퀴즈 전체 복습 -->
+    <div class="quiz" style="margin-top:24px">
+      <h3 style="font-size:1.1rem;font-weight:800">📝 O/X 퀴즈 — 2강 전체 복습!</h3>
+
+      <details>
+        <summary>Q1. AI에게 “당신은 따뜻한 동화 작가입니다”처럼 역할을 정해 주면 더 어울리는 글이 나온다.</summary>
+        <div class="answer"><b>정답: O</b> — 역할 부여는 글의 말투와 분위기를 원하는 쪽으로 이끄는 좋은 방법입니다.</div>
+      </details>
+
+      <details>
+        <summary>Q2. 책 전체 삽화를 같은 느낌으로 만들려면 스타일 문구를 페이지마다 다르게 써야 한다.</summary>
+        <div class="answer"><b>정답: X</b> — “수채화 스타일, 따뜻한 색감” 같은 문구를 모든 페이지에 똑같이 반복해야 통일감이 살아납니다.</div>
+      </details>
+
+      <details>
+        <summary>Q3. Canva에서 만든 동화책은 표지 1장과 내지 3장만 있어도 완성으로 인정할 수 있다.</summary>
+        <div class="answer"><b>정답: O</b> — 분량이 적어도 괜찮습니다. ‘완벽’보다 ‘완성’이 훨씬 값집니다.</div>
+      </details>
+    </div>
+
+    <!-- 🎊 수료 축하 섹션 -->
+    <div class="done-card" style="margin-top:28px;background:linear-gradient(135deg,#EAF7F5,#EEF1FE 55%,#F2EEFE);border-color:#BFE9E4;padding:36px 24px">
+      <div style="font-size:2.4rem">🎊</div>
+      <h3 style="font-size:1.35rem;margin-top:8px">여러분은 이제 AI로 동화책을 만든 작가입니다!</h3>
+      <p style="margin-top:10px;max-width:560px;margin-left:auto;margin-right:auto">
+        디자인 자동화 첫걸음부터 나만의 AI 동화책 PDF 완성까지, 다섯 번의 여정을 끝까지 걸어오셨습니다.
+        배운 것을 일상에서 즐겁게 이어 가시길 바랍니다. 진심으로 축하드립니다.
+      </p>
+      <p style="margin-top:14px;font-weight:800;color:var(--primary-dark)">🏅 생성형 AI 심화 2강 수료 · 파주교하도서관</p>
+    </div>
+
+    <!-- 목표 달성 카드 -->
+    <div class="goal" style="margin-top:20px">
+      <div class="icon">📖</div>
+      <h3>목표 달성! 나만의 AI 동화책 PDF 완성</h3>
+      <p>오늘 만든 동화책은 세상에 하나뿐인 여러분의 작품입니다. 정말 수고 많으셨어요.</p>
+    </div>
+
+  </div>
+</section>
+
+
+<footer>
+  <div class="wrap">
+    <div class="brand">COALAB · 코아랩</div>
+    <p>파주교하도서관 생성형 AI 심화 2강 · 2026</p>
+    <p>© 2026 코아랩 (COALAB) · 이 교재의 무단 복제 및 상업적 이용을 금합니다</p>
+  </div>
+</footer>
+
+<script>
+/* 프롬프트 복사 버튼 — 차시 섹션 삽입 후에도 자동 동작 */
+document.addEventListener('click', function(e){
+  var btn = e.target.closest('.copy-btn');
+  if(!btn) return;
+  var box = btn.closest('.prompt');
+  var text = box.querySelector('.prompt-text')
+           ? box.querySelector('.prompt-text').innerText
+           : box.innerText.replace(btn.innerText,'').trim();
+  navigator.clipboard.writeText(text).then(function(){
+    var old = btn.innerText;
+    btn.innerText = '복사됨 ✓';
+    btn.classList.add('ok');
+    setTimeout(function(){ btn.innerText = old; btn.classList.remove('ok'); }, 1500);
+  });
+});
+
+/* 스크롤에 따라 현재 차시 내비 강조 */
+var links = document.querySelectorAll('.nav a');
+window.addEventListener('scroll', function(){
+  var y = window.scrollY + 90, cur = '';
+  document.querySelectorAll('section[id]').forEach(function(s){
+    if(s.offsetTop <= y) cur = s.id;
+  });
+  links.forEach(function(a){
+    a.classList.toggle('on', a.getAttribute('href') === '#' + cur);
+  });
+});
+</script>
+</body>
+</html>
