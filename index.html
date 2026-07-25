@@ -1044,258 +1044,468 @@ footer p{opacity:.7;font-size:.85rem;margin-top:6px}
 
     <!-- ① 차시 헤더 -->
     <div class="lesson-head">
-      <span class="eyebrow">2강 · 3차시 · 7.25(토)</span>
+      <span class="eyebrow">2강 · 3차시 · 7.25(토) · 14:00~16:00</span>
       <h2>데이터 마법사 — 분석 차트 및 보고서</h2>
-      <p class="subtitle">복잡한 수식과 두꺼운 문서, AI에게 물어보면 훨씬 쉬워집니다.</p>
+      <p class="subtitle">수식 이름 몰라도 괜찮습니다. AI에게 "하고 싶은 것"을 말로 설명하면 — 수식·차트·보고서가 완성됩니다.</p>
     </div>
 
     <!-- ② 학습목표 -->
     <ul class="objectives">
-      <li>AI에게 물어서 엑셀 수식을 만들고, 오류가 나면 해결할 수 있습니다.</li>
-      <li>긴 PDF 문서를 AI로 한 페이지로 요약할 수 있습니다.</li>
-      <li>데이터를 차트로 시각화하고, AI의 해석 코멘트를 받을 수 있습니다.</li>
+      <li>함수 이름을 몰라도, "조건별로 합계를 내고 싶어요"처럼 말로 설명하면 AI가 수식을 만들어 주는 방법을 익힙니다.</li>
+      <li>실습 파일의 데이터를 차트와 보고서로 완성하고, AI가 써 준 해석 중 근거 없는 문장을 직접 찾아 수정할 수 있습니다.</li>
+      <li>PDF 문서를 AI에게 첨부해 핵심 내용을 표로 정리하고, 원하는 정보를 추가로 이어서 물어볼 수 있습니다.</li>
     </ul>
 
     <!-- ③ 이 차시 사용 도구 -->
     <div class="tools">
       <h4>이 차시에 사용하는 도구</h4>
       <div class="badges">
-        <span class="badge main">🔵 제미나이</span>
+        <span class="badge main">🔵 제미나이 (Gemini)</span>
         <span class="badge">⚫ ChatGPT</span>
         <span class="badge">📊 엑셀 · 구글 시트</span>
+        <span class="badge">📄 PDF 파일</span>
+        <span class="badge">📁 실습 예제 파일 (.xlsx)</span>
       </div>
     </div>
 
-    <!-- 개념: 오늘 다룰 4가지 -->
+    <!-- 오늘의 흐름 -->
     <div class="card" style="margin-top:24px">
-      <h3 style="font-size:1.15rem;font-weight:800">🧙 오늘의 데이터 마법 4가지</h3>
-      <p style="color:var(--text-sub);margin-top:6px">
-        수식 걱정, PDF 걱정 이제 그만! AI에게 <b>“무엇을 하고 싶은지”</b>만 말로 설명하면, 나머지는 AI가 해결해 줍니다.
-      </p>
-      <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-top:16px">
+      <h3 style="font-size:1.1rem;font-weight:800;margin-bottom:12px">🗺️ 오늘의 흐름 · 총 120분</h3>
+      <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:10px">
         <div style="background:var(--primary-soft);border-radius:var(--radius-sm);padding:14px;text-align:center">
-          <div style="font-size:1.4rem">🧮</div>
-          <div style="font-weight:800;font-size:.9rem;margin-top:6px;color:var(--primary-dark)">수식 만들기</div>
-        </div>
-        <div style="background:var(--warn-soft);border-radius:var(--radius-sm);padding:14px;text-align:center">
-          <div style="font-size:1.4rem">🛠️</div>
-          <div style="font-weight:800;font-size:.9rem;margin-top:6px;color:#B23A50">오류 해결</div>
-        </div>
-        <div style="background:var(--accent-soft);border-radius:var(--radius-sm);padding:14px;text-align:center">
-          <div style="font-size:1.4rem">📄</div>
-          <div style="font-weight:800;font-size:.9rem;margin-top:6px;color:#5B3FC4">PDF 요약</div>
+          <div style="font-size:1.3rem">🧮</div>
+          <div style="font-weight:800;font-size:.88rem;margin-top:6px;color:var(--primary-dark)">실습 파일로<br>수식 완성</div>
+          <div style="font-size:.78rem;color:var(--text-mute);margin-top:4px">35분</div>
         </div>
         <div style="background:var(--mint-soft);border-radius:var(--radius-sm);padding:14px;text-align:center">
-          <div style="font-size:1.4rem">📈</div>
-          <div style="font-weight:800;font-size:.9rem;margin-top:6px;color:#0E8F86">차트 시각화</div>
+          <div style="font-size:1.3rem">📈</div>
+          <div style="font-weight:800;font-size:.88rem;margin-top:6px;color:#0E8F86">한 장<br>대시보드</div>
+          <div style="font-size:.78rem;color:var(--text-mute);margin-top:4px">25분</div>
         </div>
+        <div style="background:var(--accent-soft);border-radius:var(--radius-sm);padding:14px;text-align:center">
+          <div style="font-size:1.3rem">📄</div>
+          <div style="font-weight:800;font-size:.88rem;margin-top:6px;color:#5B3FC4">PDF<br>인사이트 추출</div>
+          <div style="font-size:.78rem;color:var(--text-mute);margin-top:4px">25분</div>
+        </div>
+        <div style="background:var(--amber-soft);border-radius:var(--radius-sm);padding:14px;text-align:center">
+          <div style="font-size:1.3rem">✅</div>
+          <div style="font-weight:800;font-size:.88rem;margin-top:6px;color:#8A5C00">퀴즈·정리</div>
+          <div style="font-size:.78rem;color:var(--text-mute);margin-top:4px">25분</div>
+        </div>
+      </div>
+      <div class="box box-tip" style="margin-top:16px">
+        <h4>💡 오늘의 핵심 원칙</h4>
+        <p><b>"AI에게 무엇을 하고 싶은지만 설명 → 수식은 AI가 만들어 줌 → 결과는 내가 검산."</b><br>
+        함수 이름을 몰라도 전혀 괜찮습니다. <b>"프로그램별로 참석자 수를 더하고 싶어요"</b>처럼 하고 싶은 것을 말로 설명하면 AI가 알맞은 수식을 만들어 줍니다.</p>
       </div>
     </div>
 
-    <!-- 따라하기 1: 엑셀 수식 자동 생성 -->
+    <!-- 지난 차시 복습 -->
+    <div class="box box-info" style="margin-top:20px">
+      <h4>🔁 지난 차시(2차시) 짧은 복습 · 10분</h4>
+      <p>지난 시간엔 <b>Gems</b>·<b>ChatGPT 프로젝트</b>로 반복 지시를 저장하고, 동화풍 이미지의 <b>스타일 통일 문구</b>도 미리 연습했지요.<br>
+      오늘도 같은 원리 — <b>"한 번 잘 만든 프롬프트는 여러 데이터에 재사용된다."</b> 오늘 만든 수식 프롬프트도 Gem으로 저장해 두면 다음 분기에도 그대로 씁니다.</p>
+    </div>
+
+    <!-- 실습 파일 안내 -->
     <div class="card" style="margin-top:20px">
-      <h3 style="font-size:1.15rem;font-weight:800">✏️ 따라하기 1 — 엑셀 수식 자동 생성</h3>
-      <p style="color:var(--text-sub);margin-top:6px">
-        함수 이름을 몰라도 괜찮습니다. <b>“무엇을 계산하고 싶은지”</b>를 말로 설명하면 AI가 알맞은 수식을 만들어 줍니다.
-      </p>
+      <h3 style="font-size:1.1rem;font-weight:800">📁 오늘의 실습 파일 — 파주 교하도서관 프로그램 운영 데이터</h3>
+      <p style="color:var(--text-sub);margin-top:6px">배포된 <b>3차시_데이터마법사_실습예제_v2.xlsx</b> 파일을 열어 두세요. 시트 6개가 있으며 오늘 실습 순서대로 이동합니다.</p>
 
       <div class="table-scroll" style="margin-top:14px">
         <table>
           <thead>
-            <tr><th style="width:18%">함수</th><th style="width:32%">언제 쓰나요</th><th>예시 상황</th></tr>
+            <tr><th style="width:24%">시트 이름</th><th style="width:14%">색상</th><th>역할</th></tr>
           </thead>
           <tbody>
-            <tr><td><b>SUM</b></td><td>여러 칸의 숫자를 모두 더할 때</td><td>한 달 지출 항목을 모두 더한 합계 구하기</td></tr>
-            <tr><td><b>IF</b></td><td>조건에 따라 다른 결과를 보여줄 때</td><td>회비를 냈으면 “완료”, 안 냈으면 “미납” 표시하기</td></tr>
-            <tr><td><b>VLOOKUP</b></td><td>표에서 원하는 값을 찾아올 때</td><td>회원 이름으로 전화번호나 회비 납부 여부 찾아오기</td></tr>
+            <tr><td><b>사용안내</b></td><td>—</td><td>실습 순서·셀 색상 범례 설명</td></tr>
+            <tr><td><b>실습_원본</b></td><td>노란 셀</td><td>수식을 직접 입력할 칸 (K·L·M·N·O열)</td></tr>
+            <tr><td><b>집계_실습</b></td><td>노란 셀</td><td>조건별 합계·평균·건수 집계 시트</td></tr>
+            <tr><td><b>프로그램_기준표</b></td><td>—</td><td>목표 만족도·최소 참석률 기준이 정리된 표</td></tr>
+            <tr><td><b>실습_완성예시</b></td><td>초록 셀</td><td>정답 확인용 — 막히면 여기서 수식 확인</td></tr>
+            <tr><td><b>한장보고서</b></td><td>노란 셀</td><td>AI 해석 붙여넣기·직접 발견한 내용 기록</td></tr>
           </tbody>
         </table>
       </div>
 
+      <div class="box box-tip" style="margin-top:16px">
+        <h4>💡 셀 색상 의미</h4>
+        <p>
+          🔵 <b>파란 셀</b>: 항목명·제목 (수정 불필요) &nbsp;|&nbsp;
+          🟡 <b>노란 셀</b>: AI 수식을 붙여넣을 칸 &nbsp;|&nbsp;
+          🟢 <b>초록 셀</b>: 수식 결과 확인용 &nbsp;|&nbsp;
+          🟠 <b>주황 셀</b>: 주의 구간 (적자·미흡)
+        </p>
+      </div>
+    </div>
+
+    <!-- ============================================================
+         따라하기 1 — 수식 완성 (35분)
+         ============================================================ -->
+    <div class="card" style="margin-top:20px">
+      <h3 style="font-size:1.1rem;font-weight:800">✏️ 따라하기 1 — AI에게 수식 만들어 달라고 해보기 <span style="font-size:.85rem;color:var(--text-mute);font-weight:500">· 35분</span></h3>
+      <p style="color:var(--text-sub);margin-top:6px"><b>실습_원본 시트</b>를 열어 두세요. 노란색 셀(K·L·M열)이 오늘 직접 채울 칸입니다. 아래 프롬프트를 하나씩 AI에게 붙여넣고, AI가 만들어 준 수식을 그대로 복사해 노란 셀에 붙여넣으면 됩니다. 수식 이름은 몰라도 괜찮습니다.</p>
+
       <ol class="steps" style="margin-top:18px">
+
         <li>
-          <b>① 가계부 합계 수식 — SUM</b>
-          <span class="note">B2부터 B10까지 지출 금액이 있다고 가정한 예시입니다. 실제 내 표의 칸 번호로 바꿔서 물어보세요.</span>
+          <b>① K열 — 참석한 비율 계산하기</b>
+          <span class="note">몇 명을 신청받았는지(F열), 실제로 몇 명이 왔는지(G열)가 있습니다. "참석한 비율이 몇 %인지 계산해 줘"라고 AI에게 말로 부탁합니다. 아래 프롬프트를 그대로 복사해서 붙여넣으면 됩니다.</span>
           <div class="prompt">
             <button class="copy-btn" type="button">복사</button>
-<span class="prompt-text">엑셀(또는 구글 시트)에서 B2부터 B10까지 있는 지출 금액을
-모두 더하는 수식을 알려줘. 수식과 함께, 어느 칸에 입력하면 되는지도 설명해줘.</span>
+<span class="prompt-text">저는 엑셀(또는 구글 시트)을 잘 몰라서 도움이 필요해요.
+
+지금 열려 있는 표에서
+- F열: 신청자 수
+- G열: 실제 참석자 수
+가 있어요.
+
+"참석자 수 ÷ 신청자 수"를 계산해서
+K열에 자동으로 채워지도록 수식을 만들어 주세요.
+
+결과는 "75%" 같은 백분율로 보이면 좋겠어요.
+
+수식을 그대로 복사할 수 있게 알려주고,
+어떤 칸에 어떻게 붙여넣는지도 단계별로 쉽게 설명해 주세요.</span>
+          </div>
+          <div class="box box-tip" style="margin-top:10px">
+            <h4>💡 내 계산과 맞는지 확인해 보세요</h4>
+            <p>첫 번째 행(스마트폰 사진 · 도서관 홈페이지 · 1분기): F열 신청자 24명, G열 참석자 18명 → 18 ÷ 24 = <b>75%</b>. 수식 결과와 같은지 확인해 보세요. 다르다면 "결과가 75%가 아니라 이렇게 나왔어. 왜 그런 거야?"라고 AI에게 다시 물어보면 됩니다.</p>
           </div>
         </li>
 
         <li>
-          <b>② 회비 납부 여부 표시 — IF</b>
-          <span class="note">C열에 납부 금액이 있고, 10,000원 이상이면 “완료”로 표시하고 싶은 상황입니다.</span>
+          <b>② L열 — 수익 계산하고, 적자면 빨갛게 표시하기</b>
+          <span class="note">수입(H열)에서 비용(I열)을 뺀 값이 수익입니다. 마이너스(적자)인 칸은 자동으로 빨간색으로 보이면 한눈에 파악됩니다. "빨간색으로 표시해줘"처럼 말로 설명하면 AI가 클릭 순서까지 알려줍니다.</span>
           <div class="prompt">
             <button class="copy-btn" type="button">복사</button>
-<span class="prompt-text">엑셀에서 C2 칸의 회비 납부 금액이 10000 이상이면 "완료",
-그렇지 않으면 "미납"이라고 표시하는 IF 수식을 만들어줘.
-수식을 그대로 복사해서 쓸 수 있게 알려주고, 간단히 원리도 설명해줘.</span>
+<span class="prompt-text">저는 엑셀을 잘 몰라서 도움이 필요해요.
+
+지금 열려 있는 표에서
+- H열: 수입 금액
+- I열: 비용 금액
+이 있어요.
+
+"수입 - 비용"을 계산해서 L열에 자동으로 채워지도록 수식을 만들어 주세요.
+
+그리고 계산 결과가 마이너스(돈을 더 쓴 경우)일 때
+그 칸이 빨간색으로 표시되게 하고 싶어요.
+
+수식을 그대로 복사할 수 있게 알려주고,
+빨간색으로 바꾸는 방법도 클릭 순서대로 쉽게 알려주세요.</span>
           </div>
         </li>
 
         <li>
-          <b>③ 회원 이름으로 정보 찾아오기 — VLOOKUP</b>
-          <span class="note">모임 회원 명단표(A열: 이름, B열: 전화번호, C열: 회비 납부 여부)가 있다고 가정한 예시입니다.</span>
+          <b>③ M열 — 운영 등급 자동으로 매기기 (우수 / 보통 / 미흡)</b>
+          <span class="note">참석률(K열)과 수익(L열)을 함께 보고 "우수·보통·미흡"을 자동으로 판단해 주는 수식입니다. 조건이 두 개 겹쳐 있어서 조금 복잡하지만, 아래처럼 말로 기준을 설명하면 AI가 수식을 만들어 줍니다.</span>
           <div class="prompt">
             <button class="copy-btn" type="button">복사</button>
-<span class="prompt-text">엑셀에 회원 명단표가 있어. A열은 이름, B열은 전화번호, C열은 회비 납부 여부야.
-E2 칸에 이름을 입력하면 그 사람의 회비 납부 여부를 F2 칸에 자동으로
-찾아와 주는 VLOOKUP 수식을 만들어줘. 수식과 함께 사용법도 쉽게 설명해줘.</span>
+<span class="prompt-text">저는 엑셀을 잘 몰라서 도움이 필요해요.
+
+지금 표에
+- K열: 참석률 (0.75 같은 소수로 되어 있어요)
+- L열: 수익 금액 (마이너스면 적자)
+가 있어요.
+
+아래 기준으로 M열에 자동으로 등급을 매겨 주는 수식을 만들어 주세요.
+
+기준:
+- 참석률이 85% 이상이고, 수익도 플러스면 → "우수"
+- 참석률이 70% 이상이고, 수익도 플러스면 → "보통"
+- 그 외 나머지 (참석률이 낮거나 적자면) → "미흡"
+
+수식을 그대로 복사할 수 있게 알려주고,
+M열 전체에 한 번에 적용하는 방법도 단계별로 설명해 주세요.</span>
+          </div>
+          <div class="box box-more" style="margin-top:10px">
+            <h4>🎯 결과 확인 포인트</h4>
+            <p>완성예시 시트에서 <b>우수 8건 · 보통 15건 · 미흡 9건</b>이 나와야 합니다. 여행 글쓰기 프로그램처럼 적자이거나 참석률이 낮은 경우에 M열에 "미흡"이 나오면 수식이 잘 동작하는 겁니다. 숫자가 다르게 나오면 완성예시 시트를 열어 수식을 비교해 보세요.</p>
           </div>
         </li>
+
+        <li>
+          <b>④ N열 — 목표 만족도 자동으로 가져오기 <span style="font-size:.82rem;color:var(--accent);font-weight:600">· 심화</span></b>
+          <span class="note">프로그램_기준표 시트에 프로그램별 목표 만족도가 정리되어 있습니다. 프로그램 이름만 보고 해당 목표값을 자동으로 가져오는 수식입니다. "표에서 자동으로 찾아와 줘"라고 말로 설명해 봅니다.</span>
+          <div class="prompt">
+            <button class="copy-btn" type="button">복사</button>
+<span class="prompt-text">저는 엑셀을 잘 몰라서 도움이 필요해요.
+
+엑셀 파일에 시트가 두 개 있어요.
+- "실습_원본" 시트: C열에 프로그램 이름이 있어요 (예: 스마트폰 사진, 생성형 AI 입문 등)
+- "프로그램_기준표" 시트: B열에 프로그램 이름, C열에 목표 만족도 숫자가 있어요
+
+실습_원본의 N열에 수식을 만들어 주세요.
+C열의 프로그램 이름을 보고, 프로그램_기준표에서 그 프로그램의 목표 만족도를 자동으로 가져와서 N열에 표시되게 하고 싶어요.
+
+수식을 그대로 복사할 수 있게 알려주고,
+N열 전체에 어떻게 적용하는지도 단계별로 설명해 주세요.</span>
+          </div>
+        </li>
+
+        <li>
+          <b>⑤ O열 — 기준 충족 여부 판단하기 <span style="font-size:.82rem;color:var(--accent);font-weight:600">· 심화</span></b>
+          <span class="note">J열의 실제 만족도가 N열의 목표 만족도 이상이면 "충족", 아니면 "미충족"으로 자동 표시합니다.</span>
+          <div class="prompt">
+            <button class="copy-btn" type="button">복사</button>
+<span class="prompt-text">저는 엑셀을 잘 몰라서 도움이 필요해요.
+
+지금 표에
+- J열: 실제 만족도 점수 (예: 4.6, 4.2 같은 숫자)
+- N열: 프로그램별 목표 만족도 (방금 수식으로 채웠어요)
+가 있어요.
+
+O열에 아래 기준으로 자동으로 표시되는 수식을 만들어 주세요.
+- J열 값이 N열 값 이상이면 → "충족"
+- J열 값이 N열 값보다 작으면 → "미충족"
+
+수식을 그대로 복사할 수 있게 알려주고,
+O열 전체에 어떻게 적용하는지도 설명해 주세요.</span>
+          </div>
+        </li>
+
+        <li>
+          <b>⑥ 조건별 합계 집계 — <em>집계_실습</em> 시트로 이동</b>
+          <span class="note">"스마트폰 사진 프로그램만 골라서 신청자 수를 합산해줘"처럼 조건을 붙인 합계를 AI가 어떻게 수식으로 만들어 주는지 확인합니다. 조건이 1개일 때와 2개일 때를 차례로 해봅니다.</span>
+          <div class="prompt">
+            <button class="copy-btn" type="button">복사</button>
+<span class="prompt-text">저는 엑셀을 잘 몰라서 도움이 필요해요.
+
+엑셀 파일에 시트가 두 개 있어요.
+- "실습_원본" 시트: 프로그램별 운영 기록이 32행 있어요.
+  (B열=분기, C열=프로그램, D열=모집채널, F열=신청자, G열=참석자, H열=수입, I열=비용, K열=참석률, L열=수익이 있어요.)
+- "집계_실습" 시트: 지금 제가 작업하는 시트예요.
+
+"집계_실습" 시트에서 아래 내용을 계산하고 싶어요.
+
+1. "스마트폰 사진" 프로그램의 신청자 수 전체 합계
+2. "스마트폰 사진" 프로그램의 수익 전체 합계
+3. "스마트폰 사진" 프로그램의 평균 참석률
+4. "스마트폰 사진" 프로그램이 총 몇 번 운영됐는지
+
+다른 시트의 데이터를 가져오는 수식을 그대로 복사할 수 있게 알려주고,
+어느 칸에 붙여넣으면 되는지도 함께 설명해 주세요.</span>
+          </div>
+          <div class="box box-tip" style="margin-top:10px">
+            <h4>💡 수식이 이상하게 나왔다면?</h4>
+            <p>AI가 준 수식을 붙여넣었는데 결과가 0이거나 오류가 나도 당황하지 마세요. <b>"결과가 0으로 나왔어. 왜 그런지 알려줘"</b>라고 그대로 이어서 물어보면 AI가 원인을 찾아 줍니다.</p>
+          </div>
+        </li>
+
       </ol>
 
-      <div class="box box-tip">
-        <h4>💡 수식이 어렵게 느껴지신다면</h4>
+      <div class="box box-warn" style="margin-top:16px">
+        <h4>⚠️ 꼭 확인해요</h4>
         <p>
-          수식을 외우실 필요는 없습니다. <b>“무엇을 하고 싶은지”</b>만 자세히 설명하면 AI가 수식을 만들어 줍니다.
-          “B2부터 B10까지”처럼 <b>정확한 칸 번호(셀 주소)</b>를 함께 알려주면 훨씬 정확한 답을 받을 수 있어요.
+          • <b>AI 수식은 정답이 아니라 초안</b>입니다. 첫 번째 행 결과를 계산기로 한 번 더 맞춰 보는 습관이 중요합니다.<br>
+          • <b>결과가 0이거나 오류가 나면</b> 대부분 "이름 앞뒤에 보이지 않는 공백"이 원인입니다. "왜 0이 나오는지 이유를 찾아줘"라고 그대로 물어보세요.<br>
+          • <b>내 엑셀 버전을 함께 알려주세요</b> — "저는 엑셀 2016을 씁니다"처럼 버전을 함께 알려주면, 내 버전에서 쓸 수 있는 수식을 골라서 알려줍니다.<br>
+          • <b>실제 데이터에 개인정보가 있으면</b> 이름·연락처를 지운 뒤 AI에 붙이세요.
         </p>
       </div>
     </div>
 
-    <!-- 따라하기 2: 엑셀 오류 해결 -->
+    <!-- ============================================================
+         따라하기 2 — 한 장 대시보드 (25분)
+         ============================================================ -->
     <div class="card" style="margin-top:20px">
-      <h3 style="font-size:1.15rem;font-weight:800">✏️ 따라하기 2 — 엑셀 오류 메시지, AI로 해결하기</h3>
-      <p style="color:var(--text-sub);margin-top:6px">
-        칸에 <span style="color:var(--warn);font-weight:700">#N/A</span>, <span style="color:var(--warn);font-weight:700">#VALUE!</span> 같은
-        빨간 오류가 뜨면 당황스럽죠. 오류 메시지를 그대로 AI에게 보여주면 원인을 찾아 줍니다.
-      </p>
+      <h3 style="font-size:1.1rem;font-weight:800">✏️ 따라하기 2 — 한 장 대시보드 만들기 <span style="font-size:.85rem;color:var(--text-mute);font-weight:500">· 25분</span></h3>
+      <p style="color:var(--text-sub);margin-top:6px">실습 파일의 <b>한장보고서 시트</b>로 이동합니다. 방금 집계_실습에서 완성한 요약 숫자를 붙여넣고, AI에게 해석 코멘트를 받아 한 장 보고서를 완성합니다.</p>
 
-      <ol class="steps" style="margin-top:16px">
+      <ol class="steps" style="margin-top:18px">
+
         <li>
-          <b>① 오류가 뜬 칸과 수식을 그대로 복사합니다</b>
-          <span class="note">수식 입력줄에 보이는 내용을 그대로 복사하면 됩니다. (예: =VLOOKUP(E2,A2:C10,3,0))</span>
-        </li>
-        <li>
-          <b>② AI에게 오류 메시지와 수식을 함께 보여주고 물어봅니다</b>
+          <b>① AI에게 차트 종류 자문받기</b>
+          <span class="note">어떤 그래프를 그려야 할지 AI에게 먼저 자문을 받습니다.</span>
           <div class="prompt">
             <button class="copy-btn" type="button">복사</button>
-<span class="prompt-text">엑셀에서 아래 수식을 입력했는데 #N/A 오류가 떠.
-어디가 문제인지 확인하고, 고친 수식을 알려줘.
+<span class="prompt-text">파주 교하도서관 프로그램 운영 데이터로 관리자용 대시보드를 만들려고 합니다.
 
-수식: =VLOOKUP(E2,A2:C10,3,0)
+- 데이터: 4개 프로그램(스마트폰사진·AI입문·여행글쓰기·건강요리), 총 32건 운영
+- 보여줘야 할 것 3가지:
+  ① 프로그램별 총 수익 비교
+  ② 운영평가(우수·보통·미흡) 분포
+  ③ 프로그램별 평균 참석률
 
-상황: A열은 이름, B열은 전화번호, C열은 회비 납부 여부이고,
-E2 칸에는 "김영희"라고 이름을 입력했어.</span>
+각 항목에 가장 적합한 그래프 종류(막대/원/꺾은선)와 이유를 표로 정리해 주세요.
+엑셀에서 그리는 3단계 방법도 함께 알려 주세요.</span>
           </div>
         </li>
-        <li>
-          <b>③ AI가 알려준 고친 수식을 다시 넣어 확인합니다</b>
-          <span class="note">한 번에 해결되지 않아도 괜찮습니다. “여전히 안 돼”라고 이어서 말하면 다시 확인해 줍니다.</span>
-        </li>
-      </ol>
 
-      <div class="box box-more">
-        <h4>🎯 한 걸음 더 — 자주 만나는 오류 미리 알아두기</h4>
+        <li>
+          <b>② 엑셀에서 차트 만들기</b>
+          <span class="note">집계_실습 시트의 요약 표를 선택 → [삽입] → [추천 차트] 순으로 진행합니다.</span>
+          <div class="box box-tip" style="margin-top:10px">
+            <h4>🖱️ 엑셀 차트 3단계</h4>
+            <p>
+              <b>① 요약 표 선택</b> — 집계_실습 시트의 프로그램별 요약 표를 드래그<br>
+              <b>② [삽입] → [추천 차트]</b> — 또는 원하는 그래프 아이콘 클릭<br>
+              <b>③ 제목 수정</b> — "2026 상반기 프로그램 운영 성과"처럼 명확하게
+            </p>
+          </div>
+          <div class="box box-tip" style="margin-top:8px">
+            <h4>💡 색으로 표를 한눈에 보이게 만들기</h4>
+            <p>프로그램별 요약 표를 선택한 뒤 "높은 값은 초록, 낮은 값은 빨강으로 자동으로 색을 입혀줘"라고 AI에게 말하면 클릭 순서를 알려줍니다. 엑셀에서는 이 기능을 '조건부 서식'이라고 부르는데, 이름은 몰라도 결과를 말로 설명하면 됩니다.</p>
+          </div>
+        </li>
+
+        <li>
+          <b>③ AI 해석 코멘트 받고 검증하기</b>
+          <span class="note">한장보고서 시트의 ① KPI 카드와 ② 프로그램별 비교표에 집계_실습 결과를 붙여넣은 뒤, 아래 프롬프트로 AI 해석을 받습니다. 운영평가 분포(우수·보통·미흡 건수)는 실습_원본 M열을 직접 세어 입력하세요.</span>
+          <div class="prompt">
+            <button class="copy-btn" type="button">복사</button>
+<span class="prompt-text">아래 운영 데이터로 도서관 담당자 보고용 해석 리포트를 작성해 주세요.
+
+[프로그램별 총 수익]
+스마트폰 사진: 100,000원
+생성형 AI 입문: 270,000원
+여행 글쓰기: -10,000원 (적자)
+건강 요리: 50,000원
+
+[프로그램별 평균 참석률]
+스마트폰 사진: 79% / 생성형 AI 입문: 75% / 여행 글쓰기: 67% / 건강 요리: 90%
+
+[운영평가 분포]
+우수 8건 / 보통 15건 / 미흡 9건
+
+원하는 형식:
+1) 헤드라인 1문장 (담당자가 회의에서 그대로 말할 수 있는 결론)
+2) 핵심 흐름 3가지 (숫자 근거 필수, 한 문장씩)
+3) 눈에 띄는 이상 신호 2가지 + 각각의 가능한 원인 가설
+4) 다음 분기 실행 액션 3가지 (구체적)
+5) 다음 회의에서 확인해야 할 질문 3가지
+
+제약: 데이터에 없는 내용을 추측으로 채우지 말 것. 각 숫자의 출처를 명시.</span>
+          </div>
+          <div class="box box-warn" style="margin-top:10px">
+            <h4>⚠️ AI 해석 검증 체크리스트</h4>
+            <p>
+              AI가 준 코멘트에서 아래를 직접 확인해 삭제하세요:<br>
+              • <b>"아마도·추정·가능성·~때문에"</b> — 데이터에 없는 원인 추측일 확률 높음<br>
+              • <b>숫자가 원본과 다른 문장</b> — 예: 여행 글쓰기 수익을 "적자 약 5만원"으로 적었다면 원본(-10,000원)과 대조<br>
+              • <b>차트에 두 개 축이 있을 때</b> — 스케일 차이로 오해하기 쉬우니 수치를 직접 확인
+            </p>
+          </div>
+        </li>
+
+      </ol>
+    </div>
+
+    <!-- ============================================================
+         따라하기 3 — PDF 인사이트 추출 (25분)
+         ============================================================ -->
+    <div class="card" style="margin-top:20px">
+      <h3 style="font-size:1.1rem;font-weight:800">✏️ 따라하기 3 — PDF 인사이트 추출 <span style="font-size:.85rem;color:var(--text-mute);font-weight:500">· 25분</span></h3>
+      <p style="color:var(--text-sub);margin-top:6px">두꺼운 PDF를 처음부터 읽지 않아도 핵심 정보를 빠르게 뽑아낼 수 있습니다. 단순 "요약해줘"가 아니라 <b>정해진 구조</b>로 요청해야 실제로 쓸 수 있는 결과가 나옵니다.</p>
+
+      <div class="box box-info" style="margin-top:14px">
+        <h4>📄 오늘 실습에 사용할 PDF</h4>
         <p>
-          <b>#N/A</b> = 찾는 값이 표에 없음 · <b>#VALUE!</b> = 숫자여야 할 칸에 글자가 들어감 ·
-          <b>#REF!</b> = 참조하던 칸이 삭제됨. 오류 이름만 봐도 대략 무엇이 문제인지 짐작할 수 있습니다.
+          <b>삼일PwC 경영연구원 「2026년 산업 지도」</b> (2025년 12월 발간, 75쪽)<br>
+          AI·자동차·바이오·K컬처·방산·에너지·금융·반도체·조선 9개 산업의 현황·정책·전망을 한 권에 담은 리포트입니다.<br>
+          배포된 PDF 파일을 열어 두세요.
         </p>
+        <div class="box box-tip" style="margin-top:12px">
+          <h4>📎 PDF 첨부 방법</h4>
+          <p>
+            <b>제미나이:</b> 입력창 왼쪽 클립(📎) 아이콘 → 파일 업로드<br>
+            <b>ChatGPT:</b> 입력창 왼쪽 <b>+</b> → 파일 업로드<br>
+            업로드된 파일 이름이 표시되면 준비 완료입니다.
+          </p>
+        </div>
       </div>
-    </div>
 
-    <!-- 따라하기 3: PDF 요약 -->
-    <div class="card" style="margin-top:20px">
-      <h3 style="font-size:1.15rem;font-weight:800">✏️ 따라하기 3 — PDF 요약하기</h3>
-      <p style="color:var(--text-sub);margin-top:6px">
-        두꺼운 안내 자료나 회의 자료, 전체를 다 읽지 않아도 핵심만 뽑아낼 수 있습니다.
-      </p>
+      <ol class="steps" style="margin-top:18px">
 
-      <ol class="steps" style="margin-top:16px">
         <li>
-          <b>① 제미나이 또는 ChatGPT 입력창에 PDF 파일을 첨부합니다</b>
-          <span class="note">입력칸 옆 클립(📎) 아이콘을 눌러 파일을 올리거나, 파일을 화면으로 끌어다 놓으면 됩니다.</span>
-        </li>
-        <li>
-          <b>② 아래 프롬프트로 요약을 요청합니다</b>
+          <b>① 구조화된 인사이트 추출</b>
+          <span class="note">PDF 첨부 후 아래 프롬프트를 붙여넣으세요. "요약해줘"보다 훨씬 실무에 바로 쓸 수 있는 결과가 나옵니다.</span>
           <div class="prompt">
             <button class="copy-btn" type="button">복사</button>
-<span class="prompt-text">첨부한 PDF 문서의 내용을 한 페이지 분량으로 정리해줘.
-① 전체 핵심 요약 3줄
-② 꼭 알아야 할 세부 내용 목록
-③ 날짜·신청 방법 등 실행이 필요한 정보는 따로 표시해줘.
-어려운 용어는 쉬운 말로 풀어서 설명해줘.</span>
+<span class="prompt-text">방금 첨부한 PDF를 아래 형식으로 정리해 주세요.
+
+1) 이 문서가 어떤 내용을 다루는지 한 줄 설명
+2) 가장 중요한 숫자·날짜·키워드 5가지 (각각 몇 쪽에서 나왔는지 함께 표시)
+3) 9개 산업 중 2026년 성장이 가장 기대되는 분야 3가지와 이유 (쪽수 근거)
+4) 주목해야 할 정부 정책 3가지 (정책명 · 내용 · 관련 산업 · 쪽수)
+5) 이 문서를 처음 보는 사람에게 "이것만 알면 된다"는 핵심 한 문장
+
+규칙:
+- PDF에 없는 내용을 만들어내지 마세요
+- 모든 주장에 근거 쪽수를 표시해 주세요
+- 어려운 용어는 쉬운 말로 바꿔 주세요</span>
           </div>
         </li>
+
         <li>
-          <b>③ 궁금한 부분만 추가로 이어서 물어봅니다</b>
+          <b>② 내 관심 분야만 골라 깊게 파고들기</b>
+          <span class="note">1차 요약으로 끝내지 말고, 내가 관심 있는 산업이나 궁금한 부분을 이어서 물어봅니다. 카톡처럼 대화가 이어지니 편하게 물어보세요.</span>
           <div class="prompt">
             <button class="copy-btn" type="button">복사</button>
-<span class="prompt-text">방금 요약한 내용 중에서 신청 자격과 신청 방법 부분만
-더 자세하게 다시 설명해줘.</span>
+<span class="prompt-text">방금 요약해 준 내용 중에서 [관심 있는 분야]에 대해 더 자세히 알고 싶어요.
+
+(예시: "K-뷰티 부분에서 수출이 늘고 있다고 했는데, 어느 나라로 가장 많이 수출되고 있나요?")
+(예시: "반도체 슈퍼사이클이 뭔지 쉽게 설명해 주세요")
+(예시: "생성형 AI 관련 정부 정책이 우리 도서관 프로그램과 어떻게 연결될 수 있을지 아이디어를 주세요")
+
+PDF에 나온 내용을 근거로 설명해 주시고, 없는 내용은 "PDF에 명시되지 않음"이라고 표시해 주세요.</span>
           </div>
-          <span class="note">긴 문서를 처음부터 다시 읽을 필요 없이, 궁금한 부분만 골라 물어볼 수 있습니다.</span>
+          <div class="box box-more" style="margin-top:10px">
+            <h4>🎯 추가 실습 — 내가 가져온 PDF로도 해보기</h4>
+            <p>오늘 실습이 익숙해졌다면, 평소에 읽어야 하는 <b>내 업무·생활 관련 PDF</b>를 직접 첨부해서 같은 방법으로 요약해 보세요. 아래 중 하나를 선택해 다음 실습 때 가져와 도전해 보시면 좋습니다.</p>
+          </div>
         </li>
+
       </ol>
-    </div>
 
-    <!-- 따라하기 4: 차트 생성 -->
-    <div class="card" style="margin-top:20px">
-      <h3 style="font-size:1.15rem;font-weight:800">✏️ 따라하기 4 — 데이터를 차트로 만들고 해석 받기</h3>
-      <p style="color:var(--text-sub);margin-top:6px">
-        표에 늘어놓은 숫자보다, 그래프 하나가 한눈에 훨씬 잘 들어옵니다.
-      </p>
+      <!-- 직군별 추천 PDF -->
+      <div class="card" style="margin-top:16px;background:var(--primary-soft);border-color:#C9D2FA">
+        <h4 style="font-size:1rem;font-weight:800;color:var(--primary-dark)">📚 내 상황에 맞는 PDF 추천 — 직접 다운로드해서 도전해 보세요</h4>
+        <div class="table-scroll" style="margin-top:12px">
+          <table>
+            <thead>
+              <tr><th style="width:25%">상황·직군</th><th style="width:40%">추천 문서</th><th>다운로드 방법</th></tr>
+            </thead>
+            <tbody>
+              <tr><td><b>📚 학부모</b></td><td>교육부 학부모 가이드, 에듀넷 학습 자료, 학교 알리미 학교 현황 자료</td><td>에듀넷(edunet.net) 또는 학교알리미(schoolinfo.go.kr) 검색</td></tr>
+              <tr><td><b>💼 기획·전략</b></td><td>금융통화위원회 의사록 (한국은행)</td><td>bok.or.kr → 의사록 목록</td></tr>
+              <tr><td><b>⚖️ 구매·법무</b></td><td>건설업종 표준하도급계약서 (공정거래위원회)</td><td>ftc.go.kr → 표준하도급계약서</td></tr>
+              <tr><td><b>📊 마케팅·리서치</b></td><td>KDI 경제전망 보고서</td><td>kdi.re.kr → 경제전망</td></tr>
+              <tr><td><b>🏢 소상공인·자영업</b></td><td>소상공인시장진흥공단 지원사업 안내서</td><td>semas.or.kr 검색</td></tr>
+              <tr><td><b>🏛️ 누구나</b></td><td>파주시 주요 시정 소식지·보고서</td><td>paju.go.kr → 시정소식</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p style="margin:10px 0 0;font-size:13px;color:var(--text-mute)">모두 공개 자료이므로 AI에게 첨부해 분석해 보셔도 됩니다. 다만 개인정보나 기밀 내용이 포함된 파일은 AI에게 올리기 전에 해당 부분을 가려 주세요.</p>
+      </div>
 
-      <ol class="steps" style="margin-top:16px">
-        <li>
-          <b>① 표 데이터를 AI에게 붙여넣고 차트를 요청합니다</b>
-          <span class="note">가계부나 회비 납부 현황처럼, 이미 정리해 둔 표 데이터를 그대로 복사해서 붙여넣으면 됩니다.</span>
-          <div class="prompt">
-            <button class="copy-btn" type="button">복사</button>
-<span class="prompt-text">아래는 우리 모임 월별 회비 납부 현황이야. 이 데이터로
-한눈에 보기 좋은 막대그래프를 만들어줘.
-
-1월: 320,000원
-2월: 280,000원
-3월: 350,000원
-4월: 300,000원
-
-그래프와 함께, 이 데이터에서 눈에 띄는 특징이나 변화도
-2~3문장으로 짚어줘.</span>
-          </div>
-        </li>
-        <li>
-          <b>② AI의 해석 코멘트를 함께 확인합니다</b>
-          <span class="note">그래프만 보고 끝내지 말고, “가장 낮은 달은 언제고 왜 그런 것 같아?”처럼 이어서 물어보면 데이터를 더 깊이 이해할 수 있습니다.</span>
-        </li>
-        <li>
-          <b>③ 엑셀·구글 시트에서 직접 그래프로 옮기기</b>
-          <span class="note">표 데이터를 선택한 뒤 [삽입] → [차트]를 누르면, AI가 추천한 것과 비슷한 그래프를 내 문서에도 직접 만들 수 있습니다.</span>
-        </li>
-      </ol>
-    </div>
-
-    <!-- ⚠️ 꼭 확인해요 -->
-    <div class="card" style="margin-top:20px">
-      <div class="box box-warn">
-        <h4>⚠️ 꼭 확인해요 — AI가 계산한 숫자는 반드시 검산하세요</h4>
+      <div class="box box-warn" style="margin-top:14px">
+        <h4>⚠️ PDF 분석 시 반드시</h4>
         <p>
-          • AI가 만든 수식과 계산 결과는 <b>틀릴 수 있습니다.</b> 특히 금액·회비처럼 중요한 숫자는 직접 한 번 더 계산해서 확인하세요.<br>
-          • PDF 요약 내용도 <b>원문과 대조</b>해 보는 것이 안전합니다. 특히 날짜·금액·신청 조건은 꼭 원문에서 다시 확인하세요.<br>
-          • 회원 명단, 회비 내역처럼 <b>개인정보가 담긴 파일</b>은 AI에 올리기 전에 이름을 가리거나, 정말 필요한 경우에만 신중하게 사용하세요.
+          • <b>AI 환각</b>: PDF에 없는 내용을 그럴듯하게 만들어내는 경우가 있습니다. 중요한 숫자는 반드시 원문과 대조하세요.<br>
+          • <b>개인정보 포함 파일</b>: 이름·연락처·계좌번호 등이 있으면 해당 부분을 가린 뒤 업로드하세요.<br>
+          • <b>카메라로 찍은 PDF</b>: 글자를 잘못 읽는 경우가 생깁니다. 마우스로 글자를 드래그해서 선택할 수 있는 PDF가 더 정확합니다.
         </p>
       </div>
     </div>
 
     <!-- ⑧ 실습 활동지 -->
-    <div class="worksheet">
-      <h3 style="font-size:1.1rem;font-weight:800;margin-bottom:16px">📝 3차시 실습 활동지</h3>
+    <div class="worksheet" style="margin-top:20px">
+      <h3 style="font-size:1.1rem;font-weight:800;margin-bottom:16px">📝 3차시 실습 활동지 — 나만의 데이터 자동화 자산</h3>
       <div class="ws-item">
-        <label>1. 오늘 AI에게 만들어 달라고 한 수식 (함수 이름 + 어디에 썼는지)</label>
+        <label>1. 오늘 만든 수식 중 가장 유용했던 것 (어느 열에 넣었는지, 어떤 상황에 쓸 수 있는지)</label>
         <div class="ws-line"></div>
       </div>
       <div class="ws-item">
-        <label>2. 만났던 오류 메시지와 AI가 알려준 해결 방법</label>
+        <label>2. 집계_실습에서 발견한 사실 (예: 어느 프로그램이 수익이 가장 높았는지, 어느 채널이 가장 많이 운영됐는지)</label>
         <div class="ws-line"></div>
       </div>
       <div class="ws-item">
-        <label>3. PDF 요약에서 새롭게 알게 된 내용</label>
+        <label>3. 산업지도 PDF에서 새롭게 알게 된 내용 (어느 쪽에서 나온 내용인지 함께)</label>
         <div class="ws-line"></div>
       </div>
       <div class="ws-item">
-        <label>4. 오늘 만든 차트, 어떤 데이터를 시각화했나요?</label>
+        <label>4. AI 코멘트에서 "데이터에 없는 추측"이라고 판단해 삭제한 문장</label>
         <div class="ws-line"></div>
       </div>
     </div>
@@ -1305,27 +1515,158 @@ E2 칸에는 "김영희"라고 이름을 입력했어.</span>
       <h3 style="font-size:1.1rem;font-weight:800">📝 O/X 퀴즈 — 오늘 배운 것 확인해 봐요</h3>
 
       <details>
-        <summary>Q1. 엑셀 수식을 만들 때, 함수 이름을 몰라도 “무엇을 하고 싶은지”만 설명하면 AI가 수식을 만들어 줄 수 있다.</summary>
-        <div class="answer"><b>정답: O</b> — 원하는 계산 내용과 셀 주소를 자세히 설명하면 AI가 알맞은 수식을 알려줍니다.</div>
+        <summary>Q1. 엑셀에서 "특정 프로그램만 골라서 합계를 내줘"라고 AI에게 말로 설명하면, AI가 조건에 맞는 수식을 만들어 줄 수 있다.</summary>
+        <div class="answer"><b>정답: O</b> — 함수 이름을 몰라도 괜찮습니다. "어떤 조건의 데이터만 더하고 싶다"고 말로 설명하면, AI가 알맞은 수식을 만들어 줍니다. 수식을 받았을 때 첫 번째 행의 결과를 계산기로 한 번 맞춰 보는 습관이 중요합니다.</div>
       </details>
 
       <details>
-        <summary>Q2. AI가 계산해 준 숫자나 수식 결과는 검산 없이 그대로 사용해도 된다.</summary>
-        <div class="answer"><b>정답: X</b> — AI의 계산도 틀릴 수 있습니다. 특히 금액처럼 중요한 숫자는 반드시 직접 검산하세요.</div>
+        <summary>Q2. AI가 제안한 데이터 해석 코멘트에는 데이터에 없는 원인 추측이 섞일 수 있으므로, 실무 보고 전에 근거를 원문에서 재확인해야 한다.</summary>
+        <div class="answer"><b>정답: O</b> — AI는 그럴듯한 인과 추측을 자연스럽게 섞습니다. "아마도·추정·~때문에"가 등장하면 데이터에 없는 문장일 확률이 높으므로 반드시 검증하고 삭제하세요.</div>
       </details>
 
       <details>
-        <summary>Q3. 긴 PDF 문서는 전체를 다 읽지 않아도, AI에게 요약과 궁금한 부분만 골라 물어볼 수 있다.</summary>
-        <div class="answer"><b>정답: O</b> — 전체 요약을 먼저 받고, 궁금한 부분만 추가로 이어서 물어보면 효율적으로 확인할 수 있습니다.</div>
+        <summary>Q3. 글자를 카메라로 찍어서 만든 PDF(스캔본)는 컴퓨터로 만든 원본 PDF와 AI가 내용을 읽는 정확도가 같다.</summary>
+        <div class="answer"><b>정답: X</b> — 카메라로 찍은 PDF는 AI가 글자를 잘못 읽는 경우가 생깁니다. 컴퓨터에서 직접 저장한 PDF가 훨씬 정확합니다. 텍스트를 마우스로 드래그해서 선택할 수 있는 파일이라면 AI 분석도 잘 됩니다.</div>
       </details>
     </div>
 
-    <!-- ⑩ 완료 + 다음 차시 예고 -->
+    <!-- 🎁 추가 활동 — 독서 기록장 앱 만들기 -->
+    <div class="card" style="margin-top:20px;border:2px solid #D9D2FA;background:linear-gradient(135deg,var(--primary-soft) 0%,var(--accent-soft) 100%)">
+      <h3 style="font-size:1.1rem;font-weight:800;color:var(--primary-dark)">🎁 추가 활동 — AI에게 앱을 만들게 해봐요 · <em style="font-weight:500;font-size:.9rem">집에서 도전!</em></h3>
+      <p style="color:var(--text-sub);margin-top:6px">
+        오늘 배운 "말로 설명하면 AI가 만들어 준다"의 최종판입니다.
+        수식 한 줄이 아니라 <b>웹 앱 하나</b>를 통째로 만들어 봅니다.
+        프롬프트 복사 → ChatGPT/Gemini에 붙여넣기 → 코드 받기 → 구글 시트에 붙이기.
+        코드는 몰라도 됩니다.
+      </p>
+
+      <div class="box box-info" style="margin-top:16px">
+        <h4>📖 오늘 만들 앱 — 나만의 독서 기록장</h4>
+        <p>
+          책 제목·저자·읽은 날짜·별점·한줄 감상을 입력하면 <b>구글 시트에 자동으로 저장</b>되는 앱입니다.<br>
+          완성하면 스마트폰 브라우저에서도 열 수 있고, 가족과 링크를 공유할 수도 있습니다.
+        </p>
+        <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:14px">
+          <div style="background:#fff;border-radius:8px;padding:12px;text-align:center">
+            <div style="font-size:1.4rem">📱</div>
+            <div style="font-size:.82rem;font-weight:700;margin-top:4px;color:var(--primary-dark)">웹 앱 화면</div>
+            <div style="font-size:.78rem;color:var(--text-mute);margin-top:2px">책 정보 입력 폼</div>
+          </div>
+          <div style="background:#fff;border-radius:8px;padding:12px;text-align:center;font-size:1.4rem">→</div>
+          <div style="background:#fff;border-radius:8px;padding:12px;text-align:center">
+            <div style="font-size:1.4rem">📊</div>
+            <div style="font-size:.82rem;font-weight:700;margin-top:4px;color:var(--primary-dark)">구글 시트</div>
+            <div style="font-size:.78rem;color:var(--text-mute);margin-top:2px">자동 저장·목록</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 단계별 안내 -->
+      <h4 style="font-size:.98rem;font-weight:800;margin:20px 0 10px;color:var(--primary-dark)">🛠️ 만드는 순서 — 4단계</h4>
+      <ol class="steps" style="margin-top:0">
+
+        <li>
+          <b>구글 시트 새로 만들기</b>
+          <span class="note">
+            <b>sheets.google.com</b>에 접속 → [새 스프레드시트] → 이름을 <b>"나의 독서 기록장"</b>으로 변경합니다.<br>
+            시트 이름(탭)은 기본 "시트1"로 두면 됩니다.
+          </span>
+        </li>
+
+        <li>
+          <b>앱스 스크립트 편집기 열기</b>
+          <span class="note">
+            구글 시트 상단 메뉴 → <b>[확장 프로그램] → [Apps Script]</b> 클릭<br>
+            새 탭에 편집기 창이 열립니다. 왼쪽에 <b>Code.gs</b>와 편집창이 보이면 준비 완료입니다.
+          </span>
+          <div class="box box-tip" style="margin-top:8px">
+            <h4>💡 앱스 스크립트란?</h4>
+            <p>구글 시트 안에 내장된 프로그래밍 도구입니다. 여기에 AI가 만들어 준 코드를 붙여넣으면, 구글 시트가 "입력 폼이 있는 웹 앱"으로 변신합니다. 코드 내용을 이해하지 않아도 됩니다.</p>
+          </div>
+        </li>
+
+        <li>
+          <b>AI에게 코드 요청하기 → Code.gs에 붙여넣기</b>
+          <span class="note">아래 프롬프트를 ChatGPT 또는 제미나이에 붙여넣어 코드를 받으세요.</span>
+          <div class="prompt">
+            <button class="copy-btn" type="button">복사</button>
+<span class="prompt-text">구글 앱스 스크립트(Google Apps Script)로 독서 기록 웹 앱을 만들어 주세요.
+
+[앱 기능]
+- 웹 화면(HTML 폼)에서 아래 항목을 입력합니다:
+  · 책 제목
+  · 저자
+  · 읽은 날짜 (날짜 선택 달력 방식)
+  · 별점 (⭐ 1~5점 선택)
+  · 한줄 감상 (텍스트 입력)
+- [기록하기] 버튼을 누르면 구글 시트 "시트1"에 자동으로 한 줄이 추가됩니다.
+- 저장 성공 시 "기록되었습니다! 📚" 메시지가 화면에 표시됩니다.
+- 입력 폼은 깔끔하고 모바일에서도 잘 보이게 만들어 주세요.
+
+[출력 형식]
+파일이 두 개 필요합니다:
+1) Code.gs 파일 전체 코드
+2) Index.html 파일 전체 코드
+
+각 파일의 코드를 구분해서 보여주세요.
+앱스 스크립트를 처음 쓰는 사람이 어디에 어떤 코드를 붙여넣으면 되는지 단계별로 설명해 주세요.</span>
+          </div>
+          <span class="note" style="display:block;margin-top:10px">
+            AI가 코드 두 덩어리를 줍니다.<br>
+            • <b>Code.gs 코드</b> → 편집기에 이미 있는 기본 코드를 전부 지우고, AI 코드로 교체<br>
+            • <b>Index.html 코드</b> → 편집기 왼쪽 [+] 버튼 → [HTML 파일] → 이름을 <b>Index</b>로 → 안의 코드를 AI 코드로 교체
+          </span>
+        </li>
+
+        <li>
+          <b>배포해서 URL 받기</b>
+          <span class="note">
+            편집기 오른쪽 위 <b>[배포] → [새 배포]</b> 클릭<br>
+            유형: <b>웹 앱</b> 선택 → 액세스: <b>"모든 사용자"</b> 선택 → [배포] 클릭<br>
+            <b>"권한 허용"</b> 팝업이 나오면 내 구글 계정을 선택하고 허용합니다.<br>
+            ✅ <b>웹 앱 URL</b>이 나오면 완성! 이 주소를 복사해 스마트폰 브라우저에서 열어보세요.
+          </span>
+          <div class="box box-warn" style="margin-top:8px">
+            <h4>⚠️ "Google이 확인하지 않은 앱" 경고가 뜨면</h4>
+            <p>
+              내가 만든 앱이라 경고가 뜨는 건 정상입니다.<br>
+              [고급] → [안전하지 않은 페이지로 이동] 클릭하면 됩니다.
+            </p>
+          </div>
+        </li>
+
+      </ol>
+
+      <!-- 완성 후 확인 -->
+      <div class="box box-more" style="margin-top:16px">
+        <h4>🎯 완성 후 이렇게 확인해 보세요</h4>
+        <p>
+          앱 URL에서 책 한 권을 입력하고 [기록하기]를 누른 뒤,<br>
+          구글 시트로 돌아와 새로운 행이 추가됐는지 확인합니다.<br>
+          <b>잘 되면 → 가족·친구에게 URL을 공유해 같이 써 보세요!</b><br>
+          <br>
+          오늘 배운 "말로 설명하면 결과가 나온다"의 최종판입니다.
+          수식 한 줄이 아니라 앱 하나가 만들어졌습니다. 🎉
+        </p>
+      </div>
+
+      <!-- 비교 팁 -->
+      <div class="box box-tip" style="margin-top:10px">
+        <h4>💡 가계부·할 일 목록도 똑같이 만들 수 있어요</h4>
+        <p>
+          프롬프트에서 <b>"독서 기록" → "가계부 지출 입력"</b>으로만 바꾸면 가계부 앱이 됩니다.<br>
+          <b>"할 일 목록 + 완료 체크"</b>로 바꾸면 팀 업무 현황판이 됩니다.<br>
+          입력 항목을 말로 설명하기만 하면 어떤 앱이든 만들 수 있습니다.
+        </p>
+      </div>
+    </div>
+
+    <!-- ⑩ 완료 + 4차시 예고 -->
     <div class="done-card">
       <h3>🎉 3차시 완료!</h3>
-      <p>수식 걱정, 오류 걱정, 두꺼운 문서 걱정까지 — 오늘 모두 AI와 함께 가볍게 해결해 보았습니다. 정말 잘하셨어요!</p>
-      <p style="margin-top:10px"><b>다음 시간(4차시) 예고 — 멀티미디어 콘텐츠</b><br>
-        AI 성우(TTS)로 목소리를 만들고, 나만의 1분 자기소개 쇼츠 영상을 완성해 봅니다.</p>
+      <p>수식 완성·한 장 대시보드·PDF 인사이트까지 — 오늘 만든 프롬프트를 <b>Gem·프로젝트에 저장</b>해 두면, 다음 분기 데이터에도 그대로 재사용됩니다. 오늘의 진짜 산출물은 <b>"내 실무 자동화 자산"</b>입니다.</p>
+      <p style="margin-top:10px"><b>다음 시간(4차시) 예고 — 이미지·영상 자동화 (Opal &amp; Flow)</b><br>
+        구글 <b>Opal</b>로 이미지 생성 미니 앱을 만들고, <b>Flow</b>로 대사·음성이 포함된 1분 자기소개 쇼츠를 완성합니다. 오늘의 "말로 설명하면 결과가 나온다"가 그대로 이어집니다.</p>
     </div>
 
   </div>
