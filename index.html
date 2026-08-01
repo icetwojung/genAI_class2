@@ -1681,14 +1681,14 @@ PDF에 나온 내용을 근거로 설명해 주시고, 없는 내용은 "PDF에 
     <div class="lesson-head">
       <span class="eyebrow">2강 · 4차시 · 8.1(토)</span>
       <h2>이미지·영상 자동화 — Opal &amp; Flow</h2>
-      <p class="subtitle">오늘 만든 그림 자동화 앱, 다음 주 동화책 삽화에 그대로 다시 쓰게 됩니다.</p>
+      <p class="subtitle">말로 설명하면 나만의 앱이 뚝딱! 오늘 만든 동화책 삽화 앱은 다음 주에 그대로 다시 씁니다.</p>
     </div>
 
     <!-- ② 학습목표 -->
     <ul class="objectives">
-      <li>Opal로 이미지 생성을 자동화하는 미니 앱을 만들 수 있습니다.</li>
-      <li>Flow로 음성이 포함된 1분 자기소개 쇼츠 영상을 만들 수 있습니다.</li>
-      <li>도구에 문제가 생겨도 대안 방법으로 실습을 이어갈 수 있습니다.</li>
+      <li>Opal이 무엇인지 이해하고, 남이 만든 앱(애니멀 쇼츠)을 열어 함께 실행할 수 있습니다.</li>
+      <li>Opal로 동화책 삽화를 그려 주는 나만의 미니 앱을 직접 만들 수 있습니다.</li>
+      <li>Flow로 짧은 영상을 만들고, 크레딧을 아껴 쓸 수 있습니다.</li>
     </ul>
 
     <!-- ③ 이 차시 사용 도구 -->
@@ -1705,121 +1705,280 @@ PDF에 나온 내용을 근거로 설명해 주시고, 없는 내용은 "PDF에 
     <!-- 오늘의 흐름 카드 -->
     <div class="card" style="margin-top:24px">
       <h3 style="font-size:1.15rem;font-weight:800">🗺️ 오늘의 흐름</h3>
-      <div style="display:grid;grid-template-columns:1fr auto 1fr;gap:12px;align-items:center;margin-top:18px">
-        <div style="background:var(--primary-soft);border-radius:var(--radius-sm);padding:18px;text-align:center">
-          <div style="font-size:1.6rem">🧩</div>
-          <div style="font-weight:800;margin-top:6px;color:var(--primary-dark)">Opal로 그림 자동화</div>
-          <div style="font-size:.86rem;color:var(--text-sub);margin-top:4px">나만의 이미지 생성 미니 앱 만들기</div>
+      <div style="display:grid;grid-template-columns:1fr auto 1fr auto 1fr;gap:10px;align-items:center;margin-top:18px">
+        <div style="background:var(--primary-soft);border-radius:var(--radius-sm);padding:16px;text-align:center">
+          <div style="font-size:1.5rem">🐾</div>
+          <div style="font-weight:800;margin-top:6px;color:var(--primary-dark)">애니멀 쇼츠 체험</div>
+          <div style="font-size:.82rem;color:var(--text-sub);margin-top:4px">남이 만든 앱 열어 실행해 보기</div>
         </div>
-        <div style="text-align:center;color:var(--text-mute);font-size:1.4rem">→</div>
-        <div style="background:var(--accent-soft);border-radius:var(--radius-sm);padding:18px;text-align:center">
-          <div style="font-size:1.6rem">🎬</div>
-          <div style="font-weight:800;margin-top:6px;color:#5B3FC4">Flow로 영상 완성</div>
-          <div style="font-size:.86rem;color:var(--text-sub);margin-top:4px">1분 자기소개 쇼츠 만들기</div>
+        <div style="text-align:center;color:var(--text-mute);font-size:1.3rem">→</div>
+        <div style="background:var(--primary-soft);border-radius:var(--radius-sm);padding:16px;text-align:center">
+          <div style="font-size:1.5rem">🧩</div>
+          <div style="font-weight:800;margin-top:6px;color:var(--primary-dark)">동화책 삽화 앱 만들기</div>
+          <div style="font-size:.82rem;color:var(--text-sub);margin-top:4px">나만의 이미지 앱 직접 제작</div>
+        </div>
+        <div style="text-align:center;color:var(--text-mute);font-size:1.3rem">→</div>
+        <div style="background:var(--accent-soft);border-radius:var(--radius-sm);padding:16px;text-align:center">
+          <div style="font-size:1.5rem">🎬</div>
+          <div style="font-weight:800;margin-top:6px;color:#5B3FC4">Flow로 영상 만들기</div>
+          <div style="font-size:.82rem;color:var(--text-sub);margin-top:4px">짧은 영상 완성해 보기</div>
         </div>
       </div>
       <div class="box box-info" style="margin-top:18px">
         <p>
-          <b>Flow는 영상과 목소리를 한 번에 만들어 줍니다.</b> 그래서 오늘은 성우 앱을 따로 배우지 않아요.
-          장면과 대사를 글로 설명하기만 하면, 목소리가 입혀진 영상이 그대로 완성됩니다.
+          <b>오늘의 핵심은 “말로 설명하면 결과가 나온다”입니다.</b>
+          Opal은 말로 앱을 만들고, Flow는 말로 영상을 만듭니다. 코딩은 전혀 하지 않아요. 천천히 따라오시면 됩니다.
         </p>
       </div>
     </div>
 
-    <!-- 따라하기 1: Opal -->
+    <!-- Opal이란 무엇인가 (개념) -->
     <div class="card" style="margin-top:20px">
-      <h3 style="font-size:1.15rem;font-weight:800">✏️ 따라하기 1 — Opal로 이미지 자동화 미니 앱 만들기</h3>
+      <h3 style="font-size:1.15rem;font-weight:800">🧩 Opal이 무엇인가요?</h3>
+      <div class="box box-info" style="margin-top:12px">
+        <p>
+          Opal은 <b>“어떤 일을 자동화하고 싶은지” 말(글)로 설명하면, 그 과정을 하나의 ‘미니 앱’으로 만들어 주는
+          구글의 노코드(코딩이 필요 없는) AI 도구</b>입니다.
+          제미나이·ChatGPT가 질문에 <b>대답</b>을 해 준다면, Opal은 그 과정을 <b>실행 가능한 앱</b>으로 완성해 준다는 점이 다릅니다.
+        </p>
+      </div>
+
+      <div class="steps" style="margin-top:16px">
+        <ul style="list-style:none;padding:0;margin:0;display:grid;gap:10px">
+          <li class="box box-tip" style="margin:0">
+            <b>말로 만들기</b> — “동화 장면을 그려 주는 앱을 만들어줘”처럼 말하듯 입력하면, 입력 → 생성 → 출력 과정을 알아서 이어 붙여 줍니다.
+          </li>
+          <li class="box box-tip" style="margin:0">
+            <b>블록(노드)으로 보이기</b> — 작업 흐름이 <b>입력 ➔ 생성 ➔ 출력</b> 블록으로 화면에 그려집니다. 블록을 눌러 세부 내용을 쉽게 고칠 수 있어요.
+          </li>
+          <li class="box box-tip" style="margin:0">
+            <b>구글 AI 총집합</b> — 글(제미나이), 이미지, 영상 등 여러 구글 AI를 한 앱 안에서 함께 씁니다.
+          </li>
+          <li class="box box-tip" style="margin:0">
+            <b>링크로 공유·리믹스</b> — 완성한 앱은 <b>URL 링크</b> 하나로 바로 공유됩니다. 남이 만든 앱을 복사해 내 것으로 고치는 것(리믹스)도 됩니다.
+          </li>
+        </ul>
+      </div>
+
+      <div class="box box-info" style="margin-top:14px">
+        <h4>💳 이용 안내 (무료)</h4>
+        <p>
+          <b>일반 구글 계정이면 누구나 무료로 사용</b>할 수 있습니다(한국 포함). 앱 안에서 작동하는 AI는
+          <b>내 구글 계정의 기본 AI 제공량을 나눠 쓰기</b> 때문에, 너무 여러 번 반복 실행하면 잠시 제한이 걸릴 수 있어요.
+          아직 <b>구글 랩스의 실험(베타) 단계</b>라 화면 구성이 종종 바뀔 수 있으니, 오늘 화면과 조금 달라 보여도 당황하지 마세요.
+        </p>
+      </div>
+    </div>
+
+    <!-- 따라하기 1: 애니멀 쇼츠 예제 실행 -->
+    <div class="card" style="margin-top:20px">
+      <h3 style="font-size:1.15rem;font-weight:800">✏️ 따라하기 1 — 애니멀 쇼츠 예제 함께 실행하기</h3>
 
       <div class="box box-info" style="margin-top:12px">
-        <h4>🧩 Opal이란 무엇인가요?</h4>
         <p>
-          <b>장면 설명만 바꿔 넣으면, 같은 스타일의 그림이 자동으로 나오는 나만의 앱</b>입니다.
-          한 번 앱을 만들어 두면, 매번 긴 프롬프트를 다시 쓰지 않고도 원하는 스타일의 그림을 계속 얻을 수 있습니다.
+          앱을 직접 만들기 전에, <b>남이 만들어 둔 앱을 먼저 열어 실행</b>해 봅니다.
+          Opal이 어떻게 움직이는지 눈으로 보면, 다음에 내가 만들 때 훨씬 쉬워집니다.
         </p>
       </div>
 
       <ol class="steps" style="margin-top:18px">
         <li>
-          <b>STEP 1. opal.withgoogle.com 접속 → 구글 계정 로그인</b>
-          <span class="note">2차시에 쓰던 구글 계정을 그대로 사용하시면 됩니다.</span>
-        </li>
-
-        <li>
-          <b>STEP 2. 자연어로 앱 설명 입력하기</b>
-          <span class="note">Opal에게 “어떤 앱을 만들고 싶은지”를 말로 설명합니다. 아래 문장을 그대로 입력해 보세요.</span>
+          <b>STEP 1. 아래 링크 열기 → 구글 계정 로그인</b>
+          <span class="note">강사가 채팅창(또는 화면)으로 링크를 공유해 드립니다. 그대로 열어 주세요.</span>
           <div class="prompt">
             <button class="copy-btn" type="button">복사</button>
-<span class="prompt-text">수채화 스타일, 따뜻한 색감으로 동화 장면을 그려주는
-이미지 생성 앱을 만들어줘. 입력한 장면 설명을 바탕으로
-그림을 자동으로 그려줘.</span>
+<span class="prompt-text">https://opal.google/edit/1Q7BCMlTYtwwyRwoj3PbqE9XXCk_yVNGE</span>
           </div>
         </li>
 
         <li>
-          <b>STEP 3. 만들어진 앱 실행 → 장면 설명 입력해서 테스트</b>
-          <span class="note">앱이 완성되면, 입력창에 아래처럼 장면 하나를 적어 테스트해 봅니다.</span>
-          <div class="prompt">
-            <button class="copy-btn" type="button">복사</button>
-<span class="prompt-text">숲속에서 토끼와 거북이가 인사하는 장면</span>
-          </div>
+          <b>STEP 2. 화면의 블록(입력 ➔ 생성 ➔ 출력) 살펴보기</b>
+          <span class="note">이 앱이 어떤 순서로 움직이는지 블록을 눈으로 따라가 봅니다. 아직 고치지 않아도 괜찮아요.</span>
         </li>
 
         <li>
-          <b>STEP 4. 장면만 바꿔가며 2~3장 더 생성해 보기</b>
+          <b>STEP 3. 실행(Run) 눌러 결과 만들어 보기</b>
+          <span class="note">입력칸을 채우고 실행 버튼을 누르면 결과가 나옵니다. 어떤 결과가 나오는지 함께 확인해요.</span>
+        </li>
+
+        <li>
+          <b>STEP 4. ‘리믹스’로 내 것으로 복사해 보기</b>
+          <span class="note">마음에 들면 복사(리믹스)해서 내 계정에 저장할 수 있습니다. 이렇게 남의 앱을 가져와 고쳐 쓰는 것이 Opal의 큰 장점이에요.</span>
+        </li>
+      </ol>
+
+      <div class="box box-warn">
+        <h4>🛟 안심 박스 — 링크가 안 열려도 괜찮아요!</h4>
+        <p>
+          링크가 열리지 않거나 로그인이 막혀도 당황하지 마세요.
+          <b>강사 화면으로 함께 실행 과정을 보여드립니다.</b> 눈으로 보는 것만으로도 충분히 이해할 수 있어요.
+        </p>
+      </div>
+    </div>
+
+    <!-- 따라하기 2: 동화책 삽화 앱 만들기 -->
+    <div class="card" style="margin-top:20px">
+      <h3 style="font-size:1.15rem;font-weight:800">✏️ 따라하기 2 — 동화책 삽화 앱 직접 만들기</h3>
+
+      <div class="box box-info" style="margin-top:12px">
+        <h4>🖼️ 이런 앱을 만듭니다 — “나만의 동화책 그림”</h4>
+        <p>
+          <b>그리고 싶은 장면을 글로 설명</b>하고, 원하는 <b>그림체 이미지를 한 장 올리면</b>,
+          그 그림체 느낌으로 <b>새 동화책 삽화 한 장을 그려 주는 앱</b>입니다.
+          한 번 만들어 두면, 장면 설명만 바꿔 가며 <b>같은 화풍의 그림을 계속</b> 얻을 수 있어요.
+        </p>
+      </div>
+
+      <ol class="steps" style="margin-top:18px">
+        <li>
+          <b>STEP 1. opal.google 접속 → 구글 계정 로그인 → 새 앱 만들기</b>
+          <span class="note">따라하기 1과 같은 구글 계정을 그대로 쓰시면 됩니다.</span>
+        </li>
+
+        <li>
+          <b>STEP 2. 아래 ‘앱 설계서’를 통째로 복사해 붙여넣기</b>
           <span class="note">
-            같은 스타일로 다른 장면들도 만들어 보세요. 예: “호숫가에서 오리 가족이 헤엄치는 장면”,
-            “나무 위에서 다람쥐가 도토리를 모으는 장면”처럼 장면 설명만 바꿔서 입력하면 됩니다.
+            내용이 길지만 <b>직접 타이핑할 필요 없이 복사 버튼만 누르면</b> 됩니다.
+            이 설계서를 Opal에 붙여넣으면, 장면과 그림체를 나눠 처리하는 앱이 자동으로 만들어집니다.
+          </span>
+
+          <details style="margin-top:12px;border:1px solid var(--line,#e7ddcf);border-radius:var(--radius-sm,12px);overflow:hidden">
+            <summary style="cursor:pointer;padding:14px 16px;font-weight:800;color:var(--primary-dark);background:var(--primary-soft)">
+              📋 동화책 삽화 앱 설계서 펼치기 / 접기 (복사용)
+            </summary>
+            <div style="padding:12px">
+              <div class="prompt">
+                <button class="copy-btn" type="button">복사</button>
+<span class="prompt-text">사용자가 작성한 장면 설명과 업로드한 그림체 참조 이미지를 바탕으로 어린이 동화책 한 페이지용 삽화를 생성하는 미니 앱을 만들어 주세요.
+
+앱 이름: 나만의 동화책 그림
+앱 설명: 사용자가 주인공, 배경과 상황을 설명하고 원하는 그림체가 담긴 이미지를 업로드하면, 장면 설명에 충실하면서 참조 이미지의 일반적인 화풍만 반영한 새로운 동화책 삽화를 생성합니다.
+
+[핵심 작동 원칙]
+- Scene Description은 최종 그림에 무엇을 그릴지 결정합니다.
+- Style Reference는 최종 그림을 어떻게 표현할지 참고하는 용도로만 사용합니다.
+- Style Reference 원본 이미지를 최종 이미지 생성 단계에 직접 전달하지 마세요.
+- Style Reference 이미지는 먼저 별도의 분석 단계를 거쳐 텍스트 스타일 설명으로 변환하세요.
+- 최종 이미지 생성 단계에는 Scene Description과 텍스트로 변환된 Style Analysis만 전달하세요.
+- 참조 이미지의 인물, 동물, 사물, 배경, 행동 또는 구도를 최종 그림에 복사하지 마세요.
+- Scene Description과 Style Analysis가 충돌하면 항상 Scene Description을 우선하세요.
+
+워크플로를 다음 5단계로 구성하세요.
+1. Scene Description
+2. Style Reference
+3. Analyze Illustration Style
+4. Generate New Storybook Illustration
+5. Display Result
+
+[1단계: Scene Description]
+사용자가 새롭게 그리고 싶은 장면을 한국어로 입력할 수 있는 긴 텍스트 입력란을 만드세요.
+입력 항목 이름: 장면 설명
+사용자가 주인공(종류와 정확한 수), 생김새(색·크기·특징), 옷차림, 표정, 행동, 배경, 계절과 날씨, 시간대와 조명, 주변 사물, 전체 분위기를 자유롭게 작성하도록 하세요.
+입력창 안내 문구: “그리고 싶은 장면을 자세히 설명해 주세요. 예: 노란 원피스를 입은 작은 흰 토끼가 봄날의 꽃밭에서 초록색 조끼를 입은 거북이에게 반갑게 인사하고 있어요.”
+Scene Description은 필수 입력으로 설정하세요.
+Scene Description이 등장인물의 종류와 수, 생김새, 옷차림과 소품, 표정과 행동, 배경과 장소, 계절과 날씨, 시간대와 조명, 주변 사물, 장면 구성을 전적으로 결정합니다.
+
+[2단계: Style Reference]
+사용자가 원하는 그림체가 담긴 이미지 한 장을 업로드할 수 있는 이미지 파일 입력을 만드세요.
+입력 항목 이름: 참조할 그림체
+허용 형식: JPG, JPEG, PNG / 업로드 수: 1장 / 선택 사항.
+입력 안내 문구: “원하는 그림체가 담긴 참조 이미지를 올려 주세요. 이미지의 미술 재료, 색감, 선, 질감과 분위기만 참고합니다.”
+업로드 시 작은 미리보기를 표시하세요.
+참조 이미지가 없어도 정상 작동해야 하며, 없을 때는 부드러운 수채화·색연필 선·따뜻한 파스텔·자연스러운 종이 질감의 어린이 그림책 스타일을 기본 적용하세요.
+입력 화면 아래에 “동화책 그림 만들기” 버튼을 표시하세요.
+
+[3단계: Analyze Illustration Style]
+Style Reference 이미지의 화풍만 분석하는 별도의 멀티모달 텍스트 생성 단계를 만드세요. (이미지 새로 생성 금지, 출력은 Text)
+프롬프트: “업로드한 이미지는 새로운 그림의 화풍을 분석하기 위한 참고 자료입니다. 이미지에 무엇이 그려져 있는지는 분석하지 마세요. 인물·캐릭터·동물·사물·의상·배경·장소·행동·포즈·구도를 설명하지 마세요. ‘어떻게 표현되어 있는지’만 분석하세요. 다음 항목을 특정 작품을 재현할 수 없는 일반적 설명문으로 작성하세요 — 미술 재료와 기법, 붓 터치와 채색 방식, 색 번짐과 혼합, 선의 유무·굵기·형태, 색상 팔레트, 채도와 밝기, 명암과 조명, 종이/캔버스 질감, 형태 단순화 정도, 얼굴·표정의 일반적 표현, 배경 묘사 밀도, 전체 정서와 분위기, 여백 사용. 인물의 정체성·수, 동물 종류, 옷차림, 사물, 배경 장소, 행동, 포즈, 장면 구성, 카메라 위치, 글자·제목·로고·서명·워터마크는 제외하세요. 고유한 캐릭터명·작품명·작가명을 쓰지 마세요. 150단어 이내로, 다음 형식으로 출력하세요 — 미술 재료: / 선 표현: / 채색 방식: / 색상: / 질감: / 명암과 조명: / 형태 표현: / 배경 묘사: / 분위기: / 여백 사용:”
+참조 이미지가 없으면 기본 스타일 설명(부드러운 수채화·색연필 윤곽선·투명한 겹침·따뜻한 파스텔·자연스러운 종이 질감·부드러운 자연광·둥근 형태·낮은 밀도의 배경·포근한 분위기·넓은 여백)을 출력하세요.
+
+[4단계: Generate New Storybook Illustration]
+완전히 새로운 동화책 삽화를 생성하는 이미지 생성 단계를 만드세요. (이미지 생성 모델 사용, 출력은 Image)
+이 단계에는 (1) Scene Description 텍스트, (2) Analyze Illustration Style 텍스트, 이 둘만 전달하세요. Style Reference 원본 이미지는 절대 연결하지 마세요.
+연결: Scene Description → Generate / Style Reference → Analyze / Analyze → Generate / Generate → Display 만 사용.
+프롬프트 요지: “사용자의 장면 설명을 바탕으로 완전히 새로운 어린이 동화책 한 페이지용 삽화 한 장을 생성하세요. 장면 내용은 반드시 Scene Description만 따르고, Style Analysis는 미술 재료·선·채색·색감·질감·분위기 결정에만 사용하세요. 둘이 충돌하면 Scene Description을 최우선. 등장인물의 종류·수·생김새·옷차림·표정·행동·배경·계절·시간대·사물·분위기를 정확히 반영하되, 없는 인물·사물을 추가하지 말고 인물 수를 정확히 유지하세요. 주인공과 주요 사물은 전체의 약 30~40%를 차지하게, 신체·손발·눈·귀·꼬리가 왜곡되지 않게 하세요. 세로형 3:4 비율로, 가장자리 약 5% 안전 여백을 두고 중요한 요소가 잘리지 않게 하세요. 이미지 위쪽 약 35%는 글을 넣을 수 있도록 하늘·연한 구름·밝은 벽 등으로 단순하고 밝게 비워 두되(흰 상자·액자·텍스트 박스 금지, 배경과 자연스럽게 이어지게), 주인공과 주요 행동은 아래쪽 약 55~60%에 배치하세요. 참조 이미지의 인물·사물·배경·포즈·구도를 복제하지 말고, 처음부터 새로 그리세요. 최종 이미지 안에 제목·문장·글자·숫자·말풍선·로고·서명·워터마크·빈 글상자·액자 테두리를 넣지 마세요. 결과는 텍스트 설명이 아니라 실제 이미지 한 장으로 출력하세요.”
+
+[5단계: Display Result]
+Generate 단계에서 생성한 새 이미지만 결과 화면에 표시하세요. (Style Reference 원본을 결과로 표시 금지)
+세로형 3:4 비율이 왜곡·잘림 없이 크게 보이도록 contain 방식으로 표시하세요.
+결과 위 제목: “완성된 동화책 그림”
+결과 아래 안내: “그림 위쪽의 여백에 동화 문장을 넣어 나만의 그림책 페이지를 완성해 보세요.”
+버튼 “새로운 그림 만들기”를 누르면 첫 화면으로 돌아가게 하세요.
+
+[앱 화면 디자인]
+전체를 따뜻하고 깔끔한 어린이 동화책 분위기로, 배경은 밝은 크림색, 제목·설명은 부드러운 짙은 갈색으로 하세요. 입력창과 업로드 영역은 둥근 모서리와 은은한 그림자로, 업로드 영역에는 업로드 아이콘과 “그림체 참조 이미지 선택” 문구를 표시하세요. 실행 버튼은 부드러운 세이지 그린 색, 이름은 “동화책 그림 만들기”. 생성 중에는 “참조 이미지의 그림체를 분석하여 새로운 동화책 그림을 만들고 있어요.”를 표시하고, 모든 제목·버튼·안내 문구는 한국어로 표시하세요.</span>
+              </div>
+            </div>
+          </details>
+        </li>
+
+        <li>
+          <b>STEP 3. 앱이 만들어지면 장면 설명 넣어 테스트</b>
+          <span class="note">입력칸(장면 설명)에 아래처럼 한 장면을 적고 실행해 봅니다.</span>
+          <div class="prompt">
+            <button class="copy-btn" type="button">복사</button>
+<span class="prompt-text">노란 원피스를 입은 작은 흰 토끼가 봄날의 꽃밭에서 초록색 조끼를 입은 거북이에게 반갑게 인사하고 있어요.</span>
+          </div>
+        </li>
+
+        <li>
+          <b>STEP 4. 장면만 바꿔 2~3장 더 만들어 보기</b>
+          <span class="note">
+            그림체는 그대로 두고 장면 설명만 바꿔 보세요. 예: “호숫가에서 오리 가족이 헤엄치는 장면”,
+            “나무 위에서 다람쥐가 도토리를 모으는 장면”처럼요. 같은 화풍으로 이어지는지 확인해 봅니다.
           </span>
         </li>
       </ol>
 
       <div class="box box-warn">
-        <h4>🛟 안심 박스 — Opal이 안 열려도 괜찮아요!</h4>
+        <h4>🛟 안심 박스 — 앱 만들기가 어려우면?</h4>
         <p>
-          Opal이 열리지 않거나 오류가 나도 당황하지 마세요.
-          <b>제미나이 창에 STEP 2와 똑같은 설명 + 장면 내용을 이어서 입력하면 같은 그림을 얻을 수 있습니다.</b>
-          강사가 화면으로 대체 방법을 함께 보여드릴게요.
+          설계서를 붙여넣어도 잘 안 되거나 화면이 낯설면 괜찮습니다.
+          <b>강사가 미리 만들어 둔 같은 앱 링크를 공유</b>해 드릴게요. 그 링크를 ‘리믹스’해서 내 것으로 가져다 쓰면 됩니다.
         </p>
       </div>
 
       <div class="box box-tip">
         <h4>💡 오늘 만든 이 앱, 5차시에 다시 씁니다</h4>
         <p>
-          오늘 만든 이미지 자동화 앱은 <b>다음 시간(5차시) 동화책 삽화</b>에 그대로 다시 사용하게 됩니다.
-          앱 이름을 기억하기 쉽게 정해 두시면 다음 주에 훨씬 편합니다.
+          오늘 만든 동화책 삽화 앱은 <b>다음 시간(5차시) 동화책 만들기</b>에 그대로 다시 사용합니다.
+          앱 이름을 기억하기 쉽게 정해 두시면 다음 주에 훨씬 편해요.
         </p>
       </div>
     </div>
 
-    <!-- 따라하기 2: Flow -->
+    <!-- 따라하기 3: Flow로 영상 만들기 -->
     <div class="card" style="margin-top:20px">
-      <h3 style="font-size:1.15rem;font-weight:800">✏️ 따라하기 2 — Flow로 1분 자기소개 쇼츠 만들기</h3>
+      <h3 style="font-size:1.15rem;font-weight:800">✏️ 따라하기 3 — Flow로 짧은 영상 만들기</h3>
 
       <div class="box box-info" style="margin-top:12px">
         <h4>🎬 Flow란 무엇인가요?</h4>
         <p>
-          <b>글로 설명하면 영상과 목소리가 한 번에 만들어지는 구글의 AI 영상 도구</b>입니다.
-          대사와 장면을 적으면, 그 내용을 읽어 주는 목소리까지 자동으로 입혀진 영상이 완성됩니다.
+          <b>글로 장면을 설명하면 짧은 영상을 만들어 주는 구글의 AI 영상 도구</b>입니다.
+          만들고 싶은 장면과 분위기를 적으면, 그 내용을 담은 8초 안팎의 영상이 완성됩니다.
         </p>
       </div>
 
       <div class="box box-warn">
         <h4>⚠️ 크레딧 안내 — 꼭 읽어 주세요</h4>
         <p>
-          무료 계정은 <b>영상을 약 9개까지</b> 만들 수 있습니다. 오늘은 <b>연습으로 2~3개만</b> 만들어 보고,
-          가장 마음에 드는 것 <b>1개를 최종 결과물</b>로 정해 주세요. 크레딧을 아끼면서 실습해야 끝까지 완주할 수 있습니다.
+          Flow 무료 계정에는 <b>매일 50 크레딧</b>이 주어집니다.<br>
+          • <b>8초 영상 1개 새로 만들기 = 12 크레딧</b> (하루 최대 약 4개)<br>
+          • <b>만든 영상을 수정하기 = 20 크레딧</b> (새로 만들기보다 많이 들어요)<br>
+          • 남은 크레딧은 <b>다음 날로 넘어가지 않고 그날 사라집니다.</b><br>
+          오늘은 <b>연습으로 2~3개만</b> 만들고, 가장 마음에 드는 <b>1개를 최종본</b>으로 정해 크레딧을 아껴 주세요.
         </p>
       </div>
 
       <ol class="steps" style="margin-top:18px">
         <li>
-          <b>STEP 1. 자기소개 스크립트 먼저 작성하기</b>
-          <span class="note">제미나이나 ChatGPT에 아래 프롬프트를 붙여넣어 20초 분량 스크립트를 받아 보세요.</span>
+          <b>STEP 1. 영상에 담을 내용 먼저 정하기</b>
+          <span class="note">제미나이나 ChatGPT에 아래 프롬프트를 붙여넣어 짧은 소개 문장을 받아 보세요.</span>
           <div class="prompt">
             <button class="copy-btn" type="button">복사</button>
-<span class="prompt-text">나를 소개하는 20초 분량 자기소개 스크립트를 친근한 말투로 써줘.</span>
+<span class="prompt-text">나를 소개하는 짧은 한두 문장을 친근한 말투로 써줘.</span>
           </div>
-          <span class="note">이름, 사는 곳, 좋아하는 것 등을 미리 알려주면 더 나에게 맞는 스크립트를 받을 수 있습니다.</span>
+          <span class="note">이름, 사는 곳, 좋아하는 것을 알려주면 더 나에게 맞는 문장을 받을 수 있습니다.</span>
         </li>
 
         <li>
@@ -1828,49 +1987,37 @@ PDF에 나온 내용을 근거로 설명해 주시고, 없는 내용은 "PDF에 
         </li>
 
         <li>
-          <b>STEP 3. 스크립트 + 장면 설명 입력 → 영상 생성</b>
-          <span class="note">STEP 1에서 받은 스크립트와 함께, 아래처럼 장면과 분위기를 적어 넣습니다.</span>
+          <b>STEP 3. 장면·분위기 설명 입력 → 영상 생성</b>
+          <span class="note">만들고 싶은 장면을 아래처럼 적어 넣습니다. (영상 1개 = 12 크레딧)</span>
           <div class="prompt">
             <button class="copy-btn" type="button">복사</button>
-<span class="prompt-text">도서관에서 밝게 웃으며 자기소개하는 장면, 따뜻한 조명</span>
+<span class="prompt-text">도서관에서 밝게 웃으며 인사하는 사람, 따뜻한 조명, 부드러운 분위기</span>
           </div>
         </li>
 
         <li>
-          <b>STEP 4. 생성된 영상 중 마음에 드는 것 선택 → 다운로드</b>
-          <span class="note">2~3개를 만들어 보고 비교한 뒤, 가장 마음에 드는 1개를 다운로드해 최종본으로 정합니다.</span>
+          <b>STEP 4. 마음에 드는 영상 선택 → 다운로드</b>
+          <span class="note">2~3개만 만들어 비교한 뒤, 가장 마음에 드는 1개를 다운로드해 최종본으로 정합니다.</span>
         </li>
       </ol>
 
       <div class="box box-more">
         <h4>👥 짝 실습 안내</h4>
         <p>
-          크레딧이 부족한 분은 <b>옆 사람과 화면을 같이 보며</b> 참여해도 좋습니다.
-          함께 스크립트를 다듬고 장면을 골라 보는 것도 즐거운 실습이 됩니다.
+          크레딧이 부족하거나 오늘 다 못 만드신 분은 <b>옆 사람과 화면을 같이 보며</b> 참여해도 좋습니다.
+          함께 장면을 골라 보는 것도 즐거운 실습이 됩니다.
         </p>
       </div>
     </div>
 
     <!-- 완성 영상 함께 보기 -->
     <div class="card" style="margin-top:20px">
-      <h3 style="font-size:1.15rem;font-weight:800">🎥 완성 영상 함께 보기</h3>
+      <h3 style="font-size:1.15rem;font-weight:800">🎥 완성작 함께 보기</h3>
       <p style="color:var(--text-sub);margin-top:6px">
-        만든 영상을 화면에 띄우고, 짧게 한마디씩 나눠 볼게요.
-        “저는 ___를 소개했고, 만들면서 ___했습니다” 이렇게만 말씀해 주셔도 충분합니다.
+        만든 그림과 영상을 화면에 띄우고, 짧게 한마디씩 나눠 볼게요.
+        “저는 ___를 만들었고, 하면서 ___했습니다” 이렇게만 말씀해 주셔도 충분합니다.
         완벽하지 않아도 괜찮으니 편하게 보여 주세요!
       </p>
-    </div>
-
-    <!-- (선택) AI 더빙 소개 -->
-    <div class="card" style="margin-top:20px">
-      <div class="box box-info">
-        <h4>💬 (선택) AI 더빙 도구, 짧게 소개합니다</h4>
-        <p>
-          영상에 <b>내 목소리를 따로 녹음해서 입히고 싶다면</b> CLOVA Voice나 타입캐스트 같은 도구도 있습니다.
-          Flow가 이미 목소리를 자동으로 만들어 주기 때문에 오늘은 실습을 따로 하지 않지만,
-          관심 있으신 분은 이름만 기억해 두셨다가 나중에 찾아보셔도 좋습니다.
-        </p>
-      </div>
     </div>
 
     <!-- ⚠️ 꼭 확인해요 -->
@@ -1878,8 +2025,9 @@ PDF에 나온 내용을 근거로 설명해 주시고, 없는 내용은 "PDF에 
       <div class="box box-warn">
         <h4>⚠️ 꼭 확인해요</h4>
         <p>
-          • Opal은 아직 <b>베타(시험) 서비스</b>라 화면 구성이 자주 바뀔 수 있습니다. 오늘 화면과 조금 달라 보여도 당황하지 마세요.<br>
-          • Flow에서 만든 영상 속 <b>대사·정보가 정확한지</b> 다운로드 전에 한 번 더 확인하세요.<br>
+          • Opal은 아직 <b>실험(베타) 서비스</b>라 화면 구성이 자주 바뀔 수 있습니다. 오늘 화면과 조금 달라 보여도 당황하지 마세요.<br>
+          • Flow는 <b>매일 50 크레딧</b>만 주어지고 <b>남은 크레딧은 그날 사라집니다.</b> 연습은 2~3개로 아껴 주세요.<br>
+          • Flow로 만든 영상 속 <b>대사·정보가 정확한지</b> 다운로드 전에 한 번 더 확인하세요.<br>
           • Opal과 Flow 모두 <b>구글 계정 로그인</b>이 필요합니다. 실습 전 로그인 상태를 꼭 확인해 주세요.
         </p>
       </div>
@@ -1889,11 +2037,11 @@ PDF에 나온 내용을 근거로 설명해 주시고, 없는 내용은 "PDF에 
     <div class="worksheet">
       <h3 style="font-size:1.1rem;font-weight:800;margin-bottom:16px">📝 4차시 실습 활동지</h3>
       <div class="ws-item">
-        <label>1. 내가 Opal 앱에 넣은 장면 설명</label>
+        <label>1. 애니멀 쇼츠 앱을 실행해 본 소감 (한 줄로)</label>
         <div class="ws-line"></div>
       </div>
       <div class="ws-item">
-        <label>2. 가장 마음에 든 이미지 스타일 (한 줄로)</label>
+        <label>2. 내가 만든 동화책 삽화 앱에 넣은 장면 설명</label>
         <div class="ws-line"></div>
       </div>
       <div class="ws-item">
@@ -1907,27 +2055,27 @@ PDF에 나온 내용을 근거로 설명해 주시고, 없는 내용은 "PDF에 
       <h3 style="font-size:1.1rem;font-weight:800">📝 O/X 퀴즈 — 오늘 배운 것 확인해 봐요</h3>
 
       <details>
-        <summary>Q1. Opal이 열리지 않으면 실습을 포기해야 한다.</summary>
-        <div class="answer"><b>정답: X</b> — 제미나이 창에 같은 설명을 입력하면 같은 그림을 얻을 수 있습니다. 당황하지 않아도 됩니다.</div>
+        <summary>Q1. Opal은 코딩을 할 줄 알아야만 앱을 만들 수 있다.</summary>
+        <div class="answer"><b>정답: X</b> — Opal은 <b>노코드</b> 도구예요. 만들고 싶은 앱을 말(글)로 설명하면 자동으로 만들어 줍니다.</div>
       </details>
 
       <details>
-        <summary>Q2. Flow 무료 계정은 영상을 만들 수 있는 횟수에 제한이 없다.</summary>
-        <div class="answer"><b>정답: X</b> — 무료 계정은 약 9개까지 만들 수 있습니다. 연습은 2~3개로 아끼고 1개를 최종본으로 정하는 것이 좋습니다.</div>
+        <summary>Q2. Opal은 남이 만든 앱을 복사해 내 것으로 고쳐 쓸 수 있다.</summary>
+        <div class="answer"><b>정답: O</b> — 이것을 <b>리믹스</b>라고 합니다. 오늘 애니멀 쇼츠 앱을 열어 실행해 본 것처럼, 링크만 있으면 가져다 쓸 수 있어요.</div>
       </details>
 
       <details>
-        <summary>Q3. Flow는 글로 설명하면 영상과 목소리를 한 번에 만들어 준다.</summary>
-        <div class="answer"><b>정답: O</b> — 대사와 장면을 적으면 목소리까지 자동으로 입혀진 영상이 완성됩니다. 그래서 오늘은 성우 앱을 따로 배우지 않았습니다.</div>
+        <summary>Q3. Flow 무료 계정은 매일 크레딧 제한 없이 영상을 만들 수 있다.</summary>
+        <div class="answer"><b>정답: X</b> — 무료 계정은 <b>매일 50 크레딧</b>이며, 8초 영상 1개에 12 크레딧이 들어 <b>하루 약 4개</b>까지 만들 수 있습니다. 남은 크레딧은 다음 날로 넘어가지 않아요.</div>
       </details>
     </div>
 
     <!-- ⑩ 완료 + 다음 차시 예고 -->
     <div class="done-card">
       <h3>🎉 4차시 완료!</h3>
-      <p>나만의 이미지 자동화 앱을 만들고, 목소리가 담긴 자기소개 영상까지 완성했습니다. 정말 잘하셨어요!</p>
+      <p>남이 만든 앱을 실행해 보고, 나만의 동화책 삽화 앱을 직접 만들고, 짧은 영상까지 완성했습니다. 정말 잘하셨어요!</p>
       <p style="margin-top:10px"><b>다음 시간(5차시) 예고 — AI 동화책 제작</b><br>
-        오늘 만든 Opal 앱으로 동화책 삽화를 자동으로 그리고, 진짜 나만의 동화책을 완성합니다!</p>
+        오늘 만든 동화책 삽화 앱으로 페이지별 그림을 그리고, 진짜 나만의 동화책을 완성합니다!</p>
     </div>
 
     <!-- 사전 과제 -->
